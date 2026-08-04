@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: oklch(0.94 0.004 250); }
+    a { color: oklch(0.42 0.09 250); text-decoration: none; border-bottom: 1px solid oklch(0.42 0.09 250 / 0.35); }
+    a:hover { border-bottom-color: oklch(0.42 0.09 250 / 0.8); }
+    ::selection { background: oklch(0.42 0.09 250 / 0.18); }
+    .iss-fd-h2 { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px; }
+    .iss-fd-p { font-size:15px; max-width:40em; margin:0 0 14px; }
+    .iss-fd-mono { font-family:'IBM Plex Mono',monospace; }
+    .iss-fd-table { width:100%; border-collapse:collapse; font-size:13.5px; margin:0 0 40px; break-inside:avoid; }
+    .iss-fd-table th { text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); font-weight:500; padding:0 14px 8px 0; border-bottom:1px solid oklch(0.8 0.006 250); }
+    .iss-fd-table td { padding:9px 14px 9px 0; border-bottom:1px solid oklch(0.88 0.006 250); vertical-align:top; }
+  </style>
+  <script src="./doc-page.js"></script>
+</helmet>
+<style id="__om-edit-overrides"></style>
+
+<doc-page margin="1in">
+
+  <div slot="header" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:oklch(0.55 0.01 250); border-bottom:1px solid oklch(0.85 0.006 250); padding-bottom:8px;">
+    <span>ISS Design Platform</span>
+    <span>Design Foundations — v1.0</span>
+  </div>
+  <div slot="footer" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.04em; color:oklch(0.6 0.01 250); border-top:1px solid oklch(0.85 0.006 250); padding-top:8px;">
+    <span>Design Operating System · Phase 2</span>
+    <span>Status: Active</span>
+  </div>
+
+  <div style="font-family:'IBM Plex Sans',sans-serif; color:oklch(0.24 0.006 250); line-height:1.6;">
+
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.42 0.09 250); margin-bottom:14px;">Intelligent Systems Suite — Design Operating System</div>
+    <h1 style="font-size:38px; font-weight:600; letter-spacing:-0.01em; margin:0 0 10px; color:oklch(0.18 0.006 250);">Design Foundations</h1>
+    <div style="font-size:16px; color:oklch(0.42 0.012 250); margin-bottom:36px; max-width:36em;">The reusable visual and structural language every ISS component and product inherits. Each foundation below is a direct consequence of a principle in the <a href="#">Design Philosophy</a> — this document is the bridge from that reasoning to implementation-ready design tokens.</div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250); margin-bottom:44px; break-inside:avoid;">
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div class="iss-fd-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Phase</div>
+        <div style="font-size:14px; font-weight:600;">2 of 6</div>
+      </div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div class="iss-fd-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Derives from</div>
+        <div style="font-size:14px; font-weight:600;">Design Philosophy</div>
+      </div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div class="iss-fd-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Target stack</div>
+        <div style="font-size:14px; font-weight:600;">Angular · Lit</div>
+      </div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div class="iss-fd-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Next phase</div>
+        <div style="font-size:14px; font-weight:600;">Component Library</div>
+      </div>
+    </div>
+
+    <h2 class="iss-fd-h2">01 — Typography</h2>
+    <p class="iss-fd-p">Two families, no more. <strong>IBM Plex Sans</strong> carries all interface text — it reads calmly at both display and dense table sizes. <strong>IBM Plex Mono</strong> is reserved for anything literal: identifiers, code, timestamps, token names. Distinguishing "written for a human" from "written by the system" is itself a hierarchy signal (Philosophy §04).</p>
+    <table class="iss-fd-table">
+      <thead><tr><th>Token</th><th>Size / Line</th><th>Weight</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="iss-fd-mono">type.display</td><td>28px / 1.25</td><td>600</td><td>Page titles only, one per screen</td></tr>
+        <tr><td class="iss-fd-mono">type.heading</td><td>18px / 1.35</td><td>600</td><td>Section headings</td></tr>
+        <tr><td class="iss-fd-mono">type.subheading</td><td>14px / 1.4</td><td>600</td><td>Group labels, card titles</td></tr>
+        <tr><td class="iss-fd-mono">type.body</td><td>14px / 1.5</td><td>400</td><td>Default interface and table text</td></tr>
+        <tr><td class="iss-fd-mono">type.small</td><td>12px / 1.4</td><td>400</td><td>Metadata, timestamps, helper text</td></tr>
+        <tr><td class="iss-fd-mono">type.micro</td><td>11px / 1.3</td><td>500</td><td>Overline labels, badges — uppercase, tracked</td></tr>
+        <tr><td class="iss-fd-mono">type.mono</td><td>13px / 1.5</td><td>400</td><td>IDs, code, token references (IBM Plex Mono)</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="iss-fd-h2">02 — Semantic color system</h2>
+    <p class="iss-fd-p">Color is the last hierarchy signal, so the palette stays small: one cool neutral scale for structure, one accent for interactive/selected state, and four status hues sharing a single chroma and lightness so none reads as more "important" than another by virtue of intensity.</p>
+    <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-bottom:24px;">
+      <div><div style="height:44px; background:oklch(0.99 0.002 250); border:1px solid oklch(0.85 0.006 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">surface.0</div></div>
+      <div><div style="height:44px; background:oklch(0.97 0.003 250); border:1px solid oklch(0.85 0.006 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">surface.1</div></div>
+      <div><div style="height:44px; background:oklch(0.94 0.004 250); border:1px solid oklch(0.85 0.006 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">surface.2</div></div>
+      <div><div style="height:44px; background:oklch(0.85 0.006 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">border</div></div>
+      <div><div style="height:44px; background:oklch(0.55 0.01 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">text.muted</div></div>
+      <div><div style="height:44px; background:oklch(0.18 0.006 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">text.primary</div></div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px;">
+      <div><div style="height:44px; background:oklch(0.42 0.09 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">accent</div></div>
+      <div><div style="height:44px; background:oklch(0.55 0.1 145);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">status.success</div></div>
+      <div><div style="height:44px; background:oklch(0.55 0.1 80);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">status.warning</div></div>
+      <div><div style="height:44px; background:oklch(0.55 0.1 25);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">status.danger</div></div>
+      <div><div style="height:44px; background:oklch(0.55 0.1 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:6px; color:oklch(0.5 0.01 250);">status.info</div></div>
+    </div>
+    <p class="iss-fd-p">Rules: status hues never appear as decoration — only on the specific element they describe (a badge, a row indicator). Accent marks exactly one interactive or selected state per view. Text and surface tokens are used by role, never by literal hex — a component asks for <span class="iss-fd-mono">text.muted</span>, not "gray."</p>
+
+    <h2 class="iss-fd-h2">03 — Spacing</h2>
+    <p class="iss-fd-p">A single 4px base unit. Naming is scale-based, not pixel-based, so the value can be retuned platform-wide without renaming every usage.</p>
+    <table class="iss-fd-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Typical use</th></tr></thead>
+      <tbody>
+        <tr><td class="iss-fd-mono">space.1</td><td>4px</td><td>Icon-to-label gaps</td></tr>
+        <tr><td class="iss-fd-mono">space.2</td><td>8px</td><td>Compact control padding</td></tr>
+        <tr><td class="iss-fd-mono">space.3</td><td>12px</td><td>Default control padding</td></tr>
+        <tr><td class="iss-fd-mono">space.4</td><td>16px</td><td>Card padding, form row gaps</td></tr>
+        <tr><td class="iss-fd-mono">space.6</td><td>24px</td><td>Section gaps within a panel</td></tr>
+        <tr><td class="iss-fd-mono">space.8</td><td>32px</td><td>Between major page regions</td></tr>
+        <tr><td class="iss-fd-mono">space.12</td><td>48px</td><td>Page-level top/side margins</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="iss-fd-h2">04 — Layout &amp; grid</h2>
+    <p class="iss-fd-p">A 12-column grid with an 24px gutter underlies all workspace layouts. Three container widths cover the platform's needs — dense data views default to full-bleed within the app shell rather than a centered reading column, since ISS is a working tool, not a document.</p>
+    <table class="iss-fd-table">
+      <thead><tr><th>Token</th><th>Width</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="iss-fd-mono">container.narrow</td><td>720px</td><td>Forms, settings, single-record detail</td></tr>
+        <tr><td class="iss-fd-mono">container.standard</td><td>1120px</td><td>Default content column</td></tr>
+        <tr><td class="iss-fd-mono">container.full</td><td>100% of shell</td><td>Dashboards, tables, workspaces</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="iss-fd-h2">05 — Elevation</h2>
+    <p class="iss-fd-p">Elevation communicates layering, not decoration — used only where the interface genuinely stacks (drawers, menus, modals over a workspace). Shadows stay low-contrast and cool-toned so they read as depth, not as emphasis.</p>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:32px;">
+      <div style="text-align:center;"><div style="height:56px; background:oklch(0.99 0.002 250); border:1px solid oklch(0.9 0.006 250);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:8px; color:oklch(0.5 0.01 250);">elevation.0 — flat</div></div>
+      <div style="text-align:center;"><div style="height:56px; background:oklch(0.99 0.002 250); box-shadow:0 1px 2px oklch(0.2 0.01 250 / 0.08);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:8px; color:oklch(0.5 0.01 250);">elevation.1 — card</div></div>
+      <div style="text-align:center;"><div style="height:56px; background:oklch(0.99 0.002 250); box-shadow:0 4px 12px oklch(0.2 0.01 250 / 0.1);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:8px; color:oklch(0.5 0.01 250);">elevation.2 — popover</div></div>
+      <div style="text-align:center;"><div style="height:56px; background:oklch(0.99 0.002 250); box-shadow:0 12px 32px oklch(0.2 0.01 250 / 0.14);"></div><div class="iss-fd-mono" style="font-size:10px; margin-top:8px; color:oklch(0.5 0.01 250);">elevation.3 — modal</div></div>
+    </div>
+
+    <h2 class="iss-fd-h2">06 — Motion</h2>
+    <p class="iss-fd-p">Motion is functional, per Philosophy §06 — it confirms cause and effect, never performs. Durations are short; easing favors deceleration so movement feels settled rather than bouncy.</p>
+    <table class="iss-fd-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="iss-fd-mono">motion.instant</td><td>0ms</td><td>Value changes in tables, live counters</td></tr>
+        <tr><td class="iss-fd-mono">motion.fast</td><td>100ms · ease-out</td><td>Hover, focus, toggles</td></tr>
+        <tr><td class="iss-fd-mono">motion.base</td><td>160ms · ease-out</td><td>Drawers, dropdowns, tab switches</td></tr>
+        <tr><td class="iss-fd-mono">motion.slow</td><td>240ms · ease-in-out</td><td>Modal enter/exit, page transitions</td></tr>
+      </tbody>
+    </table>
+    <p class="iss-fd-p" style="margin-top:-24px;">All durations respect <span class="iss-fd-mono">prefers-reduced-motion</span> by dropping to <span class="iss-fd-mono">motion.instant</span>.</p>
+
+    <h2 class="iss-fd-h2">07 — Accessibility</h2>
+    <p class="iss-fd-p">Accessibility is specified at the foundation layer so no component can be built without it:</p>
+    <div style="display:grid; gap:12px; margin:0 0 40px; max-width:38em;">
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Contrast.</strong> Body text meets 4.5:1 against its surface at minimum; <span class="iss-fd-mono">text.muted</span> is only used at ≥14px where 3:1 still applies.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Focus.</strong> Every interactive element gets a visible 2px accent-colored focus ring, never suppressed, never color-only.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Never color-only.</strong> Status is always paired with a label or icon shape — color reinforces, it doesn't carry the information alone.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Target size.</strong> Interactive targets are at least 32px in dense/table contexts, 44px in any touch-capable surface.</div>
+    </div>
+
+    <h2 class="iss-fd-h2">08 — Design tokens</h2>
+    <p class="iss-fd-p">All values above ship as CSS custom properties under a single <span class="iss-fd-mono">--iss-</span> namespace, so Lit components consume them with zero build-time dependency and Angular theming layers on top without overriding component internals.</p>
+    <table class="iss-fd-table">
+      <thead><tr><th>Category</th><th>Naming pattern</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Color</td><td class="iss-fd-mono">--iss-color-{role}</td><td class="iss-fd-mono">--iss-color-accent</td></tr>
+        <tr><td>Type</td><td class="iss-fd-mono">--iss-font-{token}</td><td class="iss-fd-mono">--iss-font-body-size</td></tr>
+        <tr><td>Space</td><td class="iss-fd-mono">--iss-space-{n}</td><td class="iss-fd-mono">--iss-space-4</td></tr>
+        <tr><td>Radius</td><td class="iss-fd-mono">--iss-radius-{n}</td><td class="iss-fd-mono">--iss-radius-2</td></tr>
+        <tr><td>Elevation</td><td class="iss-fd-mono">--iss-elevation-{n}</td><td class="iss-fd-mono">--iss-elevation-2</td></tr>
+        <tr><td>Motion</td><td class="iss-fd-mono">--iss-motion-{speed}</td><td class="iss-fd-mono">--iss-motion-base</td></tr>
+      </tbody>
+    </table>
+    <p class="iss-fd-p" style="margin-top:-24px;">Tokens are versioned with this document. A breaking change to a token value is a major version bump of the Design Platform, communicated before any dependent product adopts it — consistent with the "systems precede products" principle this platform is built on.</p>
+
+  </div>
+</doc-page>
+
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: oklch(0.94 0.004 250); }
+    a { color: oklch(0.42 0.09 250); text-decoration: none; border-bottom: 1px solid oklch(0.42 0.09 250 / 0.35); }
+    a:hover { border-bottom-color: oklch(0.42 0.09 250 / 0.8); }
+    ::selection { background: oklch(0.42 0.09 250 / 0.18); }
+    .h2 { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px; }
+    .p { font-size:15px; max-width:40em; margin:0 0 14px; }
+    .mono { font-family:'IBM Plex Mono',monospace; }
+    .tbl { width:100%; border-collapse:collapse; font-size:13.5px; margin:0 0 40px; break-inside:avoid; }
+    .tbl th { text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); font-weight:500; padding:0 14px 8px 0; border-bottom:1px solid oklch(0.8 0.006 250); }
+    .tbl td { padding:9px 14px 9px 0; border-bottom:1px solid oklch(0.88 0.006 250); vertical-align:top; }
+    .blk { border:1px solid oklch(0.85 0.006 250); background:oklch(0.97 0.003 250); }
+    .diagram-cell { border:1px dashed oklch(0.72 0.008 250); background:oklch(0.99 0.002 250); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:10px; color:oklch(0.5 0.01 250); text-align:center; padding:4px; }
+  </style>
+  <script src="./doc-page.js"></script>
+</helmet>
+<style id="__om-edit-overrides"></style>
+
+<doc-page margin="1in">
+
+  <div slot="header" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:oklch(0.55 0.01 250); border-bottom:1px solid oklch(0.85 0.006 250); padding-bottom:8px;">
+    <span>ISS Design Platform</span>
+    <span>Application Composition Patterns — v1.0</span>
+  </div>
+  <div slot="footer" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.04em; color:oklch(0.6 0.01 250); border-top:1px solid oklch(0.85 0.006 250); padding-top:8px;">
+    <span>Design Operating System · Phase 4</span>
+    <span>Status: Active</span>
+  </div>
+
+  <div style="font-family:'IBM Plex Sans',sans-serif; color:oklch(0.24 0.006 250); line-height:1.6;">
+
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.42 0.09 250); margin-bottom:14px;">Intelligent Systems Suite — Design Operating System</div>
+    <h1 style="font-size:38px; font-weight:600; letter-spacing:-0.01em; margin:0 0 10px; color:oklch(0.18 0.006 250);">Application Composition Patterns</h1>
+    <div style="font-size:16px; color:oklch(0.42 0.012 250); margin-bottom:36px; max-width:36em;">The architectural layer between the Component Library and any real ISS product. Defines how approved components assemble into full application experiences, so no product team re-derives layout, workflow, or AI-interaction structure from scratch.</div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250); margin-bottom:44px; break-inside:avoid;">
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Phase</div><div style="font-size:14px; font-weight:600;">4 of 6</div></div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Derives from</div><div style="font-size:14px; font-weight:600;">Component Library</div></div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Scope</div><div style="font-size:14px; font-weight:600;">Application-level</div></div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Next phase</div><div style="font-size:14px; font-weight:600;">Reference Screens</div></div>
+    </div>
+
+    <h2 class="h2">01 — Purpose of this layer</h2>
+    <p class="p">The Component Library specifies correct pieces; it says nothing about correct arrangement. Left unconstrained, every product team would assemble those pieces into a different shell, a different filter pattern, a different confirmation flow — reintroducing the inconsistency the Design Platform exists to remove (Philosophy §03, Systems over screens). This document is the missing layer: a fixed set of application layouts, canonical workflows, and cross-app interaction rules that every ISS product composes from rather than invents. Nothing here is a mockup — each pattern is a structural contract a real screen must satisfy, not an example to imitate loosely.</p>
+
+    <h2 class="h2">02 — Application layout blueprints</h2>
+    <p class="p">Four shells cover the layout needs of every ISS surface identified to date. A product picks the blueprint that matches its primary task — it does not blend two, and it does not invent a fifth without amending this document first.</p>
+
+    <div class="blk" style="padding:16px; margin-bottom:16px; break-inside:avoid;">
+      <div style="font-weight:600; font-size:14px; margin-bottom:4px;">2.1 — App Shell</div>
+      <div style="font-size:13.5px; color:oklch(0.4 0.01 250); margin-bottom:10px;">The outer frame every ISS product mounts into. Persistent across all four blueprints below.</div>
+      <div style="display:grid; grid-template-columns:64px 1fr; grid-template-rows:44px 1fr; gap:1px; height:150px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250);">
+        <div class="diagram-cell" style="grid-column:1/3;">Global bar — product switcher · search · notifications · account</div>
+        <div class="diagram-cell">Nav rail<br/>(sections)</div>
+        <div class="diagram-cell">Product content region — one of the three blueprints below</div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+      <div class="blk" style="padding:16px; break-inside:avoid;">
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">2.2 — List–Detail</div>
+        <div style="font-size:13.5px; color:oklch(0.4 0.01 250); margin-bottom:10px;">For triage and case work: scan many records, act on one. Case management, alert queues, search results.</div>
+        <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:1px; height:130px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250);">
+          <div class="diagram-cell">Filterable list<br/>(rows/cards)</div>
+          <div class="diagram-cell">Record detail<br/>+ actions</div>
+        </div>
+      </div>
+      <div class="blk" style="padding:16px; break-inside:avoid;">
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">2.3 — Dashboard</div>
+        <div style="font-size:13.5px; color:oklch(0.4 0.01 250); margin-bottom:10px;">For situational awareness, not action. Metrics, trends, and signals at a glance.</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:1px; height:130px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250);">
+          <div class="diagram-cell" style="grid-column:1/3;">Primary trend / KPI</div>
+          <div class="diagram-cell">KPI</div>
+          <div class="diagram-cell">Signal feed</div>
+          <div class="diagram-cell">Signal feed</div>
+          <div class="diagram-cell">Signal feed</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:40px;">
+      <div class="blk" style="padding:16px; break-inside:avoid;">
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">2.4 — Workspace / Review</div>
+        <div style="font-size:13.5px; color:oklch(0.4 0.01 250); margin-bottom:10px;">For sustained human-in-the-loop work on one item: annotate, compare, decide. Signal review, config editing.</div>
+        <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:1px; height:130px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250);">
+          <div class="diagram-cell">Primary artifact<br/>(document / signal / diff)</div>
+          <div class="diagram-cell">Context panel<br/>+ decision controls</div>
+        </div>
+      </div>
+      <div class="blk" style="padding:16px; break-inside:avoid;">
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">2.5 — Configuration</div>
+        <div style="font-size:13.5px; color:oklch(0.4 0.01 250); margin-bottom:10px;">For infrequent, deliberate setup tasks. Narrow container per Foundations §04 — this is the one shell that reads top-to-bottom.</div>
+        <div style="display:grid; grid-template-rows:auto 1fr; gap:1px; height:130px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250);">
+          <div class="diagram-cell">Section nav (tabs/steps)</div>
+          <div class="diagram-cell">Narrow form column (720px)</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2">03 — Canonical workflows</h2>
+    <p class="p">These five task shapes recur across every ISS product. Each maps to one layout blueprint and a fixed interaction sequence — a product implements the sequence, not a variation of it.</p>
+    <table class="tbl">
+      <thead><tr><th>Workflow</th><th>Blueprint</th><th>Canonical sequence</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Search &amp; filter</strong></td><td>List–Detail</td><td>Enter criteria → results update in place → refine without losing scroll position → select a result opens detail, filters remain visible</td></tr>
+        <tr><td><strong>Review &amp; decide</strong></td><td>Workspace/Review</td><td>Open item → system presents evidence/confidence → user accepts, edits, or rejects → decision is logged with a reason when overriding a system suggestion</td></tr>
+        <tr><td><strong>Case management</strong></td><td>List–Detail</td><td>Queue sorted by priority/SLA → assign or claim → work the case in detail pane → status change is explicit, never inferred from navigation</td></tr>
+        <tr><td><strong>Configuration change</strong></td><td>Configuration</td><td>Locate setting → change value inline → review a summary of what changed before committing → confirm only if the change is irreversible (Philosophy §06)</td></tr>
+        <tr><td><strong>Monitoring</strong></td><td>Dashboard</td><td>Land on default time range → identify anomaly via status color → drill in opens the List–Detail workflow for that signal, dashboard state is preserved on return</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="h2">04 — Composition rules</h2>
+    <p class="p">Rules that govern how any product assembles library components into the blueprints above, regardless of domain:</p>
+    <div style="display:grid; gap:12px; margin:0 0 40px; max-width:40em;">
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">One list, one detail, one action zone.</strong> A List–Detail screen never nests a second list-detail pair inside its detail pane — drill-down navigates, it doesn't nest.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Filters live where they act.</strong> Applied filters render as visible, removable chips beside the results they affect — never collapsed into a panel the user must reopen to recall (Philosophy §05, recognition over recall).</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Primary action is singular and fixed in position.</strong> Every blueprint reserves one consistent location (top-right of the detail/context pane) for the one primary action; secondary actions go in an overflow, never compete visually.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">State survives navigation.</strong> Scroll position, filters, and selection persist when a user drills in and returns — a workflow interrupted by navigation is a design defect, not an acceptable tradeoff.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Empty, loading, and error states are designed, not defaulted.</strong> Every list/detail/dashboard region specifies its own empty and error state per the Component Library's status-view spec — a blank div is never shipped as a fallback.</div>
+    </div>
+
+    <h2 class="h2">05 — Cross-application interaction standards</h2>
+    <p class="p">These behaviors are identical across every ISS product so a user's muscle memory transfers when they switch tools mid-session:</p>
+    <table class="tbl">
+      <thead><tr><th>Interaction</th><th>Standard</th></tr></thead>
+      <tbody>
+        <tr><td>Global search</td><td>Same shortcut and position in every product (App Shell global bar); results are grouped by product, never mixed unlabeled</td></tr>
+        <tr><td>Notifications</td><td>One global notification center in the shell; a product never runs its own separate notification surface</td></tr>
+        <tr><td>Keyboard navigation</td><td>Arrow keys move list selection, Enter opens detail, Esc closes overlays — identical bindings in every list-detail surface</td></tr>
+        <tr><td>Destructive confirmation</td><td>Same confirmation dialog pattern and copy structure ("This will —, and can't be undone.") everywhere an irreversible action exists</td></tr>
+        <tr><td>Undo</td><td>Reversible actions surface a transient undo affordance in a fixed shell location, not a per-product toast style</td></tr>
+        <tr><td>Cross-product handoff</td><td>Linking to a record in another ISS product always opens it directly in that product's List–Detail context, never a generic external redirect</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="h2">06 — AI-native interaction patterns</h2>
+    <p class="p">ISS is AI-native, not AI-decorated — every workflow above that involves a system judgment (a suggested action, a ranked result, a generated summary) follows the same four patterns, so users learn to read machine involvement once and reuse that understanding everywhere.</p>
+    <div style="display:grid; gap:14px; margin:0 0 32px; max-width:40em;">
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Confidence is always visible, never implied.</strong> Any AI-generated ranking, score, or summary carries an explicit confidence indicator using the Component Library's status tokens — a bare number or unlabeled color is not sufficient.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Human-in-the-loop is the default posture.</strong> The system proposes; the canonical Review &amp; decide workflow (§03) is the only path by which an AI suggestion becomes a committed action. Full autonomy is an explicit, separately-approved exception per product, not a default.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Reasoning is inspectable on demand.</strong> Every AI output exposes a "why" affordance (source evidence, contributing signals) one click away — progressive disclosure per Philosophy §05, not surfaced unasked, never withheld entirely.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Generation state is legible.</strong> In-progress AI work (streaming summary, running analysis) uses the Component Library's loading states with literal status copy ("Analyzing 240 records…") — never a bare spinner standing in for unexplained system activity.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Overrides are logged as data, not hidden as UI state.</strong> When a user rejects or edits an AI suggestion, that correction is captured with the record (per Component Library audit-trail patterns) — it is product data, not a transient interface event.</div>
+    </div>
+
+    <h2 class="h2">07 — What this governs next</h2>
+    <p class="p">Reference Screens (Phase 5) are worked examples that apply every blueprint, workflow, and rule above to real ISS product scenarios — they exist to prove this specification, not to introduce new layout or interaction decisions. Any screen that cannot be built from this document's rules is a signal to amend this document, not to improvise around it.</p>
+
+  </div>
+</doc-page>
+
+</x-dc>
+</body>
+</html>

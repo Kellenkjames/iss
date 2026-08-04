@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: oklch(0.94 0.004 250); }
+    a { color: oklch(0.42 0.09 250); text-decoration: none; border-bottom: 1px solid oklch(0.42 0.09 250 / 0.35); }
+    a:hover { border-bottom-color: oklch(0.42 0.09 250 / 0.8); }
+    ::selection { background: oklch(0.42 0.09 250 / 0.18); }
+  </style>
+  <script src="./doc-page.js"></script>
+</helmet>
+<style id="__om-edit-overrides"></style>
+
+<doc-page margin="1in">
+
+  <div slot="header" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:oklch(0.55 0.01 250); border-bottom:1px solid oklch(0.85 0.006 250); padding-bottom:8px;">
+    <span>ISS Design Platform</span>
+    <span>Design Philosophy — v1.0</span>
+  </div>
+  <div slot="footer" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.04em; color:oklch(0.6 0.01 250); border-top:1px solid oklch(0.85 0.006 250); padding-top:8px;">
+    <span>Design Operating System · Phase 1</span>
+    <span>Status: Active</span>
+  </div>
+
+  <div style="font-family:'IBM Plex Sans',sans-serif; color:oklch(0.24 0.006 250); line-height:1.6;">
+
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.42 0.09 250); margin-bottom:14px;">Intelligent Systems Suite — Design Operating System</div>
+    <h1 style="font-size:38px; font-weight:600; letter-spacing:-0.01em; margin:0 0 10px; color:oklch(0.18 0.006 250);">Design Philosophy</h1>
+    <div style="font-size:16px; color:oklch(0.42 0.012 250); margin-bottom:36px; max-width:34em;">The guiding principles behind every design decision made across the ISS platform. This document precedes Foundations, Tokens, Components, and Composition Patterns — every later artifact inherits from it.</div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250); margin-bottom:44px; break-inside:avoid;">
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Phase</div>
+        <div style="font-size:14px; font-weight:600;">1 of 6</div>
+      </div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Owner</div>
+        <div style="font-size:14px; font-weight:600;">Claude Design</div>
+      </div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Inherited by</div>
+        <div style="font-size:14px; font-weight:600;">All ISS products</div>
+      </div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Next phase</div>
+        <div style="font-size:14px; font-weight:600;">Design Foundations</div>
+      </div>
+    </div>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">01 — Why this document exists</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 40px;">ISS is a suite, not a single application. Its users — analysts, operators, and builders working across case management, analytics, and automation surfaces — will move between products in the same session. If each product invents its own visual logic, that movement costs attention. This document exists so every future screen inherits the same reasoning instead of re-deriving it. It is deliberately not a style guide: colors and components come later, in Foundations and the Component Library. This is the layer underneath those — the reasoning that will make the tokens, components, and patterns cohere rather than accumulate as disconnected choices.</p>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">02 — Product personality</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 12px;">ISS should feel like a competent colleague, not a salesperson. Three traits define that:</p>
+    <div style="display:grid; gap:14px; margin:0 0 40px; max-width:38em;">
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Composed.</strong> The interface never competes for attention with the decision the user is trying to make. No motion, color, or copy exists to impress — only to inform.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Precise.</strong> Language and layout are literal. States are named for what they are (Blocked, Needs review, Stale) rather than softened or gamified.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Earned trust.</strong> The system shows its reasoning — data provenance, confidence, and what changed — rather than asserting conclusions. Trust is built through legibility, not confidence of tone.</div>
+    </div>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">03 — UX philosophy</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 12px;">Five commitments govern how ISS resolves any design decision, in priority order:</p>
+    <ol style="font-size:15px; max-width:38em; margin:0 0 40px; padding-left:20px;">
+      <li style="margin-bottom:10px;"><strong>Clarity over complexity.</strong> If a design requires a tooltip to explain itself, the design is wrong, not the tooltip.</li>
+      <li style="margin-bottom:10px;"><strong>Consistency over novelty.</strong> A familiar pattern applied correctly beats a novel one applied once. Reuse is a design outcome, not a shortcut.</li>
+      <li style="margin-bottom:10px;"><strong>Systems over screens.</strong> No screen is designed in isolation. Every layout is checked against the composition patterns it draws from before it is considered finished.</li>
+      <li style="margin-bottom:10px;"><strong>Data first.</strong> Visual treatment supports comprehension of the underlying data — it does not decorate it. Charts, tables, and states are chosen for what they make legible, not for visual variety.</li>
+      <li style="margin-bottom:0;"><strong>Accessible by default.</strong> Contrast, focus order, and semantics are a property of the design at the moment it's specified, not a pass applied afterward.</li>
+    </ol>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">04 — Information hierarchy principles</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 14px;">ISS interfaces are dense by necessity — technical users process large volumes of structured information. Density is acceptable; disorganization is not. Hierarchy is established through four ordered signals, used in this priority so pages stay legible without relying on color or weight alone:</p>
+    <div style="display:grid; grid-template-columns:auto 1fr; gap:10px 16px; font-size:14px; max-width:38em; margin:0 0 40px;">
+      <div style="font-family:'IBM Plex Mono',monospace; color:oklch(0.42 0.09 250); font-weight:500;">01</div><div><strong>Position</strong> — reading order and grouping carry more meaning than styling. Related data sits together before it is decorated.</div>
+      <div style="font-family:'IBM Plex Mono',monospace; color:oklch(0.42 0.09 250); font-weight:500;">02</div><div><strong>Scale &amp; weight</strong> — a small number of type sizes, used consistently, so a heading always reads as a heading across every product.</div>
+      <div style="font-family:'IBM Plex Mono',monospace; color:oklch(0.42 0.09 250); font-weight:500;">03</div><div><strong>Structure</strong> — rules, spacing, and alignment separate sections before color does. Whitespace is a hierarchy tool, not empty space.</div>
+      <div style="font-family:'IBM Plex Mono',monospace; color:oklch(0.42 0.09 250); font-weight:500;">04</div><div><strong>Color</strong> — reserved last, for status and one accent. It marks what needs a decision; it never distinguishes what is merely different.</div>
+    </div>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">05 — Cognitive load strategy</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 12px;">Cognitive load is treated as a budget every screen spends from, not an afterthought. Three disciplines keep the spend low:</p>
+    <div style="display:grid; gap:14px; margin:0 0 40px; max-width:38em;">
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Progressive disclosure.</strong> Default views show what's needed to act; detail is one deliberate click away, never buried further, never pre-loaded unasked.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">One primary action per view.</strong> Secondary actions are visually and spatially subordinate. If a screen has three equally weighted actions, it is two screens.</div>
+      <div style="break-inside:avoid;"><strong style="color:oklch(0.18 0.006 250);">Recognition over recall.</strong> Users should never need to remember a system's state — filters, applied criteria, and configuration are always visible where they take effect, not hidden after being set.</div>
+    </div>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">06 — Interaction philosophy</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 12px;">Interaction patterns are reused across products so muscle memory transfers. Three rules bound every pattern:</p>
+    <ol style="font-size:15px; max-width:38em; margin:0 0 40px; padding-left:20px;">
+      <li style="margin-bottom:10px;"><strong>Predictable over clever.</strong> The same gesture produces the same result everywhere in ISS — a drawer always opens from the same edge; a destructive action always confirms the same way.</li>
+      <li style="margin-bottom:10px;"><strong>Motion communicates state, not personality.</strong> Transitions are short and functional — they show what moved and where it went. Motion that exists only to delight is out of scope.</li>
+      <li style="margin-bottom:0;"><strong>Reversible by default.</strong> Any action a user can take without confirmation must be undoable. Confirmation is reserved for the genuinely irreversible.</li>
+    </ol>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">07 — Design values</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 14px;">When priorities conflict, resolve in this order:</p>
+    <table style="width:100%; max-width:38em; border-collapse:collapse; font-size:14px; margin:0 0 40px; break-inside:avoid;">
+      <thead><tr>
+        <th style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); font-weight:500; padding:0 12px 8px 0; border-bottom:1px solid oklch(0.8 0.006 250);">Value</th>
+        <th style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); font-weight:500; padding:0 0 8px; border-bottom:1px solid oklch(0.8 0.006 250);">Over</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:9px 12px 9px 0; border-bottom:1px solid oklch(0.88 0.006 250); font-weight:600;">Clarity</td><td style="padding:9px 0; border-bottom:1px solid oklch(0.88 0.006 250);">Visual novelty</td></tr>
+        <tr><td style="padding:9px 12px 9px 0; border-bottom:1px solid oklch(0.88 0.006 250); font-weight:600;">Consistency</td><td style="padding:9px 0; border-bottom:1px solid oklch(0.88 0.006 250);">Local optimization</td></tr>
+        <tr><td style="padding:9px 12px 9px 0; border-bottom:1px solid oklch(0.88 0.006 250); font-weight:600;">Systems</td><td style="padding:9px 0; border-bottom:1px solid oklch(0.88 0.006 250);">One-off screens</td></tr>
+        <tr><td style="padding:9px 12px 9px 0; border-bottom:1px solid oklch(0.88 0.006 250); font-weight:600;">Components</td><td style="padding:9px 0; border-bottom:1px solid oklch(0.88 0.006 250);">Pages</td></tr>
+        <tr><td style="padding:9px 12px 9px 0; font-weight:600;">Long-term maintainability</td><td style="padding:9px 0;">Short-term visual complexity</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px;">08 — What this governs next</h2>
+    <p style="font-size:15px; max-width:38em; margin:0 0 16px;">Every subsequent artifact is a direct consequence of the principles above, not a separate decision:</p>
+    <div style="display:grid; gap:0; max-width:38em; margin-bottom:8px; border:1px solid oklch(0.85 0.006 250); break-inside:avoid;">
+      <div style="display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid oklch(0.88 0.006 250);"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:oklch(0.42 0.09 250); min-width:20px;">02</div><div><strong>Design Foundations</strong> — typography, color semantics, spacing, elevation, and motion, derived from the hierarchy and cognitive-load rules above.</div></div>
+      <div style="display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid oklch(0.88 0.006 250);"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:oklch(0.42 0.09 250); min-width:20px;">03</div><div><strong>Component Library</strong> — implementation-ready components mapped to Angular/Lit, each traceable to a value in Section 7.</div></div>
+      <div style="display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid oklch(0.88 0.006 250);"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:oklch(0.42 0.09 250); min-width:20px;">04</div><div><strong>Composition Patterns</strong> — reusable dashboard, workspace, and detail layouts assembled only from library components.</div></div>
+      <div style="display:flex; gap:14px; padding:12px 16px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:oklch(0.42 0.09 250); min-width:20px;">05</div><div><strong>Reference Screens</strong> — worked examples proving the platform, not new design decisions.</div></div>
+    </div>
+
+  </div>
+</doc-page>
+
+</x-dc>
+</body>
+</html>

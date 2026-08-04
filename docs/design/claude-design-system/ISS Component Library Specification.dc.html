@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: oklch(0.94 0.004 250); }
+    a { color: oklch(0.42 0.09 250); text-decoration: none; border-bottom: 1px solid oklch(0.42 0.09 250 / 0.35); }
+    a:hover { border-bottom-color: oklch(0.42 0.09 250 / 0.8); }
+    ::selection { background: oklch(0.42 0.09 250 / 0.18); }
+    .iss-h1sec { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:oklch(0.42 0.09 250); margin:0 0 6px; }
+    .iss-p { font-size:15px; max-width:40em; margin:0 0 14px; }
+    .iss-mono { font-family:'IBM Plex Mono',monospace; }
+    .iss-table { width:100%; border-collapse:collapse; font-size:13px; margin:0 0 16px; break-inside:avoid; }
+    .iss-table th { text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); font-weight:500; padding:0 12px 7px 0; border-bottom:1px solid oklch(0.8 0.006 250); }
+    .iss-table td { padding:7px 12px 7px 0; border-bottom:1px solid oklch(0.88 0.006 250); vertical-align:top; }
+    .iss-comp { break-inside:avoid; margin:0 0 40px; padding:24px 26px; background:oklch(0.985 0.002 250); border:1px solid oklch(0.87 0.006 250); }
+    .iss-comp h3 { font-size:19px; font-weight:600; margin:0 0 4px; color:oklch(0.18 0.006 250); }
+    .iss-comp .cat { font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:14px; }
+    .iss-comp .field-label { font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.42 0.09 250); margin:16px 0 5px; }
+    .iss-comp .field-label:first-of-type { margin-top:0; }
+    .iss-comp p, .iss-comp li { font-size:13.5px; margin:0 0 5px; }
+    .iss-comp ul { margin:0; padding-left:18px; }
+    .iss-usewrap { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .iss-code { font-family:'IBM Plex Mono',monospace; font-size:12px; background:oklch(0.18 0.006 250); color:oklch(0.9 0.006 250); padding:12px 14px; overflow-x:auto; white-space:pre; line-height:1.55; }
+    .iss-tokens { display:flex; flex-wrap:wrap; gap:6px; }
+    .iss-tokens span { font-family:'IBM Plex Mono',monospace; font-size:11px; background:oklch(0.94 0.006 250); border:1px solid oklch(0.85 0.006 250); padding:2px 7px; }
+  </style>
+  <script src="./doc-page.js"></script>
+</helmet>
+<style id="__om-edit-overrides"></style>
+
+<doc-page margin="1in">
+  <div slot="header" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:oklch(0.55 0.01 250); border-bottom:1px solid oklch(0.85 0.006 250); padding-bottom:8px;">
+    <span>ISS Design Platform</span>
+    <span>Component Library Specification — v1.0</span>
+  </div>
+  <div slot="footer" style="display:flex; justify-content:space-between; align-items:baseline; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.04em; color:oklch(0.6 0.01 250); border-top:1px solid oklch(0.85 0.006 250); padding-top:8px;">
+    <span>Design Operating System · Phase 3</span>
+    <span>Status: Active</span>
+  </div>
+
+  <div style="font-family:'IBM Plex Sans',sans-serif; color:oklch(0.24 0.006 250); line-height:1.6;">
+
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.42 0.09 250); margin-bottom:14px;">Intelligent Systems Suite — Design Operating System</div>
+    <h1 style="font-size:38px; font-weight:600; letter-spacing:-0.01em; margin:0 0 10px; color:oklch(0.18 0.006 250);">Component Library Specification</h1>
+    <div style="font-size:16px; color:oklch(0.42 0.012 250); margin-bottom:36px; max-width:38em;">An implementation specification, not a gallery. Each entry defines a component's contract precisely enough for Angular/Lit implementation — including Copilot-generated code — to produce a consistent result without additional design decisions.</div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:oklch(0.85 0.006 250); border:1px solid oklch(0.85 0.006 250); margin-bottom:44px; break-inside:avoid;">
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="iss-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Phase</div><div style="font-size:14px; font-weight:600;">3 of 6</div></div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="iss-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Derives from</div><div style="font-size:14px; font-weight:600;">Design Foundations</div></div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="iss-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Target stack</div><div style="font-size:14px; font-weight:600;">Angular · Lit</div></div>
+      <div style="background:oklch(0.97 0.003 250); padding:14px 16px;"><div class="iss-mono" style="font-size:9px; text-transform:uppercase; letter-spacing:0.06em; color:oklch(0.55 0.01 250); margin-bottom:6px;">Next phase</div><div style="font-size:14px; font-weight:600;">Composition Patterns</div></div>
+    </div>
+
+    <h2 class="iss-h1sec">01 — How to read this specification</h2>
+    <p class="iss-p">Components are split into <strong>Primitives</strong> — components with no dependency on other components — and <strong>Composites</strong>, which are built exclusively from primitives (Philosophy §04, "components over pages"). Every entry uses the same nine fields so an implementer or Copilot can extract a consistent contract regardless of which component they're reading. This v1.0 set covers the components needed to build the first reference screens; it is additive — new entries follow the same template.</p>
+
+    <h2 class="iss-h1sec" style="margin-top:8px;">02 — Primitive components</h2>
+
+    <div class="iss-comp">
+      <h3>Button</h3>
+      <div class="cat">Primitive · Action</div>
+      <div class="field-label">Purpose</div><p>Triggers a single action. The only component authorized to carry the accent color as a fill.</p>
+      <div class="field-label">When to use</div><p>Any user-initiated action with an immediate, nameable effect: Save, Run, Export, Confirm.</p>
+      <div class="field-label">When not to use</div><p>For navigation between views (use Link or Tab), or when more than one action would compete for the same visual weight — demote all but one to <span class="iss-mono">variant=secondary</span> or <span class="iss-mono">tertiary</span>.</p>
+      <div class="field-label">Anatomy</div><ul><li>Container (padding, radius, focus ring)</li><li>Optional leading icon</li><li>Label (type.body, 500 weight)</li><li>Optional trailing icon (chevron, external-link)</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Fill</th><th>Usage</th></tr></thead><tbody>
+        <tr><td class="iss-mono">primary</td><td>accent solid</td><td>One per view — the primary action</td></tr>
+        <tr><td class="iss-mono">secondary</td><td>surface + border</td><td>Supporting actions alongside primary</td></tr>
+        <tr><td class="iss-mono">tertiary</td><td>transparent</td><td>Low-emphasis, inline, or repeated-in-list actions</td></tr>
+        <tr><td class="iss-mono">destructive</td><td>status.danger solid</td><td>Irreversible actions only, always paired with confirmation</td></tr>
+      </tbody></table>
+      <div class="field-label">States</div><p>default · hover (fill +4% darken) · focus-visible (2px accent ring) · active · disabled (50% opacity, no pointer events) · loading (label replaced by inline spinner, width preserved to prevent layout shift)</p>
+      <div class="field-label">Accessibility</div><ul><li>Native <span class="iss-mono">&lt;button&gt;</span>; never a styled <span class="iss-mono">&lt;div&gt;</span></li><li>Icon-only buttons require an <span class="iss-mono">aria-label</span></li><li>Loading state sets <span class="iss-mono">aria-busy="true"</span> and keeps the accessible name unchanged</li></ul>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-accent</span><span>--iss-space-3</span><span>--iss-radius-2</span><span>--iss-font-body-size</span><span>--iss-motion-fast</span></div>
+      <div class="field-label">Engineering notes</div><p>Lit: <span class="iss-mono">&lt;iss-button&gt;</span> exposes <span class="iss-mono">variant</span>, <span class="iss-mono">disabled</span>, <span class="iss-mono">loading</span> as reflected attributes; slots for leading/trailing icons. Angular wrapper forwards the same API as <span class="iss-mono">@Input()</span>s — no logic duplicated between wrapper and element.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-button variant="primary" (click)="runAnalysis()"&gt;
+  Run analysis
+&lt;/iss-button&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Input</h3>
+      <div class="cat">Primitive · Form</div>
+      <div class="field-label">Purpose</div><p>Single-line text entry, the base for search, filters, and form fields.</p>
+      <div class="field-label">When to use</div><p>Any free-text or single-value entry under ~80 characters.</p>
+      <div class="field-label">When not to use</div><p>Multi-line content (use Textarea) or a constrained set of options (use Select).</p>
+      <div class="field-label">Anatomy</div><ul><li>Label (above, always visible — never placeholder-only)</li><li>Field container (border, radius)</li><li>Optional leading icon (e.g. search)</li><li>Helper text or error message (below)</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Usage</th></tr></thead><tbody>
+        <tr><td class="iss-mono">default</td><td>Standard form field</td></tr>
+        <tr><td class="iss-mono">search</td><td>Leading search icon, clear (×) affordance when populated</td></tr>
+        <tr><td class="iss-mono">inline</td><td>Borderless, for table-cell editing</td></tr>
+      </tbody></table>
+      <div class="field-label">States</div><p>default · focus (2px accent ring, border becomes accent) · filled · disabled · readonly · error (border + helper text in status.danger) · success (rare — used only for validated critical fields)</p>
+      <div class="field-label">Accessibility</div><ul><li>Label always programmatically associated via <span class="iss-mono">for</span>/<span class="iss-mono">id</span>, never placeholder-as-label</li><li>Error text linked with <span class="iss-mono">aria-describedby</span>; field gets <span class="iss-mono">aria-invalid="true"</span></li></ul>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-border</span><span>--iss-color-accent</span><span>--iss-color-status-danger</span><span>--iss-space-3</span><span>--iss-radius-2</span></div>
+      <div class="field-label">Engineering notes</div><p><span class="iss-mono">&lt;iss-input&gt;</span> wraps a native <span class="iss-mono">&lt;input&gt;</span> in its shadow root so browser autofill and form participation (<span class="iss-mono">ElementInternals</span>) keep working; validation state is a prop, never computed inside the component.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-input
+  label="Case ID"
+  [(value)]="caseId"
+  [error]="caseIdError"&gt;
+&lt;/iss-input&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Select</h3>
+      <div class="cat">Primitive · Form</div>
+      <div class="field-label">Purpose</div><p>Choosing one (or several) values from a bounded, named list.</p>
+      <div class="field-label">When to use</div><p>2–50 known options. Under 5 mutually exclusive options, prefer a segmented control or radio group for visibility of all choices at once.</p>
+      <div class="field-label">When not to use</div><p>Free-text entry, or unbounded/searchable large datasets — use Combobox (search + select) instead.</p>
+      <div class="field-label">Anatomy</div><ul><li>Trigger (label, current value, chevron)</li><li>Popover list (elevation.2)</li><li>Option rows with selected-state check</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Usage</th></tr></thead><tbody>
+        <tr><td class="iss-mono">single</td><td>One value; trigger shows the selected label</td></tr>
+        <tr><td class="iss-mono">multi</td><td>Several values; trigger shows a count once &gt;1 selected</td></tr>
+      </tbody></table>
+      <div class="field-label">States</div><p>default · open · focus · disabled · error</p>
+      <div class="field-label">Accessibility</div><ul><li>Full keyboard support: arrow keys to move, Enter/Space to select, Esc to close</li><li>Follows the ARIA <span class="iss-mono">listbox</span> pattern; trigger has <span class="iss-mono">aria-expanded</span> and <span class="iss-mono">aria-haspopup</span></li></ul>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-border</span><span>--iss-elevation-2</span><span>--iss-space-2</span><span>--iss-motion-base</span></div>
+      <div class="field-label">Engineering notes</div><p>Popover positioning uses the platform's shared floating-position utility (not component-local logic) so every popover-based component — Select, Combobox, Menu — collides with the viewport the same way.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-select
+  label="Status"
+  [options]="statusOptions"
+  [(value)]="selectedStatus"&gt;
+&lt;/iss-select&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Checkbox &amp; Radio</h3>
+      <div class="cat">Primitive · Form</div>
+      <div class="field-label">Purpose</div><p>Binary and single-choice-from-visible-set selection, always with all options visible at once.</p>
+      <div class="field-label">When to use</div><p>Checkbox: independent on/off choices, including "select all" in tables. Radio: one choice from 2–5 mutually exclusive, always-visible options.</p>
+      <div class="field-label">When not to use</div><p>Radio for more than ~5 options (use Select) or for a single yes/no toggle taking effect immediately (use Switch, not covered in v1.0).</p>
+      <div class="field-label">Anatomy</div><ul><li>Control (16px box or circle)</li><li>Label (click target includes label, not just the control)</li></ul>
+      <table class="iss-table"><thead><tr><th>State</th><th>Notes</th></tr></thead><tbody>
+        <tr><td class="iss-mono">unchecked / checked</td><td>Checked fill uses accent</td></tr>
+        <tr><td class="iss-mono">indeterminate</td><td>Checkbox only — "some but not all" in table select-all</td></tr>
+        <tr><td class="iss-mono">disabled</td><td>50% opacity on control and label</td></tr>
+      </tbody></table>
+      <div class="field-label">Accessibility</div><ul><li>Native <span class="iss-mono">&lt;input type="checkbox"/"radio"&gt;</span> under the hood; custom visuals layered via <span class="iss-mono">::after</span>, never replacing semantics</li><li>Radio groups wrapped in <span class="iss-mono">&lt;fieldset&gt;</span>/<span class="iss-mono">&lt;legend&gt;</span></li></ul>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-accent</span><span>--iss-color-border</span><span>--iss-space-2</span></div>
+      <div class="field-label">Engineering notes</div><p>Both share one internal control-primitive in Lit to keep check/radio visuals pixel-identical in weight and size; only the shape and grouping semantics differ.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-checkbox [(checked)]="row.selected"&gt;
+  Row: row.id
+&lt;/iss-checkbox&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Badge</h3>
+      <div class="cat">Primitive · Status</div>
+      <div class="field-label">Purpose</div><p>A compact, named status marker — the primary carrier of the four status colors (Foundations §02).</p>
+      <div class="field-label">When to use</div><p>Table rows, cards, and list items that carry a discrete state: Open, Blocked, Needs review, Stale.</p>
+      <div class="field-label">When not to use</div><p>Counts (use a plain numeral) or as a button — badges are never interactive.</p>
+      <div class="field-label">Anatomy</div><ul><li>Container (low-opacity status tint background)</li><li>Optional status dot</li><li>Label (type.micro, always a literal state name, never a raw enum value)</li></ul>
+      <table class="iss-table"><thead><tr><th>Tone</th><th>Maps to</th></tr></thead><tbody>
+        <tr><td class="iss-mono">neutral</td><td>surface.2 / text.muted — default, informational</td></tr>
+        <tr><td class="iss-mono">success</td><td>status.success</td></tr>
+        <tr><td class="iss-mono">warning</td><td>status.warning</td></tr>
+        <tr><td class="iss-mono">danger</td><td>status.danger</td></tr>
+        <tr><td class="iss-mono">info</td><td>status.info</td></tr>
+      </tbody></table>
+      <div class="field-label">Accessibility</div><p>Tone is never the only signal — the label text always states the status in words; color reinforces (Foundations §07).</p>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-status-*</span><span>--iss-space-1</span><span>--iss-font-micro-size</span></div>
+      <div class="field-label">Engineering notes</div><p><span class="iss-mono">tone</span> is a closed enum, not a free color prop — this is what prevents a product team from inventing a sixth status color.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-badge tone="warning"&gt;Needs review&lt;/iss-badge&gt;</div>
+    </div>
+
+    <h2 class="iss-h1sec" style="margin-top:8px;">03 — Composite components</h2>
+
+    <div class="iss-comp">
+      <h3>Card</h3>
+      <div class="cat">Composite · Container</div>
+      <div class="field-label">Purpose</div><p>Groups related content and actions into one visually distinct unit at elevation.1.</p>
+      <div class="field-label">When to use</div><p>Summarizing a single record or metric inside a grid (dashboards, list-of-records views).</p>
+      <div class="field-label">When not to use</div><p>As a generic wrapper for page sections — plain structural spacing (Foundations §03–04) handles that without adding a visual boundary that isn't meaningful.</p>
+      <div class="field-label">Anatomy</div><ul><li>Header (title, optional Badge, optional overflow menu)</li><li>Body (data, chart, or table snippet)</li><li>Optional footer (Button row, right-aligned)</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Usage</th></tr></thead><tbody>
+        <tr><td class="iss-mono">default</td><td>Static summary card</td></tr>
+        <tr><td class="iss-mono">interactive</td><td>Whole card is a single click target to a detail view — cursor and hover elevation change accordingly</td></tr>
+      </tbody></table>
+      <div class="field-label">States</div><p>default · hover (interactive only, elevation.1 → elevation.2) · focus-visible · loading (skeleton) · error (inline error state replaces body)</p>
+      <div class="field-label">Accessibility</div><p>Interactive cards are a single <span class="iss-mono">&lt;a&gt;</span> or <span class="iss-mono">&lt;button&gt;</span> wrapping the content, never a <span class="iss-mono">&lt;div onClick&gt;</span>, so keyboard and screen-reader users get the same target sighted users do.</p>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-elevation-1</span><span>--iss-elevation-2</span><span>--iss-space-4</span><span>--iss-radius-2</span><span>--iss-motion-fast</span></div>
+      <div class="field-label">Engineering notes</div><p>Header/body/footer are named slots in Lit, not positional children — this is what lets Angular content-project into a Card without knowing its internal DOM order.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-card variant="interactive" (cardClick)="open(record)"&gt;
+  &lt;span slot="header"&gt;record.name&lt;/span&gt;
+  &lt;iss-badge slot="header" [tone]="record.tone"&gt;record.status&lt;/iss-badge&gt;
+&lt;/iss-card&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Table</h3>
+      <div class="cat">Composite · Data</div>
+      <div class="field-label">Purpose</div><p>The default view for any list of structured records with more than a handful of comparable fields — the platform's primary "data first" component.</p>
+      <div class="field-label">When to use</div><p>Comparing multiple records across shared attributes: case queues, analytics rows, configuration lists.</p>
+      <div class="field-label">When not to use</div><p>A single record's own detail (use a Detail layout) or fewer than ~4 comparable attributes (a Card grid reads faster).</p>
+      <div class="field-label">Anatomy</div><ul><li>Header row (sortable column labels, optional select-all Checkbox)</li><li>Body rows (Checkbox, cells, row-level overflow menu)</li><li>Sticky header on scroll</li><li>Footer (pagination, row count)</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Usage</th></tr></thead><tbody>
+        <tr><td class="iss-mono">default</td><td>Comfortable row height, 44px</td></tr>
+        <tr><td class="iss-mono">compact</td><td>Dense analytical views, 32px rows — meets the 32px minimum target size (Foundations §07)</td></tr>
+      </tbody></table>
+      <div class="field-label">States</div><p>default · row-hover · row-selected · sorted-column (indicator on header) · loading (skeleton rows) · empty (renders the shared Empty State pattern, never a bare blank table)</p>
+      <div class="field-label">Accessibility</div><ul><li>Semantic <span class="iss-mono">&lt;table&gt;</span>/<span class="iss-mono">&lt;th scope&gt;</span> markup — never <span class="iss-mono">&lt;div&gt;</span> grids styled as tables</li><li>Sort state announced via <span class="iss-mono">aria-sort</span> on the header cell</li></ul>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-border</span><span>--iss-space-3</span><span>--iss-space-4</span><span>--iss-font-body-size</span></div>
+      <div class="field-label">Engineering notes</div><p>Column definitions are data, not template markup (a <span class="iss-mono">columns: ColumnDef[]</span> input) so Copilot-generated table screens differ only in data mapping, never in DOM structure.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-table
+  [columns]="caseColumns"
+  [rows]="cases"
+  [(selected)]="selectedIds"&gt;
+&lt;/iss-table&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Filter Bar</h3>
+      <div class="cat">Composite · Control</div>
+      <div class="field-label">Purpose</div><p>The single, consistent place users apply and see criteria narrowing a Table or dashboard — makes filter state visible per the "recognition over recall" rule (Philosophy §05).</p>
+      <div class="field-label">When to use</div><p>Above any Table or data view with more than one filterable attribute.</p>
+      <div class="field-label">When not to use</div><p>A single search-only view — a bare search Input is enough; introducing a Filter Bar for one field adds structure with nothing to organize.</p>
+      <div class="field-label">Anatomy</div><ul><li>Search Input (optional, leftmost)</li><li>Filter chips (each a Select or date-range trigger)</li><li>Applied-filter pills (removable, one per active criterion)</li><li>"Clear all" tertiary Button, shown only when ≥1 filter is active</li></ul>
+      <div class="field-label">States</div><p>default (no filters) · active (≥1 applied filter, pills visible) · loading (results updating — Table shows loading state, bar stays interactive)</p>
+      <div class="field-label">Accessibility</div><p>Each applied-filter pill's remove control has an <span class="iss-mono">aria-label</span> naming the specific filter removed (e.g. "Remove filter: Status = Blocked"), not a generic "Remove."</p>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-space-2</span><span>--iss-space-3</span><span>--iss-color-accent</span><span>--iss-radius-2</span></div>
+      <div class="field-label">Engineering notes</div><p>Emits one normalized <span class="iss-mono">FilterState</span> object rather than per-field events, so any consuming Table/dashboard subscribes to one contract regardless of how many filters it exposes.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-filter-bar
+  [filters]="filterDefs"
+  [(state)]="filterState"&gt;
+&lt;/iss-filter-bar&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>Drawer</h3>
+      <div class="cat">Composite · Overlay</div>
+      <div class="field-label">Purpose</div><p>Surfaces a record's detail or a focused task without leaving the surrounding list context — the platform's one sanctioned "go deeper without navigating away" pattern.</p>
+      <div class="field-label">When to use</div><p>Reviewing or editing one record from a Table/list while keeping that list visible and scroll-positioned behind it.</p>
+      <div class="field-label">When not to use</div><p>A task requiring its own URL/deep link, or content wider than ~640px — route to a full page instead.</p>
+      <div class="field-label">Anatomy</div><ul><li>Scrim (dismisses on click, per "reversible by default")</li><li>Panel, fixed edge (always the same edge platform-wide — right, per Philosophy §06)</li><li>Header (title, close control)</li><li>Scrollable body</li><li>Sticky footer (primary/secondary Button pair)</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Usage</th></tr></thead><tbody>
+        <tr><td class="iss-mono">view</td><td>Read-only detail, no footer actions beyond Close</td></tr>
+        <tr><td class="iss-mono">edit</td><td>Form body, footer holds Save/Cancel</td></tr>
+      </tbody></table>
+      <div class="field-label">States</div><p>opening/closing (motion.slow slide) · open · dirty (edit variant — Close asks for confirmation per "reversible by default" only when unsaved changes exist)</p>
+      <div class="field-label">Accessibility</div><ul><li>Focus moves into the drawer on open and returns to the triggering element on close</li><li>Focus is trapped within the drawer while open; Esc closes it</li><li>Root has <span class="iss-mono">role="dialog"</span> and <span class="iss-mono">aria-labelledby</span> pointing at the header title</li></ul>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-elevation-3</span><span>--iss-motion-slow</span><span>--iss-space-6</span></div>
+      <div class="field-label">Engineering notes</div><p>One shared Lit host manages the scrim, focus trap, and animation; Table and Card interactive-click both open the same host so drawer behavior can never drift between entry points.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-drawer variant="edit" [open]="drawerOpen" (closed)="drawerOpen=false"&gt;
+  &lt;span slot="header"&gt;Edit case: case.id&lt;/span&gt;
+&lt;/iss-drawer&gt;</div>
+    </div>
+
+    <div class="iss-comp">
+      <h3>System State Pattern</h3>
+      <div class="cat">Composite · Feedback</div>
+      <div class="field-label">Purpose</div><p>One shared pattern for the three states every data view eventually shows instead of its normal content: Empty, Loading, and Error — so users learn the pattern once, not three times per product.</p>
+      <div class="field-label">When to use</div><p>Any Table, Card grid, or dashboard region whenever it has no data to show, is fetching data, or fetching failed.</p>
+      <div class="field-label">When not to use</div><p>A first-run product tour or marketing empty state — this pattern is deliberately plain and functional, not a moment for illustration or personality (Philosophy §02).</p>
+      <div class="field-label">Anatomy</div><ul><li>Icon or skeleton region (functional, not decorative)</li><li>Message (states what happened, in the state's literal terms)</li><li>Optional single action (e.g. "Adjust filters," "Retry")</li></ul>
+      <table class="iss-table"><thead><tr><th>Variant</th><th>Message pattern</th><th>Action</th></tr></thead><tbody>
+        <tr><td class="iss-mono">empty</td><td>"No records match the current filters."</td><td>Clear filters (if any are active)</td></tr>
+        <tr><td class="iss-mono">loading</td><td>Skeleton rows/cards matching the real layout</td><td>None</td></tr>
+        <tr><td class="iss-mono">error</td><td>"Couldn't load records. Reason follows."</td><td>Retry</td></tr>
+      </tbody></table>
+      <div class="field-label">Accessibility</div><p>Loading state's region has <span class="iss-mono">aria-busy="true"</span>; error state's message is announced via a live region so screen-reader users don't have to discover the failure visually.</p>
+      <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-text-muted</span><span>--iss-space-8</span><span>--iss-font-body-size</span></div>
+      <div class="field-label">Engineering notes</div><p>Implemented as one <span class="iss-mono">&lt;iss-state&gt;</span> component with a <span class="iss-mono">status</span> input, not three separate components — this is what keeps their spacing and copy tone from drifting apart over time.</p>
+      <div class="field-label">Usage example</div>
+      <div class="iss-code">&lt;iss-state
+  *ngIf="cases.length === 0"
+  status="empty"
+  message="No cases match the current filters."
+  action-label="Clear filters"
+  (action)="clearFilters()"&gt;
+&lt;/iss-state&gt;</div>
+    </div>
+
+    <h2 class="iss-h1sec">04 — Governance</h2>
+    <p class="iss-p">A new component enters this specification only when a real screen needs it and no existing primitive or composite already covers the need (Philosophy §04, consistency over novelty). Adding a variant to an existing component is preferred over introducing a new one. Any addition follows this same nine-field template and is versioned with this document — a v1.1 component addition does not require product teams to migrate anything already shipped against v1.0.</p>
+
+  </div>
+</doc-page>
+
+</x-dc>
+</body>
+</html>
