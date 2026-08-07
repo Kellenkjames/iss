@@ -4,7 +4,8 @@
     "github.vscode-pull-request-github",
     "angular.ng-template",
     "dbaeumer.vscode-eslint",
-    "nrwl.angular-console"
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode"
   ],
   "unwantedRecommendations": []
 }
