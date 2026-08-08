@@ -1,0 +1,33 @@
+{
+  "name": "design-tokens",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/platform/design-tokens/src",
+  "projectType": "library",
+  "tags": ["type:platform","scope:platform","runtime:universal"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/platform/design-tokens",
+        "main": "libs/platform/design-tokens/src/index.ts",
+        "tsConfig": "libs/platform/design-tokens/tsconfig.json",
+        "assets": [
+          "libs/platform/design-tokens/*.md",
+          "libs/platform/design-tokens/src/styles.css"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/js:node",
+      "options": {
+        "main": "libs/platform/design-tokens/src/lib/tokens.spec.ts",
+        "outputPath": "dist/out-tsc/libs/platform/design-tokens",
+        "tsConfig": "libs/platform/design-tokens/tsconfig.json"
+      }
+    }
+  }
+}

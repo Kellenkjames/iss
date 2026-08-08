@@ -1,0 +1,26 @@
+.shell-surface {
+  min-height: 100vh;
+  padding: var(--iss-space-8);
+  background: var(--iss-color-surface-1);
+  color: var(--iss-color-text-primary);
+}
+
+.shell-card {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--iss-space-6);
+  border: 1px solid var(--iss-color-border);
+  border-radius: 12px;
+  background: var(--iss-color-surface-0);
+  box-shadow: var(--iss-elevation-2);
+}
+
+.shell-card h1 {
+  margin: 0 0 var(--iss-space-2);
+  font: var(--iss-font-display-weight) var(--iss-font-display-size)/var(--iss-font-display-line-height) var(--iss-font-display-family);
+}
+
+.shell-card p {
+  margin: 0;
+  font: var(--iss-font-body-weight) var(--iss-font-body-size)/var(--iss-font-body-line-height) var(--iss-font-body-family);
+}
