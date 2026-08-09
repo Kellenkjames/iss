@@ -56,5 +56,17 @@
       "style": "css",
       "unitTestRunner": "vitest-angular"
     }
-  }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      },
+      "include": [
+        "apps/shell/**/*",
+        "libs/platform/design-tokens/**/*"
+      ]
+    }
+  ]
 }

@@ -3,11 +3,17 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/platform/design-tokens/src",
   "projectType": "library",
-  "tags": ["type:platform","scope:platform","runtime:universal"],
+  "tags": [
+    "type:platform",
+    "scope:platform",
+    "runtime:universal"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/platform/design-tokens",
         "main": "libs/platform/design-tokens/src/index.ts",
@@ -19,7 +25,19 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/eslint.config.mjs",
+        "{workspaceRoot}/tools/eslint-rules/**/*",
+        {
+          "externalDependencies": [
+            "eslint"
+          ]
+        }
+      ]
     },
     "test": {
       "executor": "@nx/js:node",
