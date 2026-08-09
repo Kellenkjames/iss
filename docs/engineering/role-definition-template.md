@@ -6,6 +6,8 @@
 
 **Artifact:** Universal Role Definition Template
 
+**Version:** 1.0
+
 **Status:** Foundational Template
 
 ---
@@ -48,7 +50,7 @@ Describe why this engineer exists.
 The mission should answer one question:
 
 > What engineering outcome am I responsible for?
-> 
+>
 
 The mission should be stable over time.
 
@@ -263,14 +265,14 @@ Not output quantity.
 Complete the following statement:
 
 > This engineer succeeds when...
-> 
+>
 
 The definition should describe the long-term engineering outcome rather than daily implementation.
 
 It should answer:
 
 > What would excellence look like if this role were performed consistently for six months?
-> 
+>
 
 This section should remain stable over time.
 

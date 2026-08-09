@@ -6,7 +6,9 @@
 
 **Project Type:** Shared Platform Package
 
-**Repository Path:** `packages/kernel`
+**Repository Path:** `libs/platform/component-kernel`
+
+**Version:** 1.0
 
 **Status:** Planning (Phase 0)
 

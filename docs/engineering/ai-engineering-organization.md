@@ -4,6 +4,8 @@
 
 **Deliverable:** Phase 0 — AI Engineering Organization
 
+**Version:** 1.0
+
 **Status:** Foundational Organizational Charter
 
 ---

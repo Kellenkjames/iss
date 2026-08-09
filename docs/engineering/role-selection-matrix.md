@@ -6,6 +6,8 @@
 
 **Artifact:** Role Selection Matrix
 
+**Version:** 1.0
+
 **Status:** Draft for Review
 
 ---
@@ -27,7 +29,7 @@ It provides a lightweight routing system so each work session begins with the ri
 # Core Principle
 
 > **Select the engineer based on the primary engineering risk, not the visible task.**
-> 
+>
 
 A UI task may actually be an architecture task.
 

@@ -6,7 +6,9 @@
 
 **Project Type:** Shared Platform Package
 
-**Repository Path:** `packages/design-tokens`
+**Repository Path:** `libs/platform/design-tokens`
+
+**Version:** 1.0
 
 **Status:** Planning (Phase 0)
 

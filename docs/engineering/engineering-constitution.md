@@ -4,6 +4,8 @@
 
 **Deliverable:** Phase 0 — Engineering Constitution
 
+**Version:** 1.0
+
 **Status:** Foundational Charter
 
 ---

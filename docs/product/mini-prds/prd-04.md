@@ -6,7 +6,9 @@
 
 **Project Type:** Shared Platform Package
 
-**Repository Path:** `packages/ai-provider`
+**Repository Path:** `libs/platform/ai-provider`
+
+**Version:** 1.0
 
 **Status:** Planning (Phase 0)
 

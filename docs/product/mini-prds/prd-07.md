@@ -6,6 +6,8 @@
 
 **Repository Path:** `apps/signal-system`
 
+**Version:** 1.0
+
 **Status:** Planning (Phase 0)
 
 ---

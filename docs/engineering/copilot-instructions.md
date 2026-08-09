@@ -1,8 +1,10 @@
 # Copilot Instructions
 
-**Canonical Repository Path:** `.github/copilot-instructions.md`
+**Canonical Repository Path:** `github/copilot-instructions.md`
 
 **Project:** Intelligent Systems Suite
+
+**Version:** 1.0
 
 **Status:** Phase 1 Operational Standard
 
@@ -112,16 +114,14 @@ Before significant engineering work, review the applicable foundational document
 Expected repository locations:
 
 ```
-docs/00-foundation/
+docs/engineering/
 ├── engineering-constitution.md
 ├── architecture-standards.md
-└── universal-agent-contract.md
-
-docs/01-operations/
-├── engineering-operating-system.md
+├── universal-agent-contract.md
+├── repository-blueprint.md
 ├── role-selection-matrix.md
-├── context-architecture.md
-└── engineering-handoff-matrix.md
+├── product-development-lifecycle.md
+└── initialization-runbook.md
 ```
 
 Load additional documentation according to:

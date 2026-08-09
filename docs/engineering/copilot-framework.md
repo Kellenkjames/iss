@@ -6,6 +6,8 @@
 
 **Applies To:** GitHub Copilot in VS Code and GitHub
 
+**Version:** 1.0
+
 **Status:** Phase 1 Operational Standard
 
 **Owner:** Human Technical Lead
@@ -36,7 +38,7 @@ GitHub Copilot currently supports several complementary customization mechanisms
 # Core Principle
 
 > Copilot receives permanent rules globally, specialist behavior through agents, local conventions through path-specific instructions, and temporary objectives through engineering bricks.
-> 
+>
 
 This creates four distinct instruction layers:
 
@@ -95,10 +97,10 @@ The framework uses five GitHub Copilot customization mechanisms.
 **Canonical location:**
 
 ```
-.github/copilot-instructions.md
+github/copilot-instructions.md
 ```
 
-GitHub supports repository-wide instructions through `.github/copilot-instructions.md`. These instructions provide persistent context about how Copilot should understand, build, test, and validate the repository.
+GitHub supports repository-wide instructions through `github/copilot-instructions.md`. These instructions provide persistent context about how Copilot should understand, build, test, and validate the repository.
 
 This file should contain only high-frequency instructions.
 
@@ -135,7 +137,7 @@ The repository-wide instruction file is the behavioral spine of Copilot inside I
 **Canonical location:**
 
 ```
-.github/instructions/
+github/instructions/
 ```
 
 **File convention:**
@@ -149,7 +151,7 @@ GitHub supports path-specific `.instructions.md` files with an `applyTo` field, 
 Proposed files:
 
 ```
-.github/instructions/
+github/instructions/
 ├── angular.instructions.md
 ├── lit-components.instructions.md
 ├── ai-provider.instructions.md
@@ -188,7 +190,7 @@ They should not redefine the assigned engineer.
 **Canonical location:**
 
 ```
-.github/agents/
+github/agents/
 ```
 
 **Recommended naming convention:**
@@ -197,12 +199,12 @@ They should not redefine the assigned engineer.
 <role-name>.agent.md
 ```
 
-GitHub custom agents are specialized Copilot configurations defined through Markdown agent profiles. Agent profiles can specify a name, description, behavioral instructions, tools, and optional MCP configuration. Repository-level agents are stored under `.github/agents/`.
+GitHub custom agents are specialized Copilot configurations defined through Markdown agent profiles. Agent profiles can specify a name, description, behavioral instructions, tools, and optional MCP configuration. Repository-level agents are stored under `github/agents/`.
 
 Proposed agents:
 
 ```
-.github/agents/
+github/agents/
 ├── architecture-lead.agent.md
 ├── engineering-reviewer.agent.md
 ├── design-systems-engineer.agent.md
@@ -244,7 +246,7 @@ The agent profiles operationalize those definitions rather than reproduce them i
 **Canonical location:**
 
 ```
-.github/prompts/
+github/prompts/
 ```
 
 **File convention:**
@@ -258,7 +260,7 @@ Prompt files are designed for reusable, task-specific interactions rather than p
 Initial prompt files:
 
 ```
-.github/prompts/
+github/prompts/
 ├── start-brick.prompt.md
 ├── architecture-review.prompt.md
 ├── validate-brick.prompt.md
@@ -317,7 +319,7 @@ Potential future skills:
 For Version 1:
 
 > Use instructions, agents, and prompt files first. Introduce skills only after repeated implementation reveals a clear need.
-> 
+>
 
 This prevents premature complexity.
 
@@ -353,7 +355,7 @@ It is not proof that the implementation is architecturally correct.
 The initial customization structure should be:
 
 ```
-.github/
+github/
 ├── copilot-instructions.md
 │
 ├── agents/
@@ -495,7 +497,7 @@ You do not own:
 
 Before beginning work, review:
 
-- `.github/copilot-instructions.md`
+- `github/copilot-instructions.md`
 - `<role definition path>`
 - `<applicable PRD paths>`
 - `<applicable standards>`
@@ -625,12 +627,12 @@ The agent should not load the entire documentation tree by default.
 Prefer:
 
 > Do not introduce a dependency from platform packages to application packages.
-> 
+>
 
 Avoid:
 
 > You should generally try to keep an eye on whether platform packages might potentially depend on application packages.
-> 
+>
 
 ---
 
@@ -666,12 +668,12 @@ Instructions should describe behavior that can be verified.
 Prefer:
 
 > Run affected tests and report the commands and results.
-> 
+>
 
 Avoid:
 
 > Produce high-quality code.
-> 
+>
 
 ---
 
@@ -864,19 +866,19 @@ The objective is **controlled engineering leverage**.
 # Framework Summary
 
 ```
-.github/copilot-instructions.md
+github/copilot-instructions.md
 ↓
 How all engineering work behaves
 
-.github/instructions/*.instructions.md
+github/instructions/*.instructions.md
 ↓
 How specific repository areas are handled
 
-.github/agents/*.agent.md
+github/agents/*.agent.md
 ↓
 Which specialist performs the work
 
-.github/prompts/*.prompt.md
+github/prompts/*.prompt.md
 ↓
 How repeated engineering procedures are invoked
 
@@ -908,5 +910,5 @@ That separation keeps the operating model understandable and prevents ten role f
 
 The next logical action is to create the first concrete artifact from this framework:
 
-> **`.github/copilot-instructions.md` — ISS Repository-Wide Copilot Instructions**
+> **`github/copilot-instructions.md` — ISS Repository-Wide Copilot Instructions**
 >

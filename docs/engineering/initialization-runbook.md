@@ -1,8 +1,10 @@
 # Initialization Runbook
 
-**Canonical Repository Path:** `docs/01-operations/repository-initialization-runbook.md`
+**Canonical Repository Path:** `docs/engineering/initialization-runbook.md`
 
 **Project:** Intelligent Systems Suite (ISS)
+
+**Version:** 1.0
 
 **Status:** Phase 1 Operational Procedure
 

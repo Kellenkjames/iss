@@ -2,7 +2,9 @@
 
 **Project:** Intelligent Systems Suite
 
-**Canonical Path:** `docs/02-architecture/repository-blueprint.md`
+**Canonical Path:** `docs/engineering/repository-blueprint.md`
+
+**Version:** 1.0
 
 **Status:** Phase 1 Repository Architecture Standard
 
@@ -30,7 +32,7 @@ It establishes:
 The blueprint should answer one recurring question:
 
 > **Where does this work belong?**
-> 
+>
 
 It does not define implementation details for every package. Those remain the responsibility of the applicable Mini PRD, ADR, path-specific instruction, and engineering brick.
 
@@ -100,7 +102,7 @@ These libraries must not depend on applications or application-specific features
 
 ```
 iss/
-├── .github/
+├── github/
 │   ├── copilot-instructions.md
 │   │
 │   ├── agents/
@@ -803,7 +805,7 @@ The AI Provider executes the request.
 
 The domain capability defines what the request means.
 
-GitHub Copilot prompt files remain under `.github/prompts/` because they support engineering workflows rather than runtime application intelligence.
+GitHub Copilot prompt files remain under `github/prompts/` because they support engineering workflows rather than runtime application intelligence.
 
 ---
 
@@ -894,37 +896,31 @@ Raw prompts, credentials, and sensitive content must never appear in repository 
 
 The repository is the canonical location for documentation required to understand, operate, and modify the software.
 
-## `docs/00-foundation`
+## `docs/engineering`
 
-Rules that govern the entire engineering system.
+Governance, architecture, operating model, and implementation standards.
 
 Changes should be rare and deliberate.
 
-## `docs/01-operations`
+## `docs/product/mini-prds`
 
-How engineering work moves through the system.
+Master and mini PRDs that define approved product scope.
 
-Includes role selection, context, handoffs, and operating procedures.
+Each implementation package should be traceable to an applicable requirement.
 
-## `docs/02-architecture`
+## `docs/design`
 
-Current architectural structure and system boundaries.
+Design foundations, composition patterns, and governance artifacts.
 
-This blueprint belongs here.
+Generated design-system archive content remains under `docs/design/claude-design-system`.
 
-## `docs/03-prds`
+## `github`
 
-Master PRD and seven Mini PRDs.
+Repository Copilot customization artifacts.
 
-Each implementation package should be traceable to an applicable requirement or approved architectural decision.
+Contains `copilot-instructions.md`, agent profiles, path instructions, and reusable prompts.
 
-## `docs/04-roles`
-
-Full human-readable engineering role definitions.
-
-Operational Copilot agent files remain under `.github/agents`.
-
-## `docs/05-adrs`
+## `docs/adr`
 
 Architectural decisions and their rationale.
 
@@ -936,7 +932,7 @@ Use four-digit numbering:
 0002-ai-provider-abstraction.md
 ```
 
-## `docs/06-ai-sdlc`
+## `docs/reports`
 
 How GitHub Copilot is directed across the engineering lifecycle.
 
@@ -1095,7 +1091,7 @@ The first repository initialization should create only the foundation required t
 ## Create in the first initialization
 
 ```
-.github/copilot-instructions.md
+github/copilot-instructions.md
 docs/
 apps/shell/
 libs/platform/design-tokens/

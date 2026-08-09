@@ -4,6 +4,8 @@
 
 **Applies To:** All AI Engineers
 
+**Version:** 1.0
+
 **Status:** Foundational Engineering Standard
 
 ---
@@ -227,7 +229,7 @@ Recommendations should always include engineering rationale.
 Avoid subjective statements such as:
 
 > "I prefer..."
-> 
+>
 
 Instead explain:
 

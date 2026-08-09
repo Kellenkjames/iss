@@ -1,8 +1,10 @@
 # Documentation Checklist
 
-**Canonical Repository Path:** `docs/01-operations/documentation-migration-checklist.md`
+**Canonical Repository Path:** `docs/engineering/documentation-migration-checklist.md`
 
 **Project:** Intelligent Systems Suite (ISS)
+
+**Version:** 1.0
 
 **Status:** Phase 1 Operational Procedure
 
@@ -43,17 +45,16 @@ Every document should exist in **one authoritative location**.
 
 | Status | Document | Destination |
 | --- | --- | --- |
-| ☐ | Engineering Constitution | `docs/00-governance/` |
-| ☐ | Architecture Standards | `docs/00-governance/` |
-| ☐ | Universal Agent Contract | `docs/00-governance/` |
-| ☐ | Engineering Operating System | `docs/00-governance/` |
-| ☐ | Context Architecture | `docs/00-governance/` |
-| ☐ | Engineering Handoff Matrix | `docs/00-governance/` |
-| ☐ | GitHub Copilot Engineering Framework | `docs/02-ai-engineering/` |
-| ☐ | Repository-Wide Copilot Instructions | `.github/copilot-instructions.md` |
-| ☐ | Repository Blueprint | `docs/01-operations/` |
-| ☐ | Repository Initialization Runbook | `docs/01-operations/` |
-| ☐ | Documentation Migration Checklist | `docs/01-operations/` |
+| ☐ | Engineering Constitution | `docs/engineering/` |
+| ☐ | Architecture Standards | `docs/engineering/` |
+| ☐ | Universal Agent Contract | `docs/engineering/` |
+| ☐ | Role Selection Matrix | `docs/engineering/` |
+| ☐ | Product Development Lifecycle | `docs/engineering/` |
+| ☐ | GitHub Copilot Engineering Framework | `docs/engineering/` |
+| ☐ | Repository-Wide Copilot Instructions | `github/copilot-instructions.md` |
+| ☐ | Repository Blueprint | `docs/engineering/` |
+| ☐ | Repository Initialization Runbook | `docs/engineering/` |
+| ☐ | Documentation Migration Checklist | `docs/engineering/` |
 | ☐ | Repository README | Repository root |
 | ☐ | LICENSE | Repository root |
 

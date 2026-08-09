@@ -8,6 +8,8 @@
 
 **Repository Path:** `apps/shell`
 
+**Version:** 1.0
+
 **Status:** Planning (Phase 0)
 
 ---

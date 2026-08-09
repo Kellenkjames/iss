@@ -6,7 +6,9 @@
 
 **Project Type:** Shared Platform Package
 
-**Repository Path:** `packages/telemetry`
+**Repository Path:** `libs/platform/telemetry`
+
+**Version:** 1.0
 
 **Status:** Planning (Phase 0)
 

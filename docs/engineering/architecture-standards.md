@@ -4,6 +4,8 @@
 
 **Deliverable:** Phase 0 — Architecture Standards
 
+**Version:** 1.0
+
 **Status:** Draft for Review
 
 **Applies To:** Entire ISS monorepo
@@ -50,7 +52,7 @@ Platform packages must not depend on applications.
 
 # 3. Repository Structure
 
-ISS uses a public Turborepo monorepo with pnpm workspaces.
+ISS uses a public Nx monorepo with pnpm workspaces.
 
 Required top-level structure:
 
@@ -60,22 +62,24 @@ iss-monorepo/
 │   ├── shell/
 │   ├── interpretation-engine/
 │   └── signal-system/
-├── packages/
-│   ├── design-tokens/
-│   ├── kernel/
-│   ├── telemetry/
-│   └── ai-provider/
+├── libs/
+│   └── platform/
+│       ├── design-tokens/
+│       ├── component-kernel/
+│       ├── telemetry/
+│       └── ai-provider/
 ├── docs/
-│   ├── adr/
-│   ├── ai-sdlc/
-│   ├── architecture/
-│   └── field-observations/
-├── .github/
+│   ├── design/
+│   ├── engineering/
+│   └── product/
+├── github/
 │   ├── workflows/
-│   └── ISSUE_TEMPLATE/
+│   ├── agents/
+│   ├── instructions/
+│   └── prompts/
 ├── package.json
 ├── pnpm-workspace.yaml
-├── turbo.json
+├── nx.json
 ├── tsconfig.base.json
 ├── README.md
 └── LICENSE
@@ -94,26 +98,26 @@ Dependency direction is strict.
 Allowed dependency flow:
 
 ```
-apps/* → packages/*
-packages/ai-provider → packages/telemetry
-packages/kernel → packages/design-tokens
-packages/* → external libraries
+apps/* → libs/platform/*
+libs/platform/ai-provider → libs/platform/telemetry
+libs/platform/component-kernel → libs/platform/design-tokens
+libs/platform/* → external libraries
 ```
 
 Disallowed:
 
 ```
-packages/* → apps/*
-packages/design-tokens → any internal package
-packages/telemetry → ai-provider
-packages/telemetry → apps/*
-packages/kernel → apps/*
+libs/platform/* → apps/*
+libs/platform/design-tokens → any internal package
+libs/platform/telemetry → libs/platform/ai-provider
+libs/platform/telemetry → apps/*
+libs/platform/component-kernel → apps/*
 apps/* → apps/*
 ```
 
 Applications should not depend on one another.
 
-**Shared behavior** belongs in packages.
+**Shared behavior** belongs in platform libraries.
 
 ---
 
@@ -121,25 +125,25 @@ Applications should not depend on one another.
 
 Each package must have one primary responsibility.
 
-## `packages/design-tokens`
+## `libs/platform/design-tokens`
 
 Owns visual primitives.
 
 Does not own components.
 
-## `packages/kernel`
+## `libs/platform/component-kernel`
 
 Owns reusable interaction primitives.
 
 Does not own application logic.
 
-## `packages/telemetry`
+## `libs/platform/telemetry`
 
 Owns AI operational evidence.
 
 Does not execute prompts.
 
-## `packages/ai-provider`
+## `libs/platform/ai-provider`
 
 Owns AI provider access.
 
@@ -304,7 +308,7 @@ Applications compose primitives into experiences.
 
 # 11. Styling Standards
 
-All foundational styling comes from `packages/design-tokens`.
+All foundational styling comes from `libs/platform/design-tokens`.
 
 Applications and components should not define raw foundational visual values.
 
@@ -333,7 +337,7 @@ Exceptions require a clear reason and should be rare.
 
 Applications must not call vendor SDKs directly.
 
-All runtime AI calls go through `packages/ai-provider`.
+All runtime AI calls go through `libs/platform/ai-provider`.
 
 Required flow:
 
