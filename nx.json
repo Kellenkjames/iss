@@ -65,7 +65,8 @@
       },
       "include": [
         "apps/shell/**/*",
-        "libs/platform/design-tokens/**/*"
+        "libs/platform/design-tokens/**/*",
+        "libs/platform/component-kernel/**/*"
       ]
     }
   ]

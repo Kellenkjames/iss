@@ -17,6 +17,9 @@
     "skipDefaultLibCheck": true,
     "strict": false,
     "paths": {
+      "@iss/component-kernel": ["./libs/platform/component-kernel/src/index.ts"],
+      "@iss/component-kernel/*": ["./libs/platform/component-kernel/src/*"],
+      "@iss/component-kernel/register": ["./libs/platform/component-kernel/src/register.ts"],
       "@iss/design-tokens": ["./libs/platform/design-tokens/src/index.ts"],
       "@iss/design-tokens/*": ["./libs/platform/design-tokens/src/*"],
       "@iss/design-tokens/styles.css": ["./libs/platform/design-tokens/src/styles.css"]

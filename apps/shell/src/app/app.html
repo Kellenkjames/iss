@@ -1,6 +1,12 @@
 <main class="shell-surface">
   <section class="shell-card">
     <h1>ISS shell</h1>
-    <p>Shared design tokens are now available through the shell app.</p>
+    <p>Shared design tokens and kernel components are available through the shell app.</p>
+    <div class="shell-actions">
+      <iss-button variant="primary" (click)="onPrimaryAction()">
+        Run analysis
+      </iss-button>
+      <p class="shell-click-count">Primary action clicks: {{ buttonClicks }}</p>
+    </div>
   </section>
 </main>

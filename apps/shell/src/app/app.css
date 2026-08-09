@@ -24,3 +24,14 @@
   margin: 0;
   font: var(--iss-font-body-weight) var(--iss-font-body-size)/var(--iss-font-body-line-height) var(--iss-font-body-family);
 }
+
+.shell-actions {
+  margin-top: var(--iss-space-4);
+  display: grid;
+  gap: var(--iss-space-2);
+  align-items: start;
+}
+
+.shell-click-count {
+  color: var(--iss-color-text-muted);
+}
