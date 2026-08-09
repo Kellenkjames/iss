@@ -4,5 +4,11 @@ export {
     type IssButtonType,
     type IssButtonVariant
 } from './lib/components/iss-button/iss-button';
-export { defineIssButton, registerIssComponents } from './lib/register';
+export {
+    ISS_INPUT_TAG,
+    IssInput,
+    type IssInputType,
+    type IssInputVariant
+} from './lib/components/iss-input/iss-input';
+export { defineIssButton, defineIssInput, registerIssComponents } from './lib/register';
 

@@ -7,6 +7,21 @@
         Run analysis
       </iss-button>
       <p class="shell-click-count">Primary action clicks: {{ buttonClicks }}</p>
+
+      <iss-input
+        label="Case ID"
+        variant="search"
+        helper="Single-line ISS input primitive"
+        [value]="inputValue"
+        (input)="onInputChange($event)"
+      ></iss-input>
+      <p class="shell-click-count">Input value: {{ inputValue }}</p>
+
+      <iss-input
+        label="Inline edit preview"
+        variant="inline"
+        placeholder="Editable inline value"
+      ></iss-input>
     </div>
   </section>
 </main>

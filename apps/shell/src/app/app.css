@@ -30,6 +30,7 @@
   display: grid;
   gap: var(--iss-space-2);
   align-items: start;
+  max-width: 360px;
 }
 
 .shell-click-count {

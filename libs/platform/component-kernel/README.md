@@ -5,6 +5,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 ## Components
 
 - `iss-button`
+- `iss-input`
 
 ## Registration
 
@@ -51,4 +52,55 @@ Accessibility behavior:
 
 ```html
 <iss-button variant="primary">Run analysis</iss-button>
+```
+
+## `iss-input` API
+
+Purpose: single-line text entry primitive for forms, search, filters, and inline editing.
+
+Properties and attributes:
+
+- `variant`: `default | search | inline` (reflected)
+- `label`: string
+- `value`: string
+- `disabled`: boolean (reflected)
+- `readOnly` / `readonly`: boolean (attribute reflected as `readonly`)
+- `error`: string
+- `success`: boolean (reflected)
+- `helper`: string
+- `name`: string
+- `placeholder`: string
+- `type`: `text | search | email | url | tel | password` (reflected)
+- `required`: boolean (reflected)
+
+States:
+
+- default
+- focus
+- filled
+- disabled
+- readonly
+- error
+- success
+
+Accessibility behavior:
+
+- Uses native `<input>` semantics
+- Always renders a visible `<label>` associated via `for`/`id`
+- Error state maps to `aria-invalid="true"`
+- Helper or error message links through `aria-describedby`
+- Search variant clear control is keyboard accessible with an explicit accessible name
+
+Events:
+
+- Standard `input` and `change` events are observable from consumers.
+
+Usage:
+
+```html
+<iss-input
+	label="Case ID"
+	variant="search"
+	helper="Type to filter"
+></iss-input>
 ```
