@@ -151,16 +151,24 @@ export class IssButton extends LitElement {
   `;
 
   @property({ reflect: true, converter: normalizeVariant })
-  variant: IssButtonVariant = 'primary';
+  declare variant: IssButtonVariant;
 
   @property({ type: Boolean, reflect: true })
-  disabled = false;
+  declare disabled: boolean;
 
   @property({ type: Boolean, reflect: true })
-  loading = false;
+  declare loading: boolean;
 
   @property({ reflect: true, converter: normalizeType })
-  type: IssButtonType = 'button';
+  declare type: IssButtonType;
+
+  constructor() {
+    super();
+    this.variant = 'primary';
+    this.disabled = false;
+    this.loading = false;
+    this.type = 'button';
+  }
 
   override render() {
     const disabledOrLoading = this.disabled || this.loading;
