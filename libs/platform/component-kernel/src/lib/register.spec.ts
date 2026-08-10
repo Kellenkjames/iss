@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+    defineIssBadge,
     defineIssButton,
     defineIssInput,
+    IssBadge,
     IssButton,
     IssInput,
     registerIssComponents,
@@ -19,9 +21,16 @@ describe('component registration', () => {
     expect(customElements.get('iss-input')).toBe(IssInput);
   });
 
-  it('registers both button and input via aggregate registration', () => {
+  it('registers iss-badge and remains duplicate-safe', () => {
+    expect(() => defineIssBadge()).not.toThrow();
+    expect(() => defineIssBadge()).not.toThrow();
+    expect(customElements.get('iss-badge')).toBe(IssBadge);
+  });
+
+  it('registers all three components via aggregate registration', () => {
     expect(() => registerIssComponents()).not.toThrow();
     expect(customElements.get('iss-button')).toBe(IssButton);
     expect(customElements.get('iss-input')).toBe(IssInput);
+    expect(customElements.get('iss-badge')).toBe(IssBadge);
   });
 });

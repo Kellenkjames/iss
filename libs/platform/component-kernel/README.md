@@ -6,6 +6,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 
 - `iss-button`
 - `iss-input`
+- `iss-badge`
 
 ## Registration
 
@@ -103,4 +104,34 @@ Usage:
 	variant="search"
 	helper="Type to filter"
 ></iss-input>
+```
+
+## `iss-badge` API
+
+Purpose: compact, named status marker — the primary carrier of ISS semantic status colors.
+
+Non-interactive. Never a button, link, or actionable element.
+
+Properties and attributes:
+
+- `tone`: `neutral | success | warning | danger | info` (reflected, default: `neutral`)
+
+Slots:
+
+- default slot: visible status label text
+
+Accessibility behavior:
+
+- Visible text in the default slot is the primary status signal; color reinforces but never replaces it
+- No `role`, `aria-live`, or `role="status"` applied by default — badge text is persistent record state, not a live announcement
+- Component does not infer or generate label text from `tone`; the consumer is responsible for supplying a meaningful label
+
+Usage:
+
+```html
+<iss-badge tone="warning">Needs review</iss-badge>
+<iss-badge tone="danger">Blocked</iss-badge>
+<iss-badge tone="success">Active</iss-badge>
+<iss-badge tone="info">In progress</iss-badge>
+<iss-badge>Neutral</iss-badge>
 ```

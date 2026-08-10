@@ -1,4 +1,9 @@
 export {
+    ISS_BADGE_TAG,
+    IssBadge,
+    type IssBadgeTone
+} from './lib/components/iss-badge/iss-badge';
+export {
     ISS_BUTTON_TAG,
     IssButton,
     type IssButtonType,
@@ -10,5 +15,5 @@ export {
     type IssInputType,
     type IssInputVariant
 } from './lib/components/iss-input/iss-input';
-export { defineIssButton, defineIssInput, registerIssComponents } from './lib/register';
+export { defineIssBadge, defineIssButton, defineIssInput, registerIssComponents } from './lib/register';
 

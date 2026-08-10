@@ -36,3 +36,10 @@
 .shell-click-count {
   color: var(--iss-color-text-muted);
 }
+
+.shell-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--iss-space-2);
+  align-items: center;
+}
