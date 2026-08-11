@@ -7,6 +7,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-button`
 - `iss-input`
 - `iss-badge`
+- `iss-card`
 
 ## Registration
 
@@ -134,4 +135,35 @@ Usage:
 <iss-badge tone="success">Active</iss-badge>
 <iss-badge tone="info">In progress</iss-badge>
 <iss-badge>Neutral</iss-badge>
+```
+
+## `iss-card` API
+
+Purpose: structural container for grouping related content and actions into a reusable visual unit.
+
+Properties and attributes:
+
+- `variant`: `default | interactive` (reflected, default: `default`)
+
+Slots:
+
+- `header`: consumer-supplied header content, including multiple nodes
+- default slot: consumer-supplied body content
+- `footer`: consumer-supplied footer content
+
+Accessibility behavior:
+
+- The default variant remains a non-interactive container.
+- The interactive variant uses a native `<button>` as the card action surface.
+- Interactive cards expose native keyboard and click semantics without introducing link/navigation behavior.
+
+Usage:
+
+```html
+<iss-card>
+  <span slot="header">Case OPS-001</span>
+  <iss-badge slot="header" tone="warning">Needs review</iss-badge>
+  <p>Signal requires review.</p>
+  <iss-button slot="footer" variant="primary">Review</iss-button>
+</iss-card>
 ```

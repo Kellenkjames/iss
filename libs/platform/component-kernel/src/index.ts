@@ -10,10 +10,15 @@ export {
     type IssButtonVariant
 } from './lib/components/iss-button/iss-button';
 export {
+    ISS_CARD_TAG,
+    IssCard,
+    type IssCardVariant
+} from './lib/components/iss-card/iss-card';
+export {
     ISS_INPUT_TAG,
     IssInput,
     type IssInputType,
     type IssInputVariant
 } from './lib/components/iss-input/iss-input';
-export { defineIssBadge, defineIssButton, defineIssInput, registerIssComponents } from './lib/register';
+export { defineIssBadge, defineIssButton, defineIssCard, defineIssInput, registerIssComponents } from './lib/register';
 

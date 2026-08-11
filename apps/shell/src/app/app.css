@@ -43,3 +43,8 @@
   gap: var(--iss-space-2);
   align-items: center;
 }
+
+iss-card {
+  display: block;
+  margin-top: var(--iss-space-4);
+}
