@@ -37,6 +37,32 @@
         <p>Signal requires review before the next handoff.</p>
         <iss-button slot="footer" variant="primary">Review</iss-button>
       </iss-card>
+
+      <section class="shell-state-demo" aria-label="System state demo">
+        <h2>iss-state demo</h2>
+
+        <iss-state
+          status="empty"
+          message="No records match the current filters."
+          action-label="Clear filters"
+          (action)="onStateAction('empty')"
+        ></iss-state>
+
+        <iss-state
+          status="loading"
+          message="Analyzing 240 records..."
+        ></iss-state>
+
+        <iss-state
+          status="error"
+          message="Couldn't load records. Reason follows."
+          action-label="Retry"
+          (action)="onStateAction('error')"
+        ></iss-state>
+
+        <p class="shell-click-count">State actions observed: {{ stateActionCount }}</p>
+        <p class="shell-click-count">Last state action source: {{ lastStateAction }}</p>
+      </section>
     </div>
   </section>
 </main>

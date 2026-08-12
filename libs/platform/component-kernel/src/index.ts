@@ -20,5 +20,17 @@ export {
     type IssInputType,
     type IssInputVariant
 } from './lib/components/iss-input/iss-input';
-export { defineIssBadge, defineIssButton, defineIssCard, defineIssInput, registerIssComponents } from './lib/register';
+export {
+    ISS_STATE_TAG,
+    IssState,
+    type IssStateStatus
+} from './lib/components/iss-state/iss-state';
+export {
+    defineIssBadge,
+    defineIssButton,
+    defineIssCard,
+    defineIssInput,
+    defineIssState,
+    registerIssComponents
+} from './lib/register';
 

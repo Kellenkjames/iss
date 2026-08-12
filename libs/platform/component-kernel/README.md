@@ -8,6 +8,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-input`
 - `iss-badge`
 - `iss-card`
+- `iss-state`
 
 ## Registration
 
@@ -166,4 +167,37 @@ Usage:
   <p>Signal requires review.</p>
   <iss-button slot="footer" variant="primary">Review</iss-button>
 </iss-card>
+```
+
+## `iss-state` API
+
+Purpose: canonical shared rendering for Empty, Loading, and Error states across content regions.
+
+Properties and attributes:
+
+- `status`: `empty | loading | error` (reflected, default: `empty`)
+- `message`: string
+- `actionLabel` / `action-label`: string (optional)
+
+Behavior:
+
+- Unsupported or missing `status` values normalize to `empty`
+- `empty` and `error` can render one optional action when `actionLabel` is provided
+- `loading` never renders an action
+- Action activation dispatches one `action` event (`bubbles: true`, `composed: true`)
+
+Accessibility behavior:
+
+- Loading region exposes `aria-busy="true"`
+- Error message is announced via live-region semantics
+- Empty state does not add live-region behavior
+
+Usage:
+
+```html
+<iss-state
+  status="empty"
+  message="No records match the current filters."
+  action-label="Clear filters"
+></iss-state>
 ```
