@@ -1,20 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import {
-  defineIssBadge,
-  defineIssButton,
-  defineIssCard,
-  defineIssCheckbox,
-  defineIssInput,
-  defineIssState,
-  defineIssTable,
-  IssBadge,
-  IssButton,
-  IssCard,
-  IssCheckbox,
-  IssInput,
-  IssState,
-  IssTable,
-  registerIssComponents,
+    defineIssBadge,
+    defineIssButton,
+    defineIssCard,
+    defineIssCheckbox,
+    defineIssInput,
+    defineIssSelect,
+    defineIssState,
+    defineIssTable,
+    IssBadge,
+    IssButton,
+    IssCard,
+    IssCheckbox,
+    IssInput,
+    IssSelect,
+    IssState,
+    IssTable,
+    registerIssComponents,
 } from '../index';
 
 describe('component registration', () => {
@@ -27,6 +29,12 @@ describe('component registration', () => {
     expect(() => defineIssInput()).not.toThrow();
     expect(() => defineIssInput()).not.toThrow();
     expect(customElements.get('iss-input')).toBe(IssInput);
+  });
+
+  it('registers iss-select and remains duplicate-safe', () => {
+    expect(() => defineIssSelect()).not.toThrow();
+    expect(() => defineIssSelect()).not.toThrow();
+    expect(customElements.get('iss-select')).toBe(IssSelect);
   });
 
   it('registers iss-badge and remains duplicate-safe', () => {
@@ -63,6 +71,7 @@ describe('component registration', () => {
     expect(() => registerIssComponents()).not.toThrow();
     expect(customElements.get('iss-button')).toBe(IssButton);
     expect(customElements.get('iss-input')).toBe(IssInput);
+    expect(customElements.get('iss-select')).toBe(IssSelect);
     expect(customElements.get('iss-badge')).toBe(IssBadge);
     expect(customElements.get('iss-card')).toBe(IssCard);
     expect(customElements.get('iss-checkbox')).toBe(IssCheckbox);

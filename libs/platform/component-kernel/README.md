@@ -11,6 +11,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-state`
 - `iss-table`
 - `iss-checkbox`
+- `iss-select`
 
 ## Registration
 
@@ -108,6 +109,41 @@ Usage:
 	variant="search"
 	helper="Type to filter"
 ></iss-input>
+```
+
+## `iss-select` API
+
+Purpose: choose one or several values from a bounded, named option set.
+
+Properties:
+
+- `variant`: `single | multi` (reflected, default: `single`)
+- `label`: visible field label
+- `options`: `IssSelectOption[]`, where each option is `{ value: string; label: string }`
+- `value`: single-selection value
+- `values`: multi-selection values
+- `placeholder`: trigger text when there is no matching selection
+- `disabled`: boolean (reflected)
+- `error`: error message
+
+Selection state is read from the host properties. Single selection closes after one choice; multi selection toggles membership and remains open. Both variants emit one composed, bubbling standard `change` event per selection action.
+
+Accessibility behavior:
+
+- Uses a native button trigger with `aria-expanded` and `aria-haspopup="listbox"`
+- Uses an in-shadow-root `listbox` with `option` children and `aria-selected`
+- Multi-select exposes `aria-multiselectable="true"`
+- Keyboard navigation uses Enter, Space, ArrowUp, ArrowDown, Escape, and Tab
+- Error text is associated with the trigger through `aria-describedby`
+
+Usage:
+
+```html
+<iss-select
+  label="Case status"
+  [options]="options"
+  [value]="selectedValue"
+></iss-select>
 ```
 
 ## `iss-badge` API

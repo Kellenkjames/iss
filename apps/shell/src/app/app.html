@@ -102,6 +102,28 @@
         <p class="shell-click-count">Checkbox changes observed: {{ checkboxChangeCount }}</p>
         <p class="shell-click-count">Last checkbox state: {{ lastCheckboxState }}</p>
       </section>
+
+      <section class="shell-select-demo" aria-label="Select demo">
+        <h2>iss-select demo</h2>
+
+        <iss-select
+          label="Case status"
+          placeholder="Choose a status"
+          [options]="selectOptions"
+          [value]="selectValue"
+          (change)="onSelectChange($event)"
+        ></iss-select>
+
+        <iss-select
+          variant="multi"
+          label="Teams"
+          [options]="selectOptions"
+          [values]="selectValues"
+          (change)="onMultiSelectChange($event)"
+        ></iss-select>
+
+        <p class="shell-click-count">Select changes observed: {{ selectChangeCount }}</p>
+      </section>
     </div>
   </section>
 </main>

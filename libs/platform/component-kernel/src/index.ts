@@ -25,6 +25,12 @@ export {
     type IssInputVariant
 } from './lib/components/iss-input/iss-input';
 export {
+    ISS_SELECT_TAG,
+    IssSelect,
+    type IssSelectOption,
+    type IssSelectVariant
+} from './lib/components/iss-select/iss-select';
+export {
     ISS_STATE_TAG,
     IssState,
     type IssStateStatus
@@ -44,6 +50,7 @@ export {
     defineIssCard,
     defineIssCheckbox,
     defineIssInput,
+    defineIssSelect,
     defineIssState,
     defineIssTable,
     registerIssComponents

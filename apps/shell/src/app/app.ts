@@ -1,8 +1,9 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import type {
-  ColumnDef,
-  IssTableRow,
-  IssTableSortDetail,
+    ColumnDef,
+    IssSelectOption,
+    IssTableRow,
+    IssTableSortDetail,
 } from '@iss/component-kernel';
 
 @Component({
@@ -21,6 +22,14 @@ export class App {
   protected lastTableSort = 'None';
   protected checkboxChangeCount = 0;
   protected lastCheckboxState = 'Unchecked';
+  protected selectValue = '';
+  protected selectValues: string[] = [];
+  protected selectChangeCount = 0;
+  protected selectOptions: IssSelectOption[] = [
+    { value: 'open', label: 'Open' },
+    { value: 'review', label: 'Review' },
+    { value: 'blocked', label: 'Blocked' },
+  ];
 
   protected tableColumns: ColumnDef[] = [
     { key: 'name', label: 'Name', sortable: true },
@@ -69,5 +78,17 @@ export class App {
     const target = event.target as (EventTarget & { checked?: boolean }) | null;
     this.checkboxChangeCount += 1;
     this.lastCheckboxState = target?.checked ? 'Checked' : 'Unchecked';
+  }
+
+  protected onSelectChange(event: Event): void {
+    const target = event.target as (EventTarget & { value?: string }) | null;
+    this.selectValue = target?.value ?? '';
+    this.selectChangeCount += 1;
+  }
+
+  protected onMultiSelectChange(event: Event): void {
+    const target = event.target as (EventTarget & { values?: string[] }) | null;
+    this.selectValues = target?.values ?? [];
+    this.selectChangeCount += 1;
   }
 }
