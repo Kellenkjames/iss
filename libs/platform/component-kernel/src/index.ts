@@ -26,11 +26,21 @@ export {
     type IssStateStatus
 } from './lib/components/iss-state/iss-state';
 export {
+    ISS_TABLE_TAG,
+    IssTable,
+    type ColumnDef,
+    type IssTableRow,
+    type IssTableSortDetail,
+    type IssTableSortDirection,
+    type IssTableVariant
+} from './lib/components/iss-table/iss-table';
+export {
     defineIssBadge,
     defineIssButton,
     defineIssCard,
     defineIssInput,
     defineIssState,
+    defineIssTable,
     registerIssComponents
 } from './lib/register';
 

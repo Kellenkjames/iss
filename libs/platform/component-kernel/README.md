@@ -9,6 +9,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-badge`
 - `iss-card`
 - `iss-state`
+- `iss-table`
 
 ## Registration
 
@@ -200,4 +201,43 @@ Usage:
   message="No records match the current filters."
   action-label="Clear filters"
 ></iss-state>
+```
+
+## `iss-table` API
+
+Purpose: canonical semantic table for structured record lists.
+
+Properties and attributes:
+
+- `variant`: `default | compact` (reflected, default: `default`)
+- `columns`: `ColumnDef[]`
+- `rows`: `Record<string, unknown>[]`
+- `sortKey`: string (optional)
+- `sortDirection` / `sort-direction`: `none | ascending | descending` (reflected, optional)
+- `emptyMessage` / `empty-message`: string (optional)
+
+Public types:
+
+- `ColumnDef`: `{ key: string; label: string; sortable?: boolean }`
+- `IssTableRow`: `Record<string, unknown>`
+- `IssTableSortDetail`: `{ key: string; direction: 'none' | 'ascending' | 'descending' }`
+
+Behavior:
+
+- Renders native semantic table structure (`table`, `thead`, `tbody`, `th`, `td`)
+- Sortable headers render native buttons and emit exactly one `sort` event per activation
+- The `sort` event bubbles and is composed
+- The component never mutates or reorders consumer-supplied `rows`
+- When `rows` is empty, table reuses `iss-state` with `status="empty"`
+
+Accessibility behavior:
+
+- Header cells use `scope="col"`
+- Sort state is exposed via `aria-sort` on sortable header cells
+- Sort interaction uses keyboard-operable native button controls
+
+Usage:
+
+```html
+<iss-table></iss-table>
 ```

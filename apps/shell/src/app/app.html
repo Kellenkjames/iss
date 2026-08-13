@@ -63,6 +63,33 @@
         <p class="shell-click-count">State actions observed: {{ stateActionCount }}</p>
         <p class="shell-click-count">Last state action source: {{ lastStateAction }}</p>
       </section>
+
+      <section class="shell-table-demo" aria-label="Table demo">
+        <h2>iss-table demo</h2>
+
+        <iss-table
+          [columns]="tableColumns"
+          [rows]="tableRows"
+          [sortKey]="tableSortKey"
+          [sortDirection]="tableSortDirection"
+          (sort)="onTableSort($event)"
+        ></iss-table>
+
+        <iss-table
+          variant="compact"
+          [columns]="tableColumns"
+          [rows]="compactTableRows"
+        ></iss-table>
+
+        <iss-table
+          [columns]="tableColumns"
+          [rows]="emptyTableRows"
+          empty-message="No records match the current filters."
+        ></iss-table>
+
+        <p class="shell-click-count">Table sort events observed: {{ tableSortCount }}</p>
+        <p class="shell-click-count">Last table sort: {{ lastTableSort }}</p>
+      </section>
     </div>
   </section>
 </main>

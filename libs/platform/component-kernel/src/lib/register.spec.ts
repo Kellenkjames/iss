@@ -5,11 +5,13 @@ import {
   defineIssCard,
   defineIssInput,
   defineIssState,
+  defineIssTable,
   IssBadge,
   IssButton,
   IssCard,
   IssInput,
   IssState,
+  IssTable,
   registerIssComponents,
 } from '../index';
 
@@ -43,6 +45,12 @@ describe('component registration', () => {
     expect(customElements.get('iss-state')).toBe(IssState);
   });
 
+  it('registers iss-table and remains duplicate-safe', () => {
+    expect(() => defineIssTable()).not.toThrow();
+    expect(() => defineIssTable()).not.toThrow();
+    expect(customElements.get('iss-table')).toBe(IssTable);
+  });
+
   it('registers all components via aggregate registration', () => {
     expect(() => registerIssComponents()).not.toThrow();
     expect(customElements.get('iss-button')).toBe(IssButton);
@@ -50,5 +58,6 @@ describe('component registration', () => {
     expect(customElements.get('iss-badge')).toBe(IssBadge);
     expect(customElements.get('iss-card')).toBe(IssCard);
     expect(customElements.get('iss-state')).toBe(IssState);
+    expect(customElements.get('iss-table')).toBe(IssTable);
   });
 });

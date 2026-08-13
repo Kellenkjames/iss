@@ -30,7 +30,7 @@
   display: grid;
   gap: var(--iss-space-2);
   align-items: start;
-  max-width: 360px;
+  max-width: 100%;
 }
 
 .shell-click-count {
@@ -59,4 +59,20 @@ iss-card {
   margin: 0;
   font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
   letter-spacing: var(--iss-font-subheading-letter-spacing);
+}
+
+.shell-table-demo {
+  margin-top: var(--iss-space-6);
+  display: grid;
+  gap: var(--iss-space-3);
+}
+
+.shell-table-demo h2 {
+  margin: 0;
+  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
+  letter-spacing: var(--iss-font-subheading-letter-spacing);
+}
+
+iss-table {
+  display: block;
 }
