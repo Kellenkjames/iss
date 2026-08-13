@@ -10,6 +10,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-card`
 - `iss-state`
 - `iss-table`
+- `iss-checkbox`
 
 ## Registration
 
@@ -240,4 +241,40 @@ Usage:
 
 ```html
 <iss-table></iss-table>
+```
+
+## `iss-checkbox` API
+
+Purpose: independent binary selection with native checkbox semantics.
+
+Properties and attributes:
+
+- `checked`: boolean (reflected)
+- `indeterminate`: boolean (reflected; applied to the native checkbox property)
+- `disabled`: boolean (reflected)
+
+Slots:
+
+- default slot: visible checkbox label/content
+
+Behavior:
+
+- Uses a native `<input type="checkbox">` inside the component.
+- The checked state is consumer-controlled and updates from native user interaction.
+- Indeterminate state is consumer-controlled and is synchronized with the native checkbox property; native activation may clear it.
+- Disabled state maps to native checkbox behavior and applies the documented 50% opacity treatment.
+- Standard `change` events are observable at the custom-element boundary.
+
+Accessibility behavior:
+
+- The visible default-slot content participates in a native label/input association.
+- Native keyboard, checked, indeterminate, and disabled semantics are preserved.
+- Focus-visible styling is provided on the custom control.
+
+Usage:
+
+```html
+<iss-checkbox>Include archived records</iss-checkbox>
+<iss-checkbox checked>Selected record</iss-checkbox>
+<iss-checkbox indeterminate>Select all records</iss-checkbox>
 ```

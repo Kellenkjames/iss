@@ -90,6 +90,18 @@
         <p class="shell-click-count">Table sort events observed: {{ tableSortCount }}</p>
         <p class="shell-click-count">Last table sort: {{ lastTableSort }}</p>
       </section>
+
+      <section class="shell-checkbox-demo" aria-label="Checkbox demo">
+        <h2>iss-checkbox demo</h2>
+
+        <iss-checkbox (change)="onCheckboxChange($event)">Unchecked by default</iss-checkbox>
+        <iss-checkbox checked>Checked</iss-checkbox>
+        <iss-checkbox indeterminate>Indeterminate</iss-checkbox>
+        <iss-checkbox disabled>Disabled</iss-checkbox>
+
+        <p class="shell-click-count">Checkbox changes observed: {{ checkboxChangeCount }}</p>
+        <p class="shell-click-count">Last checkbox state: {{ lastCheckboxState }}</p>
+      </section>
     </div>
   </section>
 </main>

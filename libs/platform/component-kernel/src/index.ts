@@ -15,6 +15,10 @@ export {
     type IssCardVariant
 } from './lib/components/iss-card/iss-card';
 export {
+    ISS_CHECKBOX_TAG,
+    IssCheckbox
+} from './lib/components/iss-checkbox/iss-checkbox';
+export {
     ISS_INPUT_TAG,
     IssInput,
     type IssInputType,
@@ -38,6 +42,7 @@ export {
     defineIssBadge,
     defineIssButton,
     defineIssCard,
+    defineIssCheckbox,
     defineIssInput,
     defineIssState,
     defineIssTable,

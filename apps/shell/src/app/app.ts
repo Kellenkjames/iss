@@ -19,6 +19,8 @@ export class App {
   protected lastStateAction = 'None';
   protected tableSortCount = 0;
   protected lastTableSort = 'None';
+  protected checkboxChangeCount = 0;
+  protected lastCheckboxState = 'Unchecked';
 
   protected tableColumns: ColumnDef[] = [
     { key: 'name', label: 'Name', sortable: true },
@@ -61,5 +63,11 @@ export class App {
     this.tableSortKey = customEvent.detail.key;
     this.tableSortDirection = customEvent.detail.direction;
     this.lastTableSort = `${customEvent.detail.key}:${customEvent.detail.direction}`;
+  }
+
+  protected onCheckboxChange(event: Event): void {
+    const target = event.target as (EventTarget & { checked?: boolean }) | null;
+    this.checkboxChangeCount += 1;
+    this.lastCheckboxState = target?.checked ? 'Checked' : 'Unchecked';
   }
 }

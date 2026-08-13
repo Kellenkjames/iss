@@ -1,6 +1,7 @@
 import { ISS_BADGE_TAG, IssBadge } from './components/iss-badge/iss-badge';
 import { ISS_BUTTON_TAG, IssButton } from './components/iss-button/iss-button';
 import { ISS_CARD_TAG, IssCard } from './components/iss-card/iss-card';
+import { ISS_CHECKBOX_TAG, IssCheckbox } from './components/iss-checkbox/iss-checkbox';
 import { ISS_INPUT_TAG, IssInput } from './components/iss-input/iss-input';
 import { ISS_STATE_TAG, IssState } from './components/iss-state/iss-state';
 import { ISS_TABLE_TAG, IssTable } from './components/iss-table/iss-table';
@@ -29,6 +30,12 @@ export function defineIssCard(tagName = ISS_CARD_TAG): void {
   }
 }
 
+export function defineIssCheckbox(tagName = ISS_CHECKBOX_TAG): void {
+  if (!customElements.get(tagName)) {
+    customElements.define(tagName, IssCheckbox);
+  }
+}
+
 export function defineIssState(tagName = ISS_STATE_TAG): void {
   if (!customElements.get(tagName)) {
     customElements.define(tagName, IssState);
@@ -46,6 +53,7 @@ export function registerIssComponents(): void {
   defineIssInput();
   defineIssBadge();
   defineIssCard();
+  defineIssCheckbox();
   defineIssState();
   defineIssTable();
 }

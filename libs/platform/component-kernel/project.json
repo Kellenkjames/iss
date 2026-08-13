@@ -42,7 +42,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": ".",
-        "command": "pnpm vitest run libs/platform/component-kernel/src/lib/components/iss-button/iss-button.spec.ts libs/platform/component-kernel/src/lib/components/iss-input/iss-input.spec.ts libs/platform/component-kernel/src/lib/components/iss-badge/iss-badge.spec.ts libs/platform/component-kernel/src/lib/components/iss-card/iss-card.spec.ts libs/platform/component-kernel/src/lib/components/iss-state/iss-state.spec.ts libs/platform/component-kernel/src/lib/components/iss-table/iss-table.spec.ts libs/platform/component-kernel/src/lib/register.spec.ts --environment jsdom"
+        "command": "pnpm vitest run libs/platform/component-kernel/src/lib/components/iss-button/iss-button.spec.ts libs/platform/component-kernel/src/lib/components/iss-input/iss-input.spec.ts libs/platform/component-kernel/src/lib/components/iss-badge/iss-badge.spec.ts libs/platform/component-kernel/src/lib/components/iss-card/iss-card.spec.ts libs/platform/component-kernel/src/lib/components/iss-state/iss-state.spec.ts libs/platform/component-kernel/src/lib/components/iss-table/iss-table.spec.ts libs/platform/component-kernel/src/lib/components/iss-checkbox/iss-checkbox.spec.ts libs/platform/component-kernel/src/lib/register.spec.ts --environment jsdom"
       }
     }
   }
