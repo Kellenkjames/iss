@@ -1,0 +1,41 @@
+{
+  "name": "ai-provider",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/platform/ai-provider/src",
+  "projectType": "library",
+  "tags": [
+    "type:platform",
+    "scope:platform",
+    "runtime:universal"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/platform/ai-provider",
+        "main": "libs/platform/ai-provider/src/index.ts",
+        "tsConfig": "libs/platform/ai-provider/tsconfig.json",
+        "assets": [
+          "libs/platform/ai-provider/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": ".",
+        "command": "pnpm eslint libs/platform/ai-provider/**/*.ts --max-warnings=0"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": ".",
+        "command": "pnpm vitest run libs/platform/ai-provider/src/lib/ai-provider.spec.ts --environment node"
+      }
+    }
+  }
+}

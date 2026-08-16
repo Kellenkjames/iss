@@ -23,6 +23,8 @@
       "@iss/design-tokens": ["./libs/platform/design-tokens/src/index.ts"],
       "@iss/design-tokens/*": ["./libs/platform/design-tokens/src/*"],
       "@iss/design-tokens/styles.css": ["./libs/platform/design-tokens/src/styles.css"],
+      "@iss/ai-provider": ["./libs/platform/ai-provider/src/index.ts"],
+      "@iss/ai-provider/*": ["./libs/platform/ai-provider/src/*"],
       "@iss/telemetry": ["./libs/platform/telemetry/src/index.ts"],
       "@iss/telemetry/*": ["./libs/platform/telemetry/src/*"]
     }
