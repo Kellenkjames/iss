@@ -114,7 +114,7 @@ export class IssTable extends LitElement {
     .sort-button:focus-visible {
       outline: 2px solid var(--iss-color-accent);
       outline-offset: 2px;
-      border-radius: var(--iss-radius-1);
+      border-radius: var(--iss-radius-2);
     }
 
     .sort-indicator {

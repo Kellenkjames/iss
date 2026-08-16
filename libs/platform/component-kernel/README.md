@@ -11,9 +11,10 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-state`
 - `iss-table`
 - `iss-checkbox`
-- `iss-radio`
 - `iss-select`
+- `iss-drawer`
 - `iss-filter-bar`
+- `iss-radio`
 
 ## Registration
 
@@ -132,6 +133,11 @@ Accessibility behavior:
 - Helper or error message links through `aria-describedby`
 - Search variant clear control is keyboard accessible with an explicit accessible name
 
+Form boundary:
+
+- Kernel v1 controls expose component-level state, native internal semantics, and public events.
+- `iss-input` is not a Form-Associated Custom Element in v1.0 and does not implement `ElementInternals`, form submission, or Angular forms integration.
+
 Events:
 
 - Standard `input` and `change` events are observable from consumers.
@@ -231,6 +237,12 @@ Accessibility behavior:
 - The interactive variant uses a native `<button>` as the card action surface.
 - Interactive cards expose native keyboard and click semantics without introducing link/navigation behavior.
 
+Interaction boundary:
+
+- Interactive behavior uses standard native click semantics from one internal button surface; no `cardClick` event is emitted.
+- `variant="interactive"` is a single-action surface and must not contain independent nested buttons, links, or form controls.
+- Use the default variant when a Card contains independent actions such as an `iss-button`.
+
 Usage:
 
 ```html
@@ -241,6 +253,38 @@ Usage:
   <iss-button slot="footer" variant="primary">Review</iss-button>
 </iss-card>
 ```
+
+## `iss-drawer` API
+
+Purpose: controlled right-edge detail and editing surface for contextual content.
+
+Properties and attributes:
+
+- `variant`: `view | edit` (reflected; default: `view`)
+- `open`: boolean (reflected; default: `false`)
+
+Slots:
+
+- `header`: title and header content
+- default slot: drawer body content
+- `footer`: footer actions
+
+Behavior:
+
+- `open` is controlled by the consumer; the Drawer requests closure but does not change the public `open` state itself.
+- The close button, Escape, and scrim dismissal each emit one composed, bubbling `closed` event.
+- Opening moves focus into the Drawer, Tab navigation is contained while open, and focus is restored to the prior control after close.
+- The Drawer is placed at the right edge of the viewport and uses a closing transition unless reduced motion is active.
+
+Accessibility behavior:
+
+- Uses `role="dialog"`, `aria-modal="true"`, and an accessible title association through the `header` slot.
+- The close button and scrim have accessible names.
+- Inactive Drawer content is hidden and inert.
+
+Boundaries:
+
+- No dirty-state confirmation, native `<dialog>`, portal framework, or application save/cancel logic is provided.
 
 ## `iss-state` API
 
@@ -367,3 +411,4 @@ Slot and behavior:
 - Uses a native `<input type="radio">` and standard composed `change` events.
 - Same-name instances are mutually exclusive and keep public host state synchronized.
 - No radio-group, forms, validation, or selected-value abstraction is provided.
+- Same-name radios in separate Shadow DOM roots do not receive cross-component native ArrowUp/ArrowDown/ArrowLeft/ArrowRight group navigation in v1.0.

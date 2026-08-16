@@ -89,6 +89,98 @@ describe('iss-radio', () => {
     expect(thirdInput.checked).toBe(true);
   });
 
+  it('keeps different non-empty names isolated', async () => {
+    const priority = await createRadio({ name: 'priority', value: 'low' });
+    const status = await createRadio({ name: 'status', value: 'open' });
+    const priorityInput = priority.shadowRoot?.querySelector('input') as HTMLInputElement;
+    const statusInput = status.shadowRoot?.querySelector('input') as HTMLInputElement;
+
+    statusInput.click();
+    priorityInput.click();
+
+    expect(priority.checked).toBe(true);
+    expect(status.checked).toBe(true);
+    expect(statusInput.checked).toBe(true);
+  });
+
+  it('does not coordinate empty-name radios as a private group', async () => {
+    const first = await createRadio({ value: 'first' });
+    const second = await createRadio({ value: 'second' });
+    const firstInput = first.shadowRoot?.querySelector('input') as HTMLInputElement;
+    const secondInput = second.shadowRoot?.querySelector('input') as HTMLInputElement;
+
+    firstInput.click();
+    secondInput.click();
+
+    expect(first.checked).toBe(true);
+    expect(second.checked).toBe(true);
+    expect(firstInput.checked).toBe(true);
+    expect(secondInput.checked).toBe(true);
+  });
+
+  it('removes disconnected peers and coordinates them after reconnect', async () => {
+    const first = await createRadio({ name: 'priority', value: 'first' });
+    const second = await createRadio({ name: 'priority', value: 'second' });
+    const firstInput = first.shadowRoot?.querySelector('input') as HTMLInputElement;
+    const secondInput = second.shadowRoot?.querySelector('input') as HTMLInputElement;
+
+    firstInput.click();
+    first.remove();
+    secondInput.click();
+    document.body.appendChild(first);
+    await first.updateComplete;
+    const reconnectedInput = first.shadowRoot?.querySelector('input') as HTMLInputElement;
+    reconnectedInput.click();
+
+    expect(first.checked).toBe(true);
+    expect(reconnectedInput.checked).toBe(true);
+    expect(second.checked).toBe(false);
+    expect(second.shadowRoot?.querySelector('input')?.checked).toBe(false);
+  });
+
+  it('uses the current name for dynamic coordination', async () => {
+    const first = await createRadio({ name: 'priority', value: 'first' });
+    const second = await createRadio({ name: 'status', value: 'second' });
+    const firstInput = first.shadowRoot?.querySelector('input') as HTMLInputElement;
+    const secondInput = second.shadowRoot?.querySelector('input') as HTMLInputElement;
+
+    firstInput.click();
+    first.name = 'status';
+    await first.updateComplete;
+    secondInput.click();
+
+    expect(first.checked).toBe(false);
+    expect(firstInput.checked).toBe(false);
+    expect(second.checked).toBe(true);
+
+    first.name = '';
+    first.checked = true;
+    await first.updateComplete;
+    expect(second.checked).toBe(true);
+
+    first.name = 'priority';
+    await first.updateComplete;
+    expect(first.checked).toBe(true);
+    expect(second.checked).toBe(true);
+  });
+
+  it('lets the most recently processed checked peer win external conflicts', async () => {
+    const first = await createRadio({ name: 'priority', value: 'first' });
+    const second = await createRadio({ name: 'priority', value: 'second' });
+    const firstInput = first.shadowRoot?.querySelector('input') as HTMLInputElement;
+    const secondInput = second.shadowRoot?.querySelector('input') as HTMLInputElement;
+
+    first.checked = true;
+    await first.updateComplete;
+    second.checked = true;
+    await second.updateComplete;
+
+    expect(first.checked).toBe(false);
+    expect(firstInput.checked).toBe(false);
+    expect(second.checked).toBe(true);
+    expect(secondInput.checked).toBe(true);
+  });
+
   it('emits one composed change with current host state and value', async () => {
     const element = await createRadio({ name: 'priority', value: 'high' });
     const input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
@@ -104,6 +196,21 @@ describe('iss-radio', () => {
     expect(changeHandler).toHaveBeenCalledTimes(1);
     expect(changeHandler.mock.calls[0]?.[0].bubbles).toBe(true);
     expect(changeHandler.mock.calls[0]?.[0].composed).toBe(true);
+  });
+
+  it('supports native Space activation with one synchronized change event', async () => {
+    const element = await createRadio({ name: 'priority', value: 'space' });
+    const input = element.shadowRoot?.querySelector('input') as HTMLInputElement;
+    const changeHandler = vi.fn();
+    element.addEventListener('change', changeHandler);
+
+    input.focus();
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+    input.click();
+
+    expect(element.checked).toBe(true);
+    expect(input.checked).toBe(true);
+    expect(changeHandler).toHaveBeenCalledTimes(1);
   });
 
   it('does not emit or select when disabled and supports label activation', async () => {
