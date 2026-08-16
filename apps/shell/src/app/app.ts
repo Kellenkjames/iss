@@ -26,6 +26,8 @@ export class App {
   protected lastTableSort = 'None';
   protected checkboxChangeCount = 0;
   protected lastCheckboxState = 'Unchecked';
+  protected radioChangeCount = 0;
+  protected selectedPriority = 'None';
   protected selectValue = '';
   protected selectValues: string[] = [];
   protected selectChangeCount = 0;
@@ -99,6 +101,12 @@ export class App {
     const target = event.target as (EventTarget & { checked?: boolean }) | null;
     this.checkboxChangeCount += 1;
     this.lastCheckboxState = target?.checked ? 'Checked' : 'Unchecked';
+  }
+
+  protected onRadioChange(event: Event): void {
+    const target = event.target as (EventTarget & { value?: string }) | null;
+    this.radioChangeCount += 1;
+    this.selectedPriority = target?.value ?? 'None';
   }
 
   protected onSelectChange(event: Event): void {

@@ -133,6 +133,16 @@
         <p class="shell-click-count">Last checkbox state: {{ lastCheckboxState }}</p>
       </section>
 
+      <section class="shell-radio-demo" aria-label="Radio demo">
+        <h2>iss-radio demo</h2>
+        <iss-radio name="priority" value="low" (change)="onRadioChange($event)">Low</iss-radio>
+        <iss-radio name="priority" value="medium" (change)="onRadioChange($event)">Medium</iss-radio>
+        <iss-radio name="priority" value="high" (change)="onRadioChange($event)">High</iss-radio>
+        <iss-radio name="priority" value="blocked" disabled>Disabled</iss-radio>
+        <p class="shell-click-count">Radio changes observed: {{ radioChangeCount }}</p>
+        <p class="shell-click-count">Selected priority: {{ selectedPriority }}</p>
+      </section>
+
       <section class="shell-select-demo" aria-label="Select demo">
         <h2>iss-select demo</h2>
 

@@ -37,6 +37,10 @@ export {
     type IssInputVariant
 } from './lib/components/iss-input/iss-input';
 export {
+    ISS_RADIO_TAG,
+    IssRadio
+} from './lib/components/iss-radio/iss-radio';
+export {
     ISS_SELECT_TAG,
     IssSelect,
     type IssSelectOption,
@@ -64,6 +68,7 @@ export {
     defineIssDrawer,
     defineIssFilterBar,
     defineIssInput,
+    defineIssRadio,
     defineIssSelect,
     defineIssState,
     defineIssTable,

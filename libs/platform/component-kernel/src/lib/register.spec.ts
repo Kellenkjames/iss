@@ -7,6 +7,7 @@ import {
     defineIssDrawer,
     defineIssFilterBar,
     defineIssInput,
+    defineIssRadio,
     defineIssSelect,
     defineIssState,
     defineIssTable,
@@ -17,6 +18,7 @@ import {
     IssDrawer,
     IssFilterBar,
     IssInput,
+    IssRadio,
     IssSelect,
     IssState,
     IssTable,
@@ -65,6 +67,12 @@ describe('component registration', () => {
     expect(customElements.get('iss-checkbox')).toBe(IssCheckbox);
   });
 
+  it('registers iss-radio and remains duplicate-safe', () => {
+    expect(() => defineIssRadio()).not.toThrow();
+    expect(() => defineIssRadio()).not.toThrow();
+    expect(customElements.get('iss-radio')).toBe(IssRadio);
+  });
+
   it('registers iss-drawer and remains duplicate-safe', () => {
     expect(() => defineIssDrawer()).not.toThrow();
     expect(() => defineIssDrawer()).not.toThrow();
@@ -92,6 +100,7 @@ describe('component registration', () => {
     expect(customElements.get('iss-badge')).toBe(IssBadge);
     expect(customElements.get('iss-card')).toBe(IssCard);
     expect(customElements.get('iss-checkbox')).toBe(IssCheckbox);
+    expect(customElements.get('iss-radio')).toBe(IssRadio);
     expect(customElements.get('iss-drawer')).toBe(IssDrawer);
     expect(customElements.get('iss-state')).toBe(IssState);
     expect(customElements.get('iss-table')).toBe(IssTable);

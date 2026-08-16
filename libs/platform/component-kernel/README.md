@@ -11,6 +11,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-state`
 - `iss-table`
 - `iss-checkbox`
+- `iss-radio`
 - `iss-select`
 - `iss-filter-bar`
 
@@ -348,3 +349,21 @@ Usage:
 <iss-checkbox checked>Selected record</iss-checkbox>
 <iss-checkbox indeterminate>Select all records</iss-checkbox>
 ```
+
+## `iss-radio` API
+
+Purpose: single-choice selection with native radio semantics.
+
+Properties and attributes:
+
+- `checked`: boolean (reflected)
+- `disabled`: boolean (reflected)
+- `name`: string (reflected; native same-name grouping)
+- `value`: string (reflected; application-facing option identity)
+
+Slot and behavior:
+
+- The default slot provides the visible label/content.
+- Uses a native `<input type="radio">` and standard composed `change` events.
+- Same-name instances are mutually exclusive and keep public host state synchronized.
+- No radio-group, forms, validation, or selected-value abstraction is provided.

@@ -5,6 +5,7 @@ import { ISS_CHECKBOX_TAG, IssCheckbox } from './components/iss-checkbox/iss-che
 import { ISS_DRAWER_TAG, IssDrawer } from './components/iss-drawer/iss-drawer';
 import { ISS_FILTER_BAR_TAG, IssFilterBar } from './components/iss-filter-bar/iss-filter-bar';
 import { ISS_INPUT_TAG, IssInput } from './components/iss-input/iss-input';
+import { ISS_RADIO_TAG, IssRadio } from './components/iss-radio/iss-radio';
 import { ISS_SELECT_TAG, IssSelect } from './components/iss-select/iss-select';
 import { ISS_STATE_TAG, IssState } from './components/iss-state/iss-state';
 import { ISS_TABLE_TAG, IssTable } from './components/iss-table/iss-table';
@@ -57,6 +58,12 @@ export function defineIssCheckbox(tagName = ISS_CHECKBOX_TAG): void {
   }
 }
 
+export function defineIssRadio(tagName = ISS_RADIO_TAG): void {
+  if (!customElements.get(tagName)) {
+    customElements.define(tagName, IssRadio);
+  }
+}
+
 export function defineIssState(tagName = ISS_STATE_TAG): void {
   if (!customElements.get(tagName)) {
     customElements.define(tagName, IssState);
@@ -78,6 +85,7 @@ export function registerIssComponents(): void {
   defineIssCard();
   defineIssDrawer();
   defineIssCheckbox();
+  defineIssRadio();
   defineIssState();
   defineIssTable();
 }
