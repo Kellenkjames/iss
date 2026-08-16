@@ -10,7 +10,7 @@
 
 **Version:** 1.0
 
-**Status:** Planning (Phase 0)
+**Status:** Frozen v1.0 — Human Approved
 
 ---
 
@@ -44,8 +44,7 @@ Design Tokens
 Intelligent Component Kernel
         ↓
 Application Shell
-Interpretation Engine
-Signal System
+ISS applications
 ```
 
 The Kernel should contain no application-specific behavior.
@@ -69,6 +68,7 @@ The Intelligent Component Kernel is responsible for:
 - Supporting Angular integration through native Web Components
 - Defining consistent interaction behavior across ISS
 - Minimizing duplication throughout the repository
+- Providing controlled composition boundaries without owning application workflows
 
 Each component should solve one architectural problem.
 
@@ -102,23 +102,21 @@ Applications compose them into user experiences.
 
 The package exposes reusable Web Components.
 
-Initial Version 1 primitives include:
+Frozen v1.0 public components are:
 
-- Button
-- Input
-- Modal
-- Table
+- `iss-button`
+- `iss-input`
+- `iss-badge`
+- `iss-card`
+- `iss-state`
+- `iss-table`
+- `iss-checkbox`
+- `iss-select`
+- `iss-drawer`
+- `iss-filter-bar`
+- `iss-radio`
 
-Additional Version 1 primitives (as implementation progresses):
-
-- Card
-- Badge
-- Alert
-- Tabs
-- Tooltip
-- Dropdown
-- Spinner
-- Empty State
+The public package also exposes typed component classes, tag constants, supported public types, individual duplicate-safe registration helpers, and `registerIssComponents()`.
 
 Every component exposes:
 
@@ -169,7 +167,7 @@ Avoid abstractions that reduce transparency.
 
 # 7. Success Criteria
 
-Version 1 is complete when:
+Version 1 is complete and frozen when:
 
 - Components are framework-independent.
 - Components consume only Design Tokens for styling.
@@ -178,6 +176,7 @@ Version 1 is complete when:
 - Accessibility is built into every primitive.
 - Documentation exists for every exported component.
 - Components demonstrate predictable behavior across applications.
+- Representative composition proofs cover Filter Bar/Table/State, Drawer with controls, and default Card with Badge/Button.
 
 Success is measured by architectural consistency rather than total component count.
 
@@ -187,20 +186,19 @@ Success is measured by architectural consistency rather than total component cou
 
 Version 1 intentionally focuses on foundational interaction primitives.
 
-Included:
+Included and frozen:
 
-- Button
-- Input
-- Modal
-- Table
-- Card
-- Badge
-- Alert
-- Spinner
-- Empty State
-- Tabs
-- Tooltip
-- Dropdown
+- Button (`iss-button`)
+- Input (`iss-input`)
+- Badge (`iss-badge`)
+- Card (`iss-card`)
+- System State (`iss-state`)
+- Table (`iss-table`)
+- Checkbox (`iss-checkbox`)
+- Select (`iss-select`)
+- Drawer (`iss-drawer`)
+- Filter Bar (`iss-filter-bar`)
+- Radio (`iss-radio`)
 
 Each component should remain intentionally minimal.
 
@@ -208,7 +206,7 @@ Components solve common interaction patterns.
 
 Applications compose them into richer interfaces.
 
-Excluded:
+Explicitly outside v1:
 
 - Data grids
 - Rich text editors
@@ -218,6 +216,14 @@ Excluded:
 - Virtualized tables
 - Animation libraries
 - Component variants beyond demonstrated need
+- Radio Group and custom cross-shadow arrow-key coordination
+- Form-Associated Custom Elements, `ElementInternals`, and Angular forms/CVA
+- Modal or confirmation-dialog architecture
+- Alert, Tabs, Tooltip, Dropdown distinct from Select, Spinner, and standalone Skeleton
+- Drawer dirty-state confirmation
+- Table selection and pagination
+- Generalized overlay/forms infrastructure
+- Storybook and Angular wrapper packages
 
 The objective is architectural stability.
 
@@ -230,11 +236,9 @@ Not UI completeness.
 Future versions may introduce:
 
 - Advanced data visualization primitives
-- Layout primitives
 - Form composition utilities
 - Accessibility enhancements
 - Additional semantic component families
-- Component testing infrastructure
 - Framework-specific optimization layers
 
 Future expansion should remain driven by demonstrated architectural need.
@@ -245,17 +249,14 @@ The Kernel should remain intentionally conservative.
 
 # 10. Out of Scope
 
-The following are intentionally deferred beyond Version 1:
+The following remain intentionally deferred beyond Version 1:
 
-- Storybook
-- Component marketplace
-- Third-party component wrappers
-- Framework-specific component implementations
-- Visual page builders
-- Theme editor
-- Low-code tooling
-- Animation framework
-- Rich interaction framework
+- Storybook and broader component documentation infrastructure
+- Component marketplace and third-party component wrappers
+- Framework-specific wrappers and Angular ControlValueAccessor integration
+- Visual page builders, theme editors, and low-code tooling
+- Animation framework and generalized rich-interaction infrastructure
+- Form association and generalized overlay infrastructure
 
 The Kernel is infrastructure.
 
@@ -298,7 +299,7 @@ The Kernel demonstrates the ability to create reusable software assets that redu
 
 # Definition of Done
 
-The Intelligent Component Kernel is complete when every ISS application can construct its user interface using Kernel components without creating duplicate foundational UI primitives.
+The Intelligent Component Kernel v1.0 is complete and frozen when every ISS application can construct its foundational interface using the 11 registered Kernel components without creating duplicate primitives. The v1.0 candidate has been validated with 13 Kernel spec files and 153 passing tests, a clean Design Token audit, clean Nx dependency direction, and representative composition proofs.
 
 Any new application entering the repository should inherit interaction behavior from the Kernel rather than inventing its own.
 

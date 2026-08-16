@@ -10,7 +10,7 @@
 
 **Version:** 1.0
 
-**Status:** Planning (Phase 0)
+**Status:** Validated v1.0 Foundation
 
 ---
 
@@ -46,8 +46,7 @@ Design Tokens
 Component Kernel
         ↓
 Application Shell
-Interpretation Engine
-Signal System
+ISS applications
 ```
 
 No downstream project should define its own visual primitives.
@@ -65,8 +64,8 @@ The Design Tokens package is responsible for:
 - Defining spacing scales
 - Defining border radius values
 - Defining elevation (shadow) values
-- Defining animation duration and easing primitives
-- Defining sizing primitives where appropriate
+- Defining animation duration primitives
+- Defining layout, container, and grid primitives where appropriate
 - Exporting tokens in a framework-agnostic format
 - Providing a single source of truth for visual consistency across ISS
 
@@ -129,12 +128,7 @@ This package forms the root of the visual dependency graph.
 
 Version 1 should remain intentionally lightweight.
 
-Expected dependencies:
-
-- TypeScript
-- Style Dictionary (only if justified during implementation)
-
-Avoid introducing tooling that increases maintenance burden without improving architectural clarity.
+The package remains intentionally lightweight and exposes CSS custom properties plus its TypeScript entry point. It does not require a runtime token framework or a generated Style Dictionary pipeline.
 
 ---
 
@@ -146,7 +140,7 @@ Version 1 is considered complete when:
 - Tokens can be consumed by both Lit and Angular without duplication.
 - Downstream projects contain no duplicated visual constants.
 - Token naming remains internally consistent.
-- Documentation explains the reasoning behind each token category.
+- Documentation explains the token contract and consumption boundary.
 - Future components can be created without inventing new foundational design values.
 
 Completion is measured by architectural completeness rather than quantity of tokens.
@@ -157,16 +151,15 @@ Completion is measured by architectural completeness rather than quantity of tok
 
 Version 1 intentionally includes only the foundational primitives required by the rest of ISS.
 
-Included:
+Included and validated:
 
-- Colors
-- Typography
-- Spacing
-- Border Radius
-- Elevation
-- Motion
-- Opacity
-- Z-index scale (minimal)
+- Semantic colors: surfaces, borders, text, accent, and status tones
+- Typography families, sizes, weights, line heights, and letter spacing
+- Spacing scale
+- Canonical radius value(s)
+- Elevation scale
+- Motion durations
+- Layout container and grid primitives
 
 Excluded:
 
@@ -214,7 +207,7 @@ The following are intentionally deferred beyond Version 1:
 - Runtime customization
 - User-selectable themes
 
-None of these are required to demonstrate architectural maturity during the six-month build.
+None of these are required for the current v1 platform foundation.
 
 ---
 
@@ -251,8 +244,8 @@ The package demonstrates the ability to establish architectural standards that s
 
 # Definition of Done
 
-This package is complete when another engineer can build an entirely new ISS application using only the exported tokens without introducing new foundational visual primitives.
+This package is complete for v1.0 when another engineer can build an ISS application using the exported tokens without introducing new foundational visual primitives. The current validated package is consumed by the frozen Component Kernel and the Angular shell through the shared `--iss-*` CSS custom-property contract.
 
 If a downstream project requires new primitive tokens, the architectural assumption should be that the Design Tokens package—not the application—needs to evolve.
 
-The package succeeds when it eliminates future design decisions rather than when it contains the greatest number of tokens.
+The package succeeds when it provides a stable visual foundation rather than when it contains the greatest number of tokens.
