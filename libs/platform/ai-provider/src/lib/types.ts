@@ -54,3 +54,11 @@ export interface AiProviderOptions {
     }) => void | Promise<void>;
   };
 }
+
+export interface OpenAiAdapterOptions {
+  apiKey?: string;
+  baseUrl?: string;
+  model?: string;
+  organization?: string;
+  defaultSystemMessage?: string;
+}
