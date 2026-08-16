@@ -4,6 +4,7 @@ import {
     defineIssButton,
     defineIssCard,
     defineIssCheckbox,
+    defineIssDrawer,
     defineIssInput,
     defineIssSelect,
     defineIssState,
@@ -12,6 +13,7 @@ import {
     IssButton,
     IssCard,
     IssCheckbox,
+    IssDrawer,
     IssInput,
     IssSelect,
     IssState,
@@ -55,6 +57,12 @@ describe('component registration', () => {
     expect(customElements.get('iss-checkbox')).toBe(IssCheckbox);
   });
 
+  it('registers iss-drawer and remains duplicate-safe', () => {
+    expect(() => defineIssDrawer()).not.toThrow();
+    expect(() => defineIssDrawer()).not.toThrow();
+    expect(customElements.get('iss-drawer')).toBe(IssDrawer);
+  });
+
   it('registers iss-state and remains duplicate-safe', () => {
     expect(() => defineIssState()).not.toThrow();
     expect(() => defineIssState()).not.toThrow();
@@ -75,6 +83,7 @@ describe('component registration', () => {
     expect(customElements.get('iss-badge')).toBe(IssBadge);
     expect(customElements.get('iss-card')).toBe(IssCard);
     expect(customElements.get('iss-checkbox')).toBe(IssCheckbox);
+    expect(customElements.get('iss-drawer')).toBe(IssDrawer);
     expect(customElements.get('iss-state')).toBe(IssState);
     expect(customElements.get('iss-table')).toBe(IssTable);
   });

@@ -25,6 +25,10 @@ export class App {
   protected selectValue = '';
   protected selectValues: string[] = [];
   protected selectChangeCount = 0;
+  protected viewDrawerOpen = false;
+  protected editDrawerOpen = false;
+  protected drawerCloseCount = 0;
+  protected lastDrawerEvent = 'None';
   protected selectOptions: IssSelectOption[] = [
     { value: 'open', label: 'Open' },
     { value: 'review', label: 'Review' },
@@ -90,5 +94,28 @@ export class App {
     const target = event.target as (EventTarget & { values?: string[] }) | null;
     this.selectValues = target?.values ?? [];
     this.selectChangeCount += 1;
+  }
+
+  protected openViewDrawer(): void {
+    this.viewDrawerOpen = true;
+  }
+
+  protected openEditDrawer(): void {
+    this.editDrawerOpen = true;
+  }
+
+  protected onViewDrawerClosed(): void {
+    this.viewDrawerOpen = false;
+    this.recordDrawerClose('view');
+  }
+
+  protected onEditDrawerClosed(): void {
+    this.editDrawerOpen = false;
+    this.recordDrawerClose('edit');
+  }
+
+  private recordDrawerClose(variant: 'view' | 'edit'): void {
+    this.drawerCloseCount += 1;
+    this.lastDrawerEvent = `${variant} closed`;
   }
 }

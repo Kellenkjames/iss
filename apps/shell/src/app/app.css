@@ -37,6 +37,41 @@
   color: var(--iss-color-text-muted);
 }
 
+.shell-drawer-demo {
+  display: grid;
+  gap: var(--iss-space-3);
+  padding: var(--iss-space-4) 0;
+  border-top: 1px solid var(--iss-color-border);
+  border-bottom: 1px solid var(--iss-color-border);
+}
+
+.shell-drawer-demo h2 {
+  margin: 0;
+  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
+  letter-spacing: var(--iss-font-subheading-letter-spacing);
+}
+
+.shell-drawer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--iss-space-2);
+}
+
+.drawer-details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--iss-space-2) var(--iss-space-4);
+  margin: var(--iss-space-6) 0 0;
+}
+
+.drawer-details dt {
+  color: var(--iss-color-text-muted);
+}
+
+.drawer-details dd {
+  margin: 0;
+}
+
 .shell-badges {
   display: flex;
   flex-wrap: wrap;

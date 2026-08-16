@@ -19,6 +19,11 @@ export {
     IssCheckbox
 } from './lib/components/iss-checkbox/iss-checkbox';
 export {
+    ISS_DRAWER_TAG,
+    IssDrawer,
+    type IssDrawerVariant
+} from './lib/components/iss-drawer/iss-drawer';
+export {
     ISS_INPUT_TAG,
     IssInput,
     type IssInputType,
@@ -49,6 +54,7 @@ export {
     defineIssButton,
     defineIssCard,
     defineIssCheckbox,
+    defineIssDrawer,
     defineIssInput,
     defineIssSelect,
     defineIssState,

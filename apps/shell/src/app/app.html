@@ -8,6 +8,36 @@
       </iss-button>
       <p class="shell-click-count">Primary action clicks: {{ buttonClicks }}</p>
 
+      <section class="shell-drawer-demo" aria-label="Drawer demo">
+        <h2>iss-drawer demo</h2>
+        <p>Open contextual detail while keeping the shell visible behind the overlay.</p>
+        <div class="shell-drawer-actions">
+          <iss-button variant="secondary" (click)="openViewDrawer()">Open view</iss-button>
+          <iss-button variant="primary" (click)="openEditDrawer()">Open edit</iss-button>
+        </div>
+        <p class="shell-click-count">Drawer close events observed: {{ drawerCloseCount }}</p>
+        <p class="shell-click-count">Last Drawer event: {{ lastDrawerEvent }}</p>
+      </section>
+
+      <iss-drawer variant="view" [open]="viewDrawerOpen" (closed)="onViewDrawerClosed()">
+        <span slot="header">Case OPS-001</span>
+        <p>Read-only context stays beside the surrounding shell list.</p>
+        <dl class="drawer-details">
+          <dt>Status</dt><dd>Open</dd>
+          <dt>Owner</dt><dd>Team Alpha</dd>
+        </dl>
+      </iss-drawer>
+
+      <iss-drawer variant="edit" [open]="editDrawerOpen" (closed)="onEditDrawerClosed()">
+        <span slot="header">Edit case OPS-001</span>
+        <iss-input label="Case label" value="OPS-001"></iss-input>
+        <iss-select label="Status" value="review" [options]="selectOptions"></iss-select>
+        <div slot="footer">
+          <iss-button variant="secondary">Cancel</iss-button>
+          <iss-button variant="primary">Save</iss-button>
+        </div>
+      </iss-drawer>
+
       <iss-input
         label="Case ID"
         variant="search"
