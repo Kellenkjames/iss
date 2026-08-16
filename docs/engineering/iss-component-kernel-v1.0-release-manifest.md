@@ -4,10 +4,10 @@
 
 ```text
 Version: 1.0
-Status: Stable Candidate — Pending Human Approval
+Status: Frozen — Human Approved
 ```
 
-This manifest records the final EB-014 Pass 3 validation state. It does not represent human approval, a commit, or a published release.
+This manifest records the final EB-014 Pass 3 validation state and human approval. It does not represent a commit or a published release.
 
 ## 2. Purpose
 
@@ -51,7 +51,7 @@ Public component count: **11**.
 
 ## 5. Public Contract Freeze
 
-The v1 component set and public contracts are frozen pending human approval.
+The v1 component set and public contracts are frozen following human approval.
 
 Pass 2 introduced no new public components, properties, events, exported infrastructure, or external dependencies. Interactive Card uses native click semantics and does not emit `cardClick`. Kernel controls are not Form-Associated Custom Elements in v1.0.
 
@@ -144,6 +144,6 @@ Implementation cleanup that preserves public contracts may still occur through n
 
 ```text
 Engineering Validation: Complete
-Human Approval: Pending
-Release State: Stable Candidate
+Human Approval: Complete
+Release State: Frozen v1.0
 ```
