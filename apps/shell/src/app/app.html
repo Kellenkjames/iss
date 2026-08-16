@@ -68,6 +68,26 @@
         <iss-button slot="footer" variant="primary">Review</iss-button>
       </iss-card>
 
+      <section class="shell-ai-provider-demo" aria-label="AI provider demo">
+        <h2>AI provider boundary demo</h2>
+        <p>Execution flows through the shared provider interface and emits telemetry through the platform layer.</p>
+
+        <iss-button variant="primary" (click)="onAiProviderAction()">
+          Invoke provider
+        </iss-button>
+
+        <iss-card>
+          <span slot="header">Provider status</span>
+          <iss-state
+            [status]="aiProviderStatus"
+            [message]="aiProviderMessage"
+            action-label="Retry"
+            (action)="onAiProviderAction()"
+          ></iss-state>
+          <p class="shell-provider-response">{{ aiProviderResponse }}</p>
+        </iss-card>
+      </section>
+
       <section class="shell-state-demo" aria-label="System state demo">
         <h2>iss-state demo</h2>
 

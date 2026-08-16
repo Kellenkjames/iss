@@ -8,6 +8,7 @@ import type {
     IssTableRow,
     IssTableSortDetail,
 } from '@iss/component-kernel';
+import { runAiProviderDemo } from './ai-provider-demo';
 
 @Component({
   selector: 'app-root',
@@ -74,9 +75,33 @@ export class App {
   protected emptyTableRows: IssTableRow[] = [];
   protected tableSortKey = '';
   protected tableSortDirection: 'none' | 'ascending' | 'descending' = 'none';
+  protected aiProviderStatus: 'empty' | 'loading' | 'error' = 'empty';
+  protected aiProviderMessage = 'No AI invocation has run yet.';
+  protected aiProviderResponse = 'Awaiting provider execution.';
 
   protected onPrimaryAction(): void {
     this.buttonClicks += 1;
+  }
+
+  protected async onAiProviderAction(): Promise<void> {
+    this.aiProviderStatus = 'loading';
+    this.aiProviderMessage = 'Requesting AI execution through the shared provider boundary...';
+    this.aiProviderResponse = 'Waiting for the response...';
+
+    try {
+      const response = await runAiProviderDemo('Review the current incident queue and summarize the most urgent operational action.');
+      this.aiProviderStatus = response.success ? 'empty' : 'error';
+      this.aiProviderMessage = response.success
+        ? `AI execution succeeded via ${response.provider} (${response.model}).`
+        : `AI execution failed via ${response.provider} (${response.model}).`;
+      this.aiProviderResponse = response.success
+        ? response.content
+        : response.error?.message ?? 'Unknown provider error';
+    } catch (error) {
+      this.aiProviderStatus = 'error';
+      this.aiProviderMessage = 'AI execution failed at the boundary.';
+      this.aiProviderResponse = error instanceof Error ? error.message : 'Unknown error';
+    }
   }
 
   protected onInputChange(event: Event): void {
