@@ -1,0 +1,41 @@
+{
+  "name": "telemetry",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/platform/telemetry/src",
+  "projectType": "library",
+  "tags": [
+    "type:platform",
+    "scope:platform",
+    "runtime:universal"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/platform/telemetry",
+        "main": "libs/platform/telemetry/src/index.ts",
+        "tsConfig": "libs/platform/telemetry/tsconfig.json",
+        "assets": [
+          "libs/platform/telemetry/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": ".",
+        "command": "pnpm eslint libs/platform/telemetry/**/*.ts --max-warnings=0"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": ".",
+        "command": "pnpm vitest run libs/platform/telemetry/src/lib/telemetry.spec.ts --environment node"
+      }
+    }
+  }
+}

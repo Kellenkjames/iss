@@ -22,7 +22,9 @@
       "@iss/component-kernel/register": ["./libs/platform/component-kernel/src/register.ts"],
       "@iss/design-tokens": ["./libs/platform/design-tokens/src/index.ts"],
       "@iss/design-tokens/*": ["./libs/platform/design-tokens/src/*"],
-      "@iss/design-tokens/styles.css": ["./libs/platform/design-tokens/src/styles.css"]
+      "@iss/design-tokens/styles.css": ["./libs/platform/design-tokens/src/styles.css"],
+      "@iss/telemetry": ["./libs/platform/telemetry/src/index.ts"],
+      "@iss/telemetry/*": ["./libs/platform/telemetry/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

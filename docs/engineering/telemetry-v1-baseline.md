@@ -8,6 +8,8 @@ Baseline for the next ISS platform implementation phase.
 
 This document defines the canonical v1 implementation baseline for the Telemetry package and is intended to be referenced by future engineering bricks as the authoritative starting point for execution.
 
+For review gating, apply the default pattern described in [engineering-review-gate.md](./engineering-review-gate.md): use repo validation for routine implementation work, and trigger the engineering-review agent for milestone-level, boundary-sensitive, or scope-expanding decisions.
+
 ---
 
 ## Scope
