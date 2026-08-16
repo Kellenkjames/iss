@@ -24,6 +24,13 @@ export {
     type IssDrawerVariant
 } from './lib/components/iss-drawer/iss-drawer';
 export {
+    ISS_FILTER_BAR_TAG,
+    IssFilterBar,
+    type IssFilterDefinition,
+    type IssFilterMode,
+    type IssFilterState
+} from './lib/components/iss-filter-bar/iss-filter-bar';
+export {
     ISS_INPUT_TAG,
     IssInput,
     type IssInputType,
@@ -55,6 +62,7 @@ export {
     defineIssCard,
     defineIssCheckbox,
     defineIssDrawer,
+    defineIssFilterBar,
     defineIssInput,
     defineIssSelect,
     defineIssState,

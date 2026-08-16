@@ -12,6 +12,7 @@ Shared interaction primitives for ISS implemented as Lit Web Components.
 - `iss-table`
 - `iss-checkbox`
 - `iss-select`
+- `iss-filter-bar`
 
 ## Registration
 
@@ -28,6 +29,39 @@ You can also import the side-effect entry point:
 ```ts
 import '@iss/component-kernel/register';
 ```
+
+## `iss-filter-bar` API
+
+Purpose: expose and edit normalized search and Select-based filter criteria without performing data filtering.
+
+Properties:
+
+- `filters`: `IssFilterDefinition[]`, where each definition is `{ key: string; label: string; options: IssSelectOption[]; mode?: 'single' | 'multi' }`
+- `state`: `IssFilterState`, shaped as `{ search: string; selections: Record<string, string[]> }`
+- `searchLabel`: visible Search Input label; an empty string omits Search Input rendering
+
+Defaults:
+
+```ts
+filters = [];
+state = { search: '', selections: {} };
+searchLabel = '';
+```
+
+Behavior:
+
+- Missing or unsupported filter modes normalize to `single`.
+- Single and multi selections are represented as string arrays.
+- Empty selection keys are omitted from normalized state.
+- External state replacement synchronizes the internal Search Input and Select controls.
+- Applied criteria render as private removable pills using filter and option labels.
+- Clear all resets state to `{ search: '', selections: {} }` and is visible only while criteria are active.
+
+Events:
+
+- `change`: one bubbling, composed aggregate event per normalized user state change. Read the current normalized state from `event.target.state`; state is not duplicated in event detail.
+
+The component composes `iss-input`, `iss-select`, and `iss-button`. It does not filter application data, fetch data, build queries, persist state, or provide date-range or loading behavior.
 
 ## `iss-button` API
 

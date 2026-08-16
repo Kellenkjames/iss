@@ -1,6 +1,9 @@
+import { JsonPipe } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import type {
     ColumnDef,
+    IssFilterDefinition,
+    IssFilterState,
     IssSelectOption,
     IssTableRow,
     IssTableSortDetail,
@@ -10,6 +13,7 @@ import type {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
+  imports: [JsonPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
@@ -25,6 +29,19 @@ export class App {
   protected selectValue = '';
   protected selectValues: string[] = [];
   protected selectChangeCount = 0;
+  protected filterChangeCount = 0;
+  protected filterState: IssFilterState = { search: '', selections: {} };
+  protected filterDefinitions: IssFilterDefinition[] = [
+    { key: 'status', label: 'Status', options: [
+      { value: 'open', label: 'Open' },
+      { value: 'review', label: 'Review' },
+      { value: 'blocked', label: 'Blocked' },
+    ] },
+    { key: 'owner', label: 'Owner', mode: 'multi', options: [
+      { value: 'alice', label: 'Alice' },
+      { value: 'jordan', label: 'Jordan' },
+    ] },
+  ];
   protected viewDrawerOpen = false;
   protected editDrawerOpen = false;
   protected drawerCloseCount = 0;
@@ -94,6 +111,12 @@ export class App {
     const target = event.target as (EventTarget & { values?: string[] }) | null;
     this.selectValues = target?.values ?? [];
     this.selectChangeCount += 1;
+  }
+
+  protected onFilterChange(event: Event): void {
+    const target = event.target as (EventTarget & { state?: IssFilterState }) | null;
+    this.filterState = target?.state ?? this.filterState;
+    this.filterChangeCount += 1;
   }
 
   protected openViewDrawer(): void {

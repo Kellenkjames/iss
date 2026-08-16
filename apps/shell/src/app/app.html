@@ -154,6 +154,18 @@
 
         <p class="shell-click-count">Select changes observed: {{ selectChangeCount }}</p>
       </section>
+
+      <section class="shell-filter-bar-demo" aria-label="Filter Bar demo">
+        <h2>iss-filter-bar demo</h2>
+        <iss-filter-bar
+          searchLabel="Search cases"
+          [filters]="filterDefinitions"
+          [state]="filterState"
+          (change)="onFilterChange($event)"
+        ></iss-filter-bar>
+        <p class="shell-click-count">Filter Bar changes observed: {{ filterChangeCount }}</p>
+        <p class="shell-click-count">Aggregate filter state: {{ filterState | json }}</p>
+      </section>
     </div>
   </section>
 </main>

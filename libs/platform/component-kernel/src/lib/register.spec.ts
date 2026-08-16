@@ -5,6 +5,7 @@ import {
     defineIssCard,
     defineIssCheckbox,
     defineIssDrawer,
+    defineIssFilterBar,
     defineIssInput,
     defineIssSelect,
     defineIssState,
@@ -14,6 +15,7 @@ import {
     IssCard,
     IssCheckbox,
     IssDrawer,
+    IssFilterBar,
     IssInput,
     IssSelect,
     IssState,
@@ -31,6 +33,12 @@ describe('component registration', () => {
     expect(() => defineIssInput()).not.toThrow();
     expect(() => defineIssInput()).not.toThrow();
     expect(customElements.get('iss-input')).toBe(IssInput);
+  });
+
+  it('registers iss-filter-bar and remains duplicate-safe', () => {
+    expect(() => defineIssFilterBar()).not.toThrow();
+    expect(() => defineIssFilterBar()).not.toThrow();
+    expect(customElements.get('iss-filter-bar')).toBe(IssFilterBar);
   });
 
   it('registers iss-select and remains duplicate-safe', () => {
@@ -79,6 +87,7 @@ describe('component registration', () => {
     expect(() => registerIssComponents()).not.toThrow();
     expect(customElements.get('iss-button')).toBe(IssButton);
     expect(customElements.get('iss-input')).toBe(IssInput);
+    expect(customElements.get('iss-filter-bar')).toBe(IssFilterBar);
     expect(customElements.get('iss-select')).toBe(IssSelect);
     expect(customElements.get('iss-badge')).toBe(IssBadge);
     expect(customElements.get('iss-card')).toBe(IssCard);

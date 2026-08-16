@@ -132,6 +132,22 @@ iss-card {
   letter-spacing: var(--iss-font-subheading-letter-spacing);
 }
 
+.shell-filter-bar-demo {
+  margin-top: var(--iss-space-6);
+  display: grid;
+  gap: var(--iss-space-3);
+}
+
+.shell-filter-bar-demo h2 {
+  margin: 0;
+  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
+  letter-spacing: var(--iss-font-subheading-letter-spacing);
+}
+
+iss-filter-bar {
+  display: block;
+}
+
 iss-table {
   display: block;
 }
