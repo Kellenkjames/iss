@@ -2,6 +2,8 @@
 
 ---
 
+> Baseline reference: [docs/engineering/telemetry-v1-baseline.md](../../engineering/telemetry-v1-baseline.md)
+
 ## Project: Telemetry
 
 **Project Type:** Shared Platform Package
