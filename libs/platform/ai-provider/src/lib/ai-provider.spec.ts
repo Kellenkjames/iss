@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createAiProvider } from './ai-provider';
+import { createProviderFactory } from './factory';
 
 describe('ai-provider', () => {
   it('wraps a provider adapter and returns normalized output', async () => {
@@ -87,5 +88,33 @@ describe('ai-provider', () => {
     expect(response.success).toBe(false);
     expect(response.error?.message).toContain('provider unavailable');
     expect(response.provider).toBe('local-test');
+  });
+
+  it('creates a provider from configuration through the factory', async () => {
+    const factory = createProviderFactory({
+      telemetry: {
+        recordInvocation: async () => undefined,
+      },
+    });
+
+    const provider = factory.create({
+      provider: 'openai',
+      model: 'gpt-4o-mini',
+      apiKey: 'test-key',
+    });
+
+    const response = await provider.complete({
+      prompt: 'factory test',
+    });
+
+    expect(response.provider).toBe('openai');
+    expect(response.model).toBe('gpt-4o-mini');
+    expect(response.success).toBe(true);
+  });
+
+  it('throws for unsupported provider selection', () => {
+    const factory = createProviderFactory();
+
+    expect(() => factory.create({ provider: 'unsupported' as never })).toThrow('Unsupported AI provider');
   });
 });
