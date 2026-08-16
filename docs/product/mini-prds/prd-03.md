@@ -16,43 +16,46 @@
 
 # 1. Mission
 
-The Telemetry package provides the **observability layer** for every AI interaction within the Intelligent Systems Suite.
+The Telemetry package provides the **operational observability layer** for AI execution within the Intelligent Systems Suite.
 
-Its purpose is not to collect analytics for end users.
+Its purpose is not to collect user analytics or product behavior data.
 
-Its purpose is to make AI behavior measurable, understandable, and reviewable by engineers.
+Its purpose is to make AI runtime behavior measurable, understandable, and reviewable by engineers.
 
 Every interaction with an LLM should produce operational evidence.
 
 The Telemetry package establishes AI usage as an engineering concern rather than an implementation detail.
 
-By treating token consumption, latency, provider behavior, and invocation context as first-class architectural data, ISS demonstrates operational maturity expected of production AI systems.
+By treating token consumption, latency, provider behavior, and invocation context as first-class architectural data, ISS demonstrates the operational maturity expected of production AI systems without overbuilding the platform.
 
 ---
 
 # 2. Architectural Role
 
-Telemetry is a shared platform package that sits alongside the AI Provider.
+Telemetry is a shared platform package that sits alongside the AI Provider and supports the execution boundary of the system.
 
-It is consumed by every project that invokes AI capabilities.
+It is consumed by the AI Provider and indirectly by every project that invokes AI capabilities through the shared abstraction.
 
 Repository dependency flow:
 
 ```
+Applications
+        ↓
 AI Provider
         ↓
 Telemetry
         ↓
-JSON Logs
-Markdown Reports
-Engineering Insights
+Local JSON / Markdown Outputs
+Engineering Review
 ```
 
 Applications never implement telemetry independently.
 
-Every AI interaction routes through a shared instrumentation layer.
+Every AI interaction routes through a shared instrumentation layer at the provider boundary.
 
-Telemetry should be invisible to application code while remaining completely transparent to engineering workflows.
+Telemetry should be invisible to application code while remaining transparent to engineering workflows.
+
+The AI Provider owns execution. Telemetry owns evidence.
 
 ---
 
@@ -60,18 +63,19 @@ Telemetry should be invisible to application code while remaining completely tra
 
 The Telemetry package is responsible for:
 
-- Logging every LLM invocation
+- Recording every LLM invocation initiated through the AI Provider boundary
 - Measuring prompt tokens
 - Measuring completion tokens
+- Measuring total tokens
 - Measuring estimated cost
 - Measuring latency
 - Recording provider metadata
 - Recording model metadata
 - Recording invocation context
-- Producing monthly aggregate reports
-- Producing machine-readable JSON summaries
-- Producing human-readable Markdown summaries
+- Generating local JSON summaries
+- Generating human-readable Markdown summaries
 - Providing a stable telemetry interface across ISS
+- Supporting engineering review of AI behavior without introducing vendor-specific platform requirements
 
 Telemetry exists to explain system behavior—not to influence it.
 
@@ -84,13 +88,14 @@ The Telemetry package will **not**:
 - Select AI providers
 - Execute prompts
 - Modify prompt content
-- Store conversations
-- Perform analytics visualization
+- Store conversation bodies or sensitive prompt content
+- Perform user analytics or product telemetry
+- Perform front-end or application logging
 - Stream telemetry to external services
-- Implement dashboards
-- Handle authentication
-- Perform application logging
-- Replace traditional application monitoring
+- Implement dashboards or charts
+- Handle authentication or secrets
+- Serve as a replacement for traditional application monitoring
+- Depend on, or be designed around, the AI Provider implementation details
 
 Its responsibility is AI operational telemetry only.
 
@@ -103,11 +108,13 @@ The package exposes a small set of stable interfaces.
 Version 1 includes:
 
 - Record AI invocation
-- Generate monthly JSON summary
-- Generate monthly Markdown report
+- Write a structured invocation record
+- Generate a local JSON aggregate summary
+- Generate a local Markdown report
 - Read telemetry history
 - Calculate aggregate token usage
 - Calculate estimated operational cost
+- Retrieve invocation context for engineering review
 
 Consumers should interact with telemetry through a minimal API.
 
@@ -115,17 +122,34 @@ Raw storage details remain private.
 
 Breaking interface changes require an ADR.
 
+Recommended v1 data contract includes:
+
+- Timestamp
+- Provider
+- Model
+- Prompt tokens
+- Completion tokens
+- Total tokens
+- Estimated cost (USD)
+- Latency (ms)
+- Invocation context
+- Optional error metadata
+
 ---
 
 # 6. Dependencies
 
 ## Internal Dependencies
 
-None.
+Telemetry has no dependency on application logic or domain code.
 
-Telemetry is intentionally independent.
+It should remain usable by every package and application without introducing circular dependencies.
 
-It should remain usable by every other package and application without introducing circular dependencies.
+The AI Provider may depend on Telemetry.
+
+Telemetry must not depend on the AI Provider.
+
+This preserves the architectural boundary where execution belongs to the provider layer and evidence collection belongs to the telemetry layer.
 
 ---
 
@@ -142,6 +166,8 @@ Version 1 intentionally avoids:
 - hosted observability platforms
 - cloud telemetry vendors
 - analytics services
+- dashboard systems
+- vendor-specific metrics infrastructure
 
 Local-first architecture is a deliberate design decision.
 
@@ -151,14 +177,15 @@ Local-first architecture is a deliberate design decision.
 
 Version 1 is complete when:
 
-- Every AI invocation is automatically recorded.
-- Engineers can determine token consumption for any session.
-- Monthly reports are generated without manual intervention.
-- Telemetry data is understandable without additional tooling.
-- Applications require no custom instrumentation beyond the shared interface.
-- Operational cost can be estimated directly from recorded data.
+- Every AI invocation initiated through the shared provider flow is automatically recorded.
+- Engineers can determine token consumption for any session or invocation path.
+- Local JSON and Markdown operational summaries are generated without manual intervention.
+- Telemetry data is understandable without additional tooling beyond repository inspection.
+- Applications require no custom instrumentation beyond the shared AI Provider boundary.
+- Operational cost can be estimated directly from recorded metadata.
+- Telemetry can be reviewed by engineers without exposing application secrets or sensitive prompt content.
 
-Success is measured by engineering visibility rather than reporting sophistication.
+Success is measured by engineering visibility and operational accountability, not by reporting sophistication.
 
 ---
 
@@ -177,12 +204,13 @@ Recorded fields include:
 - Estimated cost (USD)
 - Latency (ms)
 - Invocation context
+- Error metadata when applicable
 
 Outputs include:
 
 - Local JSON log
-- Monthly JSON aggregate
-- Monthly Markdown report
+- Local JSON aggregate summary
+- Local Markdown report
 
 Excluded:
 
@@ -194,6 +222,9 @@ Excluded:
 - Alerting
 - External observability platforms
 - User analytics
+- Product analytics
+- Billing systems
+- Quota enforcement
 
 The objective is operational clarity.
 
@@ -213,10 +244,11 @@ Future versions may introduce:
 - Visualization tooling
 - Export formats
 - CI integration metrics
+- More structured invocation metadata as real usage demands it
 
 These capabilities should be introduced only when operational complexity justifies them.
 
-Telemetry should remain intentionally lightweight.
+Telemetry should remain intentionally lightweight and boundary-focused.
 
 ---
 
@@ -235,6 +267,8 @@ The following are intentionally deferred beyond Version 1:
 - Notification systems
 - Usage quotas
 - Billing systems
+- User analytics or product measurement
+- Provider benchmarking loops
 
 ISS demonstrates engineering discipline through simplicity.
 
@@ -252,6 +286,7 @@ This project demonstrates:
 - Separation of operational concerns
 - Infrastructure-first design
 - Shared engineering services
+- Clear boundary ownership between execution and observability
 
 ### AI Engineering
 
@@ -260,6 +295,7 @@ This project demonstrates:
 - Latency measurement
 - Model observability
 - Operational instrumentation
+- Local-first evidence capture for AI systems
 
 ### Software Engineering
 
@@ -267,6 +303,7 @@ This project demonstrates:
 - Data modeling
 - Platform abstraction
 - Local-first system design
+- Minimal public API design
 
 ### Fractional CTO Signal
 
@@ -283,12 +320,14 @@ The Telemetry package is complete when every AI interaction across ISS automatic
 An engineer reviewing the repository should be able to answer:
 
 - Which model was used?
+- Which provider handled the request?
 - When was it used?
-- Why was it used?
+- What was the invocation context?
 - How long did it take?
 - How many tokens were consumed?
 - What did it cost?
 - Which system initiated the request?
+- Did the call fail or complete successfully?
 
 If those questions can be answered consistently for every AI invocation, the package has fulfilled its architectural responsibility.
 
