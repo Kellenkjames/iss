@@ -1,12 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import type {
-    ColumnDef,
-    IssFilterDefinition,
-    IssFilterState,
-    IssSelectOption,
-    IssTableRow,
-    IssTableSortDetail,
+  ColumnDef,
+  IssFilterDefinition,
+  IssFilterState,
+  IssSelectOption,
+  IssTableRow,
+  IssTableSortDetail,
 } from '@iss/component-kernel';
 import { summarizeIncidentQueue } from './incident-provider.service';
 
