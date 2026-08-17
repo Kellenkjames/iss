@@ -1,4 +1,4 @@
-import type { AiProviderResponse } from '@iss/ai-provider';
+import type { AiProvider, AiProviderResponse } from '@iss/ai-provider';
 import { createShellProvider } from './ai-provider-demo';
 
 export interface AppWorkflowRequest {
@@ -18,6 +18,10 @@ export interface AppWorkflowResult<T = string> {
 
 export type IncidentPromptRequest = AppWorkflowRequest;
 export type IncidentSummaryResult = AppWorkflowResult<string>;
+export type AppWorkflowExecutor = (
+  provider: AiProvider,
+  request: AppWorkflowRequest,
+) => Promise<AiProviderResponse>;
 
 export const buildWorkflowResult = <T = string>(
   response: AiProviderResponse,
@@ -52,11 +56,11 @@ export const normalizeProviderSummary = <T = string>(
 
 export async function runAppWorkflow<T = string>(
   request: AppWorkflowRequest,
-  executor: (provider: Awaited<ReturnType<typeof createShellProvider>>) => Promise<AiProviderResponse>,
+  executor: AppWorkflowExecutor,
   mapResult?: (response: AiProviderResponse) => T,
 ): Promise<AppWorkflowResult<T>> {
   const provider = createShellProvider();
-  const response = await executor(provider);
+  const response = await executor(provider, request);
   const payload = mapResult ? mapResult(response) : undefined;
 
   return normalizeProviderSummary(response, payload);
@@ -67,11 +71,11 @@ export const summarizeIncidentQueue = async (
 ): Promise<IncidentSummaryResult> => {
   return runAppWorkflow(
     request,
-    async (provider) => provider.complete({
-      prompt: request.prompt,
+    async (provider, workflowRequest) => provider.complete({
+      prompt: workflowRequest.prompt,
       metadata: {
-        workflow: request.workflow ?? 'incident-queue',
-        source: request.source ?? 'shell-incident-service',
+        workflow: workflowRequest.workflow ?? 'incident-queue',
+        source: workflowRequest.source ?? 'shell-incident-service',
       },
     }),
   );

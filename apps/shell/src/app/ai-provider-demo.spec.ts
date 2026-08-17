@@ -6,7 +6,7 @@ describe('ai-provider demo consumer', () => {
     const response = await runAiProviderDemo('Review the current incident queue');
 
     expect(response.success).toBe(true);
-    expect(response.provider).toBe('demo-openai');
+    expect(response.provider).toBe('openai');
     expect(response.content.length).toBeGreaterThan(0);
   });
 });

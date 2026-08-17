@@ -127,6 +127,15 @@ This brick is complete when:
 - UI logic does not directly orchestrate provider mechanics
 - shell and provider validation remain green
 
+The reference implementation lives in [incident-provider.service.ts](../../apps/shell/src/app/incident-provider.service.ts), with focused contract coverage in [incident-provider.service.spec.ts](../../apps/shell/src/app/incident-provider.service.spec.ts).
+
+The contract test gate verifies:
+
+- successful provider output is normalized into an app result
+- mapped workflow payloads are preserved
+- provider failures produce stable summary and error fields
+- workflow requests reach the app executor without UI involvement
+
 ---
 
 ## Acceptance Checklist
@@ -153,4 +162,4 @@ The review should check:
 
 ## Definition of Done
 
-This adjacent step is complete when there is a clear, sharable app-service contract pattern that future ISS apps can follow without duplicating provider bootstrapping, runtime validation, or execution logic.
+This adjacent step is complete when there is a clear, sharable app-service contract pattern that future ISS apps can follow without duplicating provider bootstrapping, runtime validation, or execution logic. The shell reference implementation and its focused contract tests are now in place.
