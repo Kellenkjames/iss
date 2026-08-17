@@ -8,7 +8,7 @@ import type {
     IssTableRow,
     IssTableSortDetail,
 } from '@iss/component-kernel';
-import { runAiProviderDemo } from './ai-provider-demo';
+import { summarizeIncidentQueue } from './incident-provider.service';
 
 @Component({
   selector: 'app-root',
@@ -89,7 +89,11 @@ export class App {
     this.aiProviderResponse = 'Waiting for the response...';
 
     try {
-      const response = await runAiProviderDemo('Review the current incident queue and summarize the most urgent operational action.');
+      const response = await summarizeIncidentQueue({
+        prompt: 'Review the current incident queue and summarize the most urgent operational action.',
+        workflow: 'incident-queue-review',
+        source: 'shell-app',
+      });
       this.aiProviderStatus = response.success ? 'empty' : 'error';
       this.aiProviderMessage = response.success
         ? `AI execution succeeded via ${response.provider} (${response.model}).`
