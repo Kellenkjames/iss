@@ -15,18 +15,9 @@ export interface IncidentSummaryResult {
   error?: string;
 }
 
-export async function summarizeIncidentQueue(
-  request: IncidentPromptRequest,
-): Promise<IncidentSummaryResult> {
-  const provider = createShellProvider();
-  const response: AiProviderResponse = await provider.complete({
-    prompt: request.prompt,
-    metadata: {
-      workflow: request.workflow ?? 'incident-queue',
-      source: request.source ?? 'shell-incident-service',
-    },
-  });
-
+export const normalizeProviderSummary = (
+  response: AiProviderResponse,
+): IncidentSummaryResult => {
   if (!response.success) {
     return {
       success: false,
@@ -43,4 +34,19 @@ export async function summarizeIncidentQueue(
     model: response.model,
     summary: response.content,
   };
+};
+
+export async function summarizeIncidentQueue(
+  request: IncidentPromptRequest,
+): Promise<IncidentSummaryResult> {
+  const provider = createShellProvider();
+  const response: AiProviderResponse = await provider.complete({
+    prompt: request.prompt,
+    metadata: {
+      workflow: request.workflow ?? 'incident-queue',
+      source: request.source ?? 'shell-incident-service',
+    },
+  });
+
+  return normalizeProviderSummary(response);
 }
