@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createAiProvider } from './ai-provider';
+import { normalizeProviderConfig, validateProviderConfig } from './config';
 import { createProviderFactory } from './factory';
 
 describe('ai-provider', () => {
@@ -110,6 +111,25 @@ describe('ai-provider', () => {
     expect(response.provider).toBe('openai');
     expect(response.model).toBe('gpt-4o-mini');
     expect(response.success).toBe(true);
+  });
+
+  it('normalizes provider configuration with the default model and optional fields', () => {
+    const config = normalizeProviderConfig({
+      provider: 'openai',
+      apiKey: 'test-key',
+      organization: 'iss-org',
+    });
+
+    expect(config.provider).toBe('openai');
+    expect(config.model).toBe('gpt-4o-mini');
+    expect(config.apiKey).toBe('test-key');
+    expect(config.organization).toBe('iss-org');
+  });
+
+  it('throws when a provider config is missing the required API key', () => {
+    expect(() => validateProviderConfig({ provider: 'openai', model: 'gpt-4o-mini' })).toThrow(
+      'OpenAI API key is required for factory-based provider creation.',
+    );
   });
 
   it('throws for unsupported provider selection', () => {
