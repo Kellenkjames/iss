@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { createAiProvider } from './ai-provider';
-import { normalizeProviderConfig, validateProviderConfig } from './config';
+import {
+  normalizeProviderConfig,
+  resolveProviderConfigFromEnvironment,
+  validateProviderConfig,
+} from './config';
 import { createProviderFactory } from './factory';
 
 describe('ai-provider', () => {
@@ -123,6 +127,19 @@ describe('ai-provider', () => {
     expect(config.provider).toBe('openai');
     expect(config.model).toBe('gpt-4o-mini');
     expect(config.apiKey).toBe('test-key');
+    expect(config.organization).toBe('iss-org');
+  });
+
+  it('resolves provider configuration from the runtime environment', () => {
+    const config = resolveProviderConfigFromEnvironment({
+      OPENAI_API_KEY: 'env-key',
+      OPENAI_MODEL: 'gpt-4o-mini',
+      OPENAI_ORGANIZATION: 'iss-org',
+    });
+
+    expect(config.provider).toBe('openai');
+    expect(config.apiKey).toBe('env-key');
+    expect(config.model).toBe('gpt-4o-mini');
     expect(config.organization).toBe('iss-org');
   });
 

@@ -1,5 +1,5 @@
 import { createAiProvider } from './ai-provider';
-import { validateProviderConfig } from './config';
+import { resolveProviderConfigFromEnvironment, validateProviderConfig } from './config';
 import { createOpenAiAdapter } from './openai-adapter';
 import type { AiProvider, AiProviderOptions } from './types';
 
@@ -22,7 +22,12 @@ export interface ProviderFactory {
 
 export const createProviderFactory = (options: ProviderFactoryOptions = {}): ProviderFactory => {
   const create = (config: ProviderConfig): AiProvider => {
-    const normalizedConfig = validateProviderConfig(config);
+    const resolvedConfig = {
+      ...resolveProviderConfigFromEnvironment(),
+      ...config,
+    };
+
+    const normalizedConfig = validateProviderConfig(resolvedConfig);
 
     const adapter = createOpenAiAdapter({
       apiKey: normalizedConfig.apiKey,
