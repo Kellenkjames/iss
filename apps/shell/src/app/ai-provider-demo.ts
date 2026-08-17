@@ -1,28 +1,11 @@
 import {
   createProviderFactory,
-  resolveProviderConfigFromEnvironment,
   validateProviderConfig,
 } from '@iss/ai-provider';
-
-type RuntimeEnvironment = Record<string, string | undefined>;
-
-const getRuntimeEnv = (): RuntimeEnvironment => {
-  const globalWithProcess = globalThis as typeof globalThis & {
-    process?: { env?: RuntimeEnvironment };
-  };
-
-  return globalWithProcess.process?.env ?? {};
-};
+import { resolveShellProviderConfig } from './provider-runtime-config';
 
 export function createShellProvider() {
-  const runtimeEnv = getRuntimeEnv();
-  const config = validateProviderConfig({
-    ...resolveProviderConfigFromEnvironment(runtimeEnv),
-    provider: 'openai',
-    model: 'gpt-4o-mini',
-    apiKey: runtimeEnv['OPENAI_API_KEY'] ?? 'demo-key',
-    defaultSystemMessage: runtimeEnv['OPENAI_DEFAULT_SYSTEM_MESSAGE'] ?? 'You are assisting with operational triage and concise incident summaries.',
-  });
+  const config = validateProviderConfig(resolveShellProviderConfig());
 
   return createProviderFactory({
     telemetry: {
