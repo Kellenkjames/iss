@@ -23,8 +23,20 @@ export interface ProviderEnvironmentSource {
 
 const DEFAULT_MODEL = 'gpt-4o-mini';
 
+type RuntimeProcessWithEnv = {
+  env?: ProviderEnvironmentSource;
+};
+
+const getRuntimeEnvironmentSource = (): ProviderEnvironmentSource => {
+  const runtime = globalThis as typeof globalThis & {
+    process?: RuntimeProcessWithEnv;
+  };
+
+  return runtime.process?.env ?? {};
+};
+
 export const resolveProviderConfigFromEnvironment = (
-  env: ProviderEnvironmentSource = (typeof process !== 'undefined' ? process.env : {}) as ProviderEnvironmentSource,
+  env: ProviderEnvironmentSource = getRuntimeEnvironmentSource(),
 ): ProviderConfigInput => ({
   provider: 'openai',
   model: env.OPENAI_MODEL ?? DEFAULT_MODEL,

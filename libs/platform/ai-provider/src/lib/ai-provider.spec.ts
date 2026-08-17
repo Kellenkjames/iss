@@ -143,6 +143,30 @@ describe('ai-provider', () => {
     expect(config.organization).toBe('iss-org');
   });
 
+  it('resolves provider configuration from a browser-safe global runtime object', () => {
+    const runtime = globalThis as typeof globalThis & {
+      process?: { env?: Record<string, string> };
+    };
+    const originalProcess = runtime.process;
+
+    try {
+      runtime.process = {
+        env: {
+          OPENAI_API_KEY: 'runtime-key',
+          OPENAI_MODEL: 'gpt-4o-mini',
+        },
+      } as unknown as typeof runtime.process;
+
+      const config = resolveProviderConfigFromEnvironment();
+
+      expect(config.provider).toBe('openai');
+      expect(config.apiKey).toBe('runtime-key');
+      expect(config.model).toBe('gpt-4o-mini');
+    } finally {
+      runtime.process = originalProcess;
+    }
+  });
+
   it('throws when a provider config is missing the required API key', () => {
     expect(() => validateProviderConfig({ provider: 'openai', model: 'gpt-4o-mini' })).toThrow(
       'OpenAI API key is required for factory-based provider creation.',
