@@ -98,9 +98,7 @@ export class App {
       this.aiProviderMessage = response.success
         ? `AI execution succeeded via ${response.provider} (${response.model}).`
         : `AI execution failed via ${response.provider} (${response.model}).`;
-      this.aiProviderResponse = response.success
-        ? response.content
-        : response.error?.message ?? 'Unknown provider error';
+      this.aiProviderResponse = response.summary;
     } catch (error) {
       this.aiProviderStatus = 'error';
       this.aiProviderMessage = 'AI execution failed at the boundary.';
