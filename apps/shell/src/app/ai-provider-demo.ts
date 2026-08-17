@@ -1,22 +1,25 @@
-import { createAiProvider, createOpenAiAdapter } from '@iss/ai-provider';
+import {
+  createProviderFactory,
+  validateProviderConfig,
+} from '@iss/ai-provider';
+
+export function createShellProvider() {
+  const config = validateProviderConfig({
+    provider: 'openai',
+    model: 'gpt-4o-mini',
+    apiKey: 'demo-key',
+    defaultSystemMessage: 'You are assisting with operational triage and concise incident summaries.',
+  });
+
+  return createProviderFactory({
+    telemetry: {
+      recordInvocation: async () => undefined,
+    },
+  }).create(config);
+}
 
 export async function runAiProviderDemo(prompt: string) {
-  const provider = createAiProvider(
-    {
-      model: 'gpt-4o-mini',
-      provider: 'demo-openai',
-      telemetry: {
-        recordInvocation: async () => undefined,
-      },
-    },
-    {
-      ...createOpenAiAdapter({
-        apiKey: 'demo-key',
-        model: 'gpt-4o-mini',
-      }),
-      providerName: 'demo-openai',
-    },
-  );
+  const provider = createShellProvider();
 
   return provider.complete({
     prompt,
