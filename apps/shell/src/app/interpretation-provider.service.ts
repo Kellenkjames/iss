@@ -1,8 +1,8 @@
 import type { AiProviderResponse } from '@iss/ai-provider';
 import {
-  type AppWorkflowExecutor,
-  type AppWorkflowResult,
-  runAppWorkflow,
+    type AppWorkflowExecutor,
+    type AppWorkflowResult,
+    runAppWorkflow,
 } from './incident-provider.service';
 
 export interface InterpretationRequest {

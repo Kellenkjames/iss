@@ -1,8 +1,8 @@
 import type { AiProviderResponse } from '@iss/ai-provider';
 import { describe, expect, it } from 'vitest';
 import {
-  buildInterpretationPrompt,
-  interpretInformation,
+    buildInterpretationPrompt,
+    interpretInformation,
 } from './interpretation-provider.service';
 
 const successfulResponse: AiProviderResponse = {
