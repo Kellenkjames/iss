@@ -1,8 +1,8 @@
 import type {
-  TelemetryAggregateSummary,
-  TelemetryApi,
-  TelemetryRecord,
-  TelemetryRecordInput,
+    TelemetryAggregateSummary,
+    TelemetryApi,
+    TelemetryRecord,
+    TelemetryRecordInput,
 } from './types';
 
 const HISTORY_KEY = 'iss.telemetry.history';
