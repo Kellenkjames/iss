@@ -61,7 +61,7 @@ export async function runAppWorkflow<T = string>(
 ): Promise<AppWorkflowResult<T>> {
   const provider = createShellProvider();
   const response = await executor(provider, request);
-  const payload = mapResult ? mapResult(response) : undefined;
+  const payload = response.success && mapResult ? mapResult(response) : undefined;
 
   return normalizeProviderSummary(response, payload);
 }

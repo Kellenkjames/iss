@@ -4,7 +4,7 @@
 
 ## Status
 
-Defined as the next adjacent application brick after the shared app-service contract in EB-023.
+Implemented as the next adjacent application brick after the shared app-service contract in EB-023.
 
 This brick begins the Interpretation Engine path described by PRD-06 while keeping the implementation narrow and platform-aligned.
 
@@ -58,6 +58,8 @@ The service must not import an AI vendor adapter or write telemetry directly.
 - delegation through the existing shared app workflow contract
 - focused service tests for success, failure, and payload normalization
 - documentation of the future UI handoff contract
+
+The reference implementation is [interpretation-provider.service.ts](../../apps/shell/src/app/interpretation-provider.service.ts), with focused coverage in [interpretation-provider.service.spec.ts](../../apps/shell/src/app/interpretation-provider.service.spec.ts).
 
 ### Out of scope
 
@@ -154,7 +156,7 @@ The review should verify:
 
 ## Definition of Done
 
-EB-024 is complete when a tested interpretation service exists behind the shared app workflow contract, with a stable domain payload and no new platform or UI infrastructure.
+EB-024 is complete: a tested interpretation service exists behind the shared app workflow contract, with a stable domain payload and no new platform or UI infrastructure.
 
 The next brick after this one may introduce a thin Interpretation Engine UI consumer, but only after the service contract is reviewed and validated.
 
