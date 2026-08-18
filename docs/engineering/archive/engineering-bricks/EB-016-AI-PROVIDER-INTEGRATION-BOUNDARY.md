@@ -89,11 +89,11 @@ Applications must depend on the shared AI Provider abstraction, not on vendor-sp
 
 This brick is grounded in:
 
-- [PRD-03: Telemetry](../product/mini-prds/prd-03.md)
-- [PRD-04: AI Provider](../product/mini-prds/prd-04.md)
-- [telemetry-v1-baseline.md](./telemetry-v1-baseline.md)
-- [engineering-review-gate.md](./engineering-review-gate.md)
-- [architecture-standards.md](./architecture-standards.md)
+- [PRD-03: Telemetry](../../../product/mini-prds/prd-03.md)
+- [PRD-04: AI Provider](../../../product/mini-prds/prd-04.md)
+- [telemetry-v1-baseline.md](../../telemetry-v1-baseline.md)
+- [engineering-review-gate.md](../../engineering-review-gate.md)
+- [architecture-standards.md](../../architecture-standards.md)
 
 ---
 

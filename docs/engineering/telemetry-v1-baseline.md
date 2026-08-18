@@ -22,7 +22,7 @@ This baseline is aligned with:
 
 - [PRD-03: Telemetry](../product/mini-prds/prd-03.md)
 - [PRD-04: AI Provider](../product/mini-prds/prd-04.md)
-- [docs/engineering/EB-014-CARRY-OVER-PROMPT.md](./EB-014-CARRY-OVER-PROMPT.md)
+- [docs/engineering/EB-014-CARRY-OVER-PROMPT.md](./archive/engineering-bricks/EB-014-CARRY-OVER-PROMPT.md)
 - [docs/engineering/architecture-standards.md](./architecture-standards.md)
 
 ---

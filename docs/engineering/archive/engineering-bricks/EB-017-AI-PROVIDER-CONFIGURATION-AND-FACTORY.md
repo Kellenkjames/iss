@@ -82,11 +82,11 @@ The factory layer is the controlled point where provider choice is resolved and 
 
 This brick is grounded in:
 
-- [PRD-03: Telemetry](../product/mini-prds/prd-03.md)
-- [PRD-04: AI Provider](../product/mini-prds/prd-04.md)
+- [PRD-03: Telemetry](../../../product/mini-prds/prd-03.md)
+- [PRD-04: AI Provider](../../../product/mini-prds/prd-04.md)
 - [EB-016-AI-PROVIDER-INTEGRATION-BOUNDARY.md](./EB-016-AI-PROVIDER-INTEGRATION-BOUNDARY.md)
-- [telemetry-v1-baseline.md](./telemetry-v1-baseline.md)
-- [engineering-review-gate.md](./engineering-review-gate.md)
+- [telemetry-v1-baseline.md](../../telemetry-v1-baseline.md)
+- [engineering-review-gate.md](../../engineering-review-gate.md)
 
 ---
 

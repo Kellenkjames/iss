@@ -281,19 +281,19 @@ With the Kernel frozen and Design Tokens stable, the next phase can proceed with
 
 ## Documentation References
 
-- [ISS Component Kernel v1.0 Release Manifest](./iss-component-kernel-v1.0-release-manifest.md)
+- [ISS Component Kernel v1.0 Release Manifest](../../iss-component-kernel-v1.0-release-manifest.md)
   - Complete validation results
   - Known limitations
   - Intentional design-spec deviations
   - Deferred capabilities
   - Change policy
 
-- [PRD-01: Design Tokens](../product/mini-prds/prd-01.md)
+- [PRD-01: Design Tokens](../../../product/mini-prds/prd-01.md)
   - Design Tokens responsibilities and scope
   - Validated token categories
   - Framework-agnostic contract
 
-- [PRD-02: Intelligent Component Kernel](../product/mini-prds/prd-02.md)
+- [PRD-02: Intelligent Component Kernel](../../../product/mini-prds/prd-02.md)
   - Kernel mission and architecture
   - 11-component inventory
   - Non-responsibilities and deferred features

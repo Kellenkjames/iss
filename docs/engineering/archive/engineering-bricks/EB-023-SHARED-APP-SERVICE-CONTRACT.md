@@ -72,7 +72,7 @@ This brick is grounded in:
 - [EB-022-SHELL-RESULT-NORMALIZATION.md](./EB-022-SHELL-RESULT-NORMALIZATION.md)
 - [EB-021-INCIDENT-SERVICE-ADOPTION.md](./EB-021-INCIDENT-SERVICE-ADOPTION.md)
 - [EB-020-AI-PROVIDER-BOOTSTRAP-REFINEMENT.md](./EB-020-AI-PROVIDER-BOOTSTRAP-REFINEMENT.md)
-- [PRD-05: AI-Aware Application Shell](../product/mini-prds/prd-05.md)
+- [PRD-05: AI-Aware Application Shell](../../../product/mini-prds/prd-05.md)
 
 ---
 
@@ -127,7 +127,7 @@ This brick is complete when:
 - UI logic does not directly orchestrate provider mechanics
 - shell and provider validation remain green
 
-The reference implementation lives in [incident-provider.service.ts](../../apps/shell/src/app/incident-provider.service.ts), with focused contract coverage in [incident-provider.service.spec.ts](../../apps/shell/src/app/incident-provider.service.spec.ts).
+The reference implementation lives in [incident-provider.service.ts](../../../apps/shell/src/app/incident-provider.service.ts), with focused contract coverage in [incident-provider.service.spec.ts](../../../apps/shell/src/app/incident-provider.service.spec.ts).
 
 The contract test gate verifies:
 

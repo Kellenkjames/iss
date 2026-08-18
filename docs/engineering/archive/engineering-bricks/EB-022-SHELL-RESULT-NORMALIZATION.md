@@ -71,7 +71,7 @@ This brick is grounded in:
 - [EB-021-INCIDENT-SERVICE-ADOPTION.md](./EB-021-INCIDENT-SERVICE-ADOPTION.md)
 - [EB-020-AI-PROVIDER-BOOTSTRAP-REFINEMENT.md](./EB-020-AI-PROVIDER-BOOTSTRAP-REFINEMENT.md)
 - [EB-019-AI-PROVIDER-BOOTSTRAP-CONTRACT.md](./EB-019-AI-PROVIDER-BOOTSTRAP-CONTRACT.md)
-- [PRD-05: AI-Aware Application Shell](../product/mini-prds/prd-05.md)
+- [PRD-05: AI-Aware Application Shell](../../../product/mini-prds/prd-05.md)
 
 ---
 

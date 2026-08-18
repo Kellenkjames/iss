@@ -72,7 +72,7 @@ This brick is grounded in:
 - [EB-020-AI-PROVIDER-BOOTSTRAP-REFINEMENT.md](./EB-020-AI-PROVIDER-BOOTSTRAP-REFINEMENT.md)
 - [EB-019-AI-PROVIDER-BOOTSTRAP-CONTRACT.md](./EB-019-AI-PROVIDER-BOOTSTRAP-CONTRACT.md)
 - [EB-018-AI-PROVIDER-RUNTIME-CONFIGURATION.md](./EB-018-AI-PROVIDER-RUNTIME-CONFIGURATION.md)
-- [PRD-05: AI-Aware Application Shell](../product/mini-prds/prd-05.md)
+- [PRD-05: AI-Aware Application Shell](../../../product/mini-prds/prd-05.md)
 
 ---
 

@@ -77,8 +77,8 @@ This brick is grounded in:
 - [EB-018-AI-PROVIDER-RUNTIME-CONFIGURATION.md](./EB-018-AI-PROVIDER-RUNTIME-CONFIGURATION.md)
 - [EB-017-AI-PROVIDER-CONFIGURATION-AND-FACTORY.md](./EB-017-AI-PROVIDER-CONFIGURATION-AND-FACTORY.md)
 - [EB-016-AI-PROVIDER-INTEGRATION-BOUNDARY.md](./EB-016-AI-PROVIDER-INTEGRATION-BOUNDARY.md)
-- [telemetry-v1-baseline.md](./telemetry-v1-baseline.md)
-- [PRD-05: AI-Aware Application Shell](../product/mini-prds/prd-05.md)
+- [telemetry-v1-baseline.md](../../telemetry-v1-baseline.md)
+- [PRD-05: AI-Aware Application Shell](../../../product/mini-prds/prd-05.md)
 
 ---
 

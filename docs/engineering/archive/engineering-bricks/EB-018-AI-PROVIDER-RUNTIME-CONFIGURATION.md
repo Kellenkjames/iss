@@ -73,11 +73,11 @@ Telemetry + Execution
 
 This brick is grounded in:
 
-- [PRD-03: Telemetry](../product/mini-prds/prd-03.md)
-- [PRD-04: AI Provider](../product/mini-prds/prd-04.md)
+- [PRD-03: Telemetry](../../../product/mini-prds/prd-03.md)
+- [PRD-04: AI Provider](../../../product/mini-prds/prd-04.md)
 - [EB-016-AI-PROVIDER-INTEGRATION-BOUNDARY.md](./EB-016-AI-PROVIDER-INTEGRATION-BOUNDARY.md)
 - [EB-017-AI-PROVIDER-CONFIGURATION-AND-FACTORY.md](./EB-017-AI-PROVIDER-CONFIGURATION-AND-FACTORY.md)
-- [telemetry-v1-baseline.md](./telemetry-v1-baseline.md)
+- [telemetry-v1-baseline.md](../../telemetry-v1-baseline.md)
 
 ---
 

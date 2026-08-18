@@ -59,7 +59,7 @@ The service must not import an AI vendor adapter or write telemetry directly.
 - focused service tests for success, failure, and payload normalization
 - documentation of the future UI handoff contract
 
-The reference implementation is [interpretation-provider.service.ts](../../apps/shell/src/app/interpretation-provider.service.ts), with focused coverage in [interpretation-provider.service.spec.ts](../../apps/shell/src/app/interpretation-provider.service.spec.ts).
+The reference implementation is [interpretation-provider.service.ts](../../../apps/shell/src/app/interpretation-provider.service.ts), with focused coverage in [interpretation-provider.service.spec.ts](../../../apps/shell/src/app/interpretation-provider.service.spec.ts).
 
 ### Out of scope
 
@@ -166,5 +166,5 @@ The next brick after this one may introduce a thin Interpretation Engine UI cons
 
 - [EB-023 Shared App Service Contract](./EB-023-SHARED-APP-SERVICE-CONTRACT.md)
 - [EB-022 Shell Result Normalization](./EB-022-SHELL-RESULT-NORMALIZATION.md)
-- [PRD-06 Interpretation Engine](../product/mini-prds/prd-06.md)
-- [PRD-04 AI Provider](../product/mini-prds/prd-04.md)
+- [PRD-06 Interpretation Engine](../../../product/mini-prds/prd-06.md)
+- [PRD-04 AI Provider](../../../product/mini-prds/prd-04.md)

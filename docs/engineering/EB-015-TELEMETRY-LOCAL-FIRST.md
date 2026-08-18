@@ -86,7 +86,7 @@ This brick is grounded in:
 
 - [PRD-03: Telemetry](../product/mini-prds/prd-03.md)
 - [PRD-04: AI Provider](../product/mini-prds/prd-04.md)
-- [EB-014 Carry-Over Prompt](./EB-014-CARRY-OVER-PROMPT.md)
+- [EB-014 Carry-Over Prompt](./archive/engineering-bricks/EB-014-CARRY-OVER-PROMPT.md)
 - [architecture-standards.md](./architecture-standards.md)
 - [telemetry-v1-baseline.md](./telemetry-v1-baseline.md)
 
