@@ -2,15 +2,15 @@ import {
   createProviderFactory,
   validateProviderConfig,
 } from '@iss/ai-provider';
+import { createBrowserTelemetry } from '@iss/telemetry/browser';
 import { resolveShellProviderConfig } from './provider-runtime-config';
 
 export function createShellProvider() {
   const config = validateProviderConfig(resolveShellProviderConfig());
+  const telemetry = createBrowserTelemetry();
 
   return createProviderFactory({
-    telemetry: {
-      recordInvocation: async () => undefined,
-    },
+    telemetry,
   }).create(config);
 }
 

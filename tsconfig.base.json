@@ -26,6 +26,7 @@
       "@iss/ai-provider": ["./libs/platform/ai-provider/src/index.ts"],
       "@iss/ai-provider/*": ["./libs/platform/ai-provider/src/*"],
       "@iss/telemetry": ["./libs/platform/telemetry/src/index.ts"],
+      "@iss/telemetry/browser": ["./libs/platform/telemetry/src/lib/browser-telemetry.ts"],
       "@iss/telemetry/*": ["./libs/platform/telemetry/src/*"]
     }
   },

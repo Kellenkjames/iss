@@ -57,6 +57,7 @@ The AI Provider may depend on Telemetry, but Telemetry must remain independent f
 - local JSON persistence
 - local JSON aggregate summaries
 - local Markdown operational report generation
+- browser-safe JSON history and aggregate capture for browser consumers
 - token aggregation
 - cost estimation
 - read/history access
@@ -77,6 +78,8 @@ The AI Provider may depend on Telemetry, but Telemetry must remain independent f
 - real-time monitoring
 - provider benchmarking
 - any hosted observability platform
+
+Runtime note: the filesystem-backed implementation remains the Node/review path. Browser consumers use the platform-owned `@iss/telemetry/browser` entry point, which stores the same structured evidence as JSON in browser `localStorage` without importing Node filesystem APIs.
 
 ---
 
@@ -297,8 +300,9 @@ This brick is complete when all of the following are true:
 6. Markdown output is generated and reviewable by engineers.
 7. Secrets and prompt bodies are not persisted.
 8. Applications do not need custom telemetry code beyond the shared AI Provider boundary.
-9. The package remains independent from AI Provider implementation details.
-10. The package passes lint, build, and targeted test validation.
+9. Browser consumers can use a runtime-safe Telemetry implementation without bundling Node filesystem APIs.
+10. The package remains independent from AI Provider implementation details.
+11. The package passes lint, build, and targeted test validation.
 
 ---
 

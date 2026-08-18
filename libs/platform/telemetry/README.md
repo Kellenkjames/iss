@@ -4,6 +4,11 @@ Local-first telemetry for AI execution within ISS.
 
 This package is intentionally small and operationally focused. It provides a minimal interface for recording AI runtime evidence and generating reviewable local reports without introducing broader observability or analytics infrastructure.
 
+The package has two runtime-safe entry points:
+
+- `@iss/telemetry` provides filesystem-backed JSON and Markdown output for Node-based review workflows.
+- `@iss/telemetry/browser` provides the same provider callback shape with JSON history and aggregate data stored in browser `localStorage` for browser consumers such as the shell.
+
 ## Responsibilities
 
 - record AI invocation metadata
@@ -45,3 +50,13 @@ telemetry.recordInvocation({
 
 console.log(telemetry.generateMarkdownReport());
 ```
+
+Browser consumers should use the browser entry point at the application bootstrap boundary:
+
+```ts
+import { createBrowserTelemetry } from '@iss/telemetry/browser';
+
+const telemetry = createBrowserTelemetry();
+```
+
+Applications still do not call `recordInvocation` directly. The AI Provider owns invocation capture; the runtime bootstrap only supplies the appropriate Telemetry implementation for its environment.
