@@ -88,6 +88,42 @@
         </iss-card>
       </section>
 
+      <section class="shell-interpretation-demo" aria-label="Interpretation Engine demo">
+        <h2>Interpretation Engine consumer</h2>
+        <p>Interpret structured context through the shared app-service and provider boundaries.</p>
+
+        <iss-input
+          label="Subject"
+          [value]="interpretationSubject"
+          (input)="onInterpretationSubjectChange($event)"
+        ></iss-input>
+        <iss-input
+          label="Context"
+          [value]="interpretationContext"
+          (input)="onInterpretationContextChange($event)"
+        ></iss-input>
+        <iss-input
+          label="Question"
+          [value]="interpretationQuestion"
+          (input)="onInterpretationQuestionChange($event)"
+        ></iss-input>
+
+        <iss-button variant="primary" (click)="onInterpretationAction()">
+          Interpret context
+        </iss-button>
+
+        <iss-card>
+          <span slot="header">Interpretation status</span>
+          <iss-state
+            [status]="interpretationStatus"
+            [message]="interpretationMessage"
+            action-label="Retry"
+            (action)="onInterpretationAction()"
+          ></iss-state>
+          <p class="shell-provider-response">{{ interpretationResponse }}</p>
+        </iss-card>
+      </section>
+
       <section class="shell-state-demo" aria-label="System state demo">
         <h2>iss-state demo</h2>
 

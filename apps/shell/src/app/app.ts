@@ -9,6 +9,7 @@ import type {
   IssTableSortDetail,
 } from '@iss/component-kernel';
 import { summarizeIncidentQueue } from './incident-provider.service';
+import { interpretInformation } from './interpretation-provider.service';
 
 @Component({
   selector: 'app-root',
@@ -78,6 +79,12 @@ export class App {
   protected aiProviderStatus: 'empty' | 'loading' | 'error' = 'empty';
   protected aiProviderMessage = 'No AI invocation has run yet.';
   protected aiProviderResponse = 'Awaiting provider execution.';
+  protected interpretationSubject = 'Deployment OPS-001';
+  protected interpretationContext = 'The dependency check failed during release validation.';
+  protected interpretationQuestion = 'What should we inspect first?';
+  protected interpretationStatus: 'empty' | 'loading' | 'error' = 'empty';
+  protected interpretationMessage = 'No interpretation has been requested yet.';
+  protected interpretationResponse = 'Awaiting interpretation.';
 
   protected onPrimaryAction(): void {
     this.buttonClicks += 1;
@@ -106,9 +113,45 @@ export class App {
     }
   }
 
+  protected async onInterpretationAction(): Promise<void> {
+    this.interpretationStatus = 'loading';
+    this.interpretationMessage = 'Interpreting the supplied context through the shared provider boundary...';
+    this.interpretationResponse = 'Waiting for the interpretation...';
+
+    try {
+      const response = await interpretInformation({
+        subject: this.interpretationSubject,
+        context: this.interpretationContext,
+        question: this.interpretationQuestion,
+        source: 'shell-app',
+      });
+      this.interpretationStatus = response.success ? 'empty' : 'error';
+      this.interpretationMessage = response.success
+        ? `Interpretation succeeded via ${response.provider} (${response.model}).`
+        : `Interpretation failed via ${response.provider} (${response.model}).`;
+      this.interpretationResponse = response.payload?.interpretation ?? response.summary;
+    } catch (error) {
+      this.interpretationStatus = 'error';
+      this.interpretationMessage = 'Interpretation could not be started.';
+      this.interpretationResponse = error instanceof Error ? error.message : 'Unknown error';
+    }
+  }
+
   protected onInputChange(event: Event): void {
     const target = event.target as (EventTarget & { value?: string }) | null;
     this.inputValue = target?.value ?? '';
+  }
+
+  protected onInterpretationSubjectChange(event: Event): void {
+    this.interpretationSubject = this.readInputValue(event);
+  }
+
+  protected onInterpretationContextChange(event: Event): void {
+    this.interpretationContext = this.readInputValue(event);
+  }
+
+  protected onInterpretationQuestionChange(event: Event): void {
+    this.interpretationQuestion = this.readInputValue(event);
   }
 
   protected onStateAction(status: 'empty' | 'error'): void {
@@ -175,5 +218,10 @@ export class App {
   private recordDrawerClose(variant: 'view' | 'edit'): void {
     this.drawerCloseCount += 1;
     this.lastDrawerEvent = `${variant} closed`;
+  }
+
+  private readInputValue(event: Event): string {
+    const target = event.target as (EventTarget & { value?: string }) | null;
+    return target?.value ?? '';
   }
 }
