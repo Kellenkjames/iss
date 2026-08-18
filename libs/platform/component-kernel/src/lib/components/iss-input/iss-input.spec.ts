@@ -219,6 +219,7 @@ describe('iss-input', () => {
     expect(styles).toContain('opacity: 0');
     expect(styles).toContain('box-sizing: border-box');
     expect(styles).toContain('max-width: 100%');
+    expect(styles).toContain('box-sizing: border-box');
     expect(styles).toContain('grid-template-columns: minmax(0, 1fr)');
     expect(styles).toContain(":host([variant='search']) .field");
   });

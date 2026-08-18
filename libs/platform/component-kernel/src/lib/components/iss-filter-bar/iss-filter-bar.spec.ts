@@ -1,11 +1,11 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import {
-  defineIssFilterBar,
-  defineIssInput,
-  defineIssSelect,
-  IssFilterBar,
-  type IssFilterDefinition,
-  type IssFilterState,
+    defineIssFilterBar,
+    defineIssInput,
+    defineIssSelect,
+    IssFilterBar,
+    type IssFilterDefinition,
+    type IssFilterState,
 } from '../../../index';
 
 const statusOptions = [
@@ -64,6 +64,10 @@ describe('iss-filter-bar', () => {
     expect(selects.map((select) => select.label)).toEqual(['Status', 'Owner']);
     expect(selects.map((select) => select.variant)).toEqual(['single', 'multi']);
     expect(selects[0].options).toEqual(statusOptions);
+  });
+
+  it('top-aligns search and select controls in the same filter row', () => {
+    expect(IssFilterBar.styles.toString()).toContain('align-items: flex-start');
   });
 
   it('normalizes unsupported mode to single and preserves externally supplied unmatched state', async () => {

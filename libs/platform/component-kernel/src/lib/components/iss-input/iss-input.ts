@@ -58,6 +58,7 @@ export class IssInput extends LitElement {
       gap: var(--iss-space-2);
       width: 100%;
       min-width: 0;
+      box-sizing: border-box;
       min-height: 44px;
       padding: 0 var(--iss-space-3);
       border: 1px solid var(--_iss-input-border-color);

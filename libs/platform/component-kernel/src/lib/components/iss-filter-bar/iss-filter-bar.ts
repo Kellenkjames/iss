@@ -67,7 +67,7 @@ export class IssFilterBar extends LitElement {
     .controls {
       display: flex;
       flex-wrap: wrap;
-      align-items: end;
+      align-items: flex-start;
       gap: var(--iss-space-3);
     }
 
