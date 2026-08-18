@@ -94,16 +94,19 @@
 
         <iss-input
           label="Subject"
+          placeholder="Deployment OPS-001"
           [value]="interpretationSubject"
           (input)="onInterpretationSubjectChange($event)"
         ></iss-input>
         <iss-input
           label="Context"
+          placeholder="Dependency check failed during validation."
           [value]="interpretationContext"
           (input)="onInterpretationContextChange($event)"
         ></iss-input>
         <iss-input
           label="Question"
+          placeholder="What should we inspect first?"
           [value]="interpretationQuestion"
           (input)="onInterpretationQuestionChange($event)"
         ></iss-input>

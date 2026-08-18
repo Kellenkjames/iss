@@ -25,6 +25,20 @@ describe('iss-input', () => {
     expect(input).toBeTruthy();
   });
 
+  it('renders a native textarea when multiline is enabled', async () => {
+    const element = document.createElement('iss-input') as IssInput;
+    element.multiline = true;
+    element.value = 'A longer question that should remain readable.';
+    document.body.appendChild(element);
+    await element.updateComplete;
+
+    const textarea = element.shadowRoot?.querySelector('textarea') as HTMLTextAreaElement;
+
+    expect(textarea).toBeTruthy();
+    expect(textarea.value).toBe('A longer question that should remain readable.');
+    expect(element.shadowRoot?.querySelector('input')).toBeNull();
+  });
+
   it('renders a visible label associated to input by for/id', async () => {
     const element = document.createElement('iss-input') as IssInput;
     element.label = 'Case ID';
@@ -68,6 +82,20 @@ describe('iss-input', () => {
 
     expect(element.value).toBe('operator-42');
     expect(hostInputHandler).toHaveBeenCalledTimes(1);
+  });
+
+  it('surfaces multiline typing through the same public value contract', async () => {
+    const element = document.createElement('iss-input') as IssInput;
+    element.multiline = true;
+    document.body.appendChild(element);
+    await element.updateComplete;
+
+    const textarea = element.shadowRoot?.querySelector('textarea') as HTMLTextAreaElement;
+    textarea.value = 'Keep the full interpretation question visible.';
+    textarea.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    await element.updateComplete;
+
+    expect(element.value).toBe('Keep the full interpretation question visible.');
   });
 
   it('surfaces change events to consumers', async () => {
@@ -182,5 +210,16 @@ describe('iss-input', () => {
   it('contains implementation focus styling for keyboard users', () => {
     expect(IssInput.styles.toString()).toContain(':focus-visible');
     expect(IssInput.styles.toString()).toContain('outline: 2px');
+  });
+
+  it('transitions the placeholder away when the native control receives focus', () => {
+    const styles = IssInput.styles.toString();
+
+    expect(styles).toContain('input:focus::placeholder');
+    expect(styles).toContain('opacity: 0');
+    expect(styles).toContain('box-sizing: border-box');
+    expect(styles).toContain('max-width: 100%');
+    expect(styles).toContain('grid-template-columns: minmax(0, 1fr)');
+    expect(styles).toContain(":host([variant='search']) .field");
   });
 });

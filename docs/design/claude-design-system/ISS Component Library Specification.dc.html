@@ -103,7 +103,7 @@
       <div class="field-label">States</div><p>default · focus (2px accent ring, border becomes accent) · filled · disabled · readonly · error (border + helper text in status.danger) · success (rare — used only for validated critical fields)</p>
       <div class="field-label">Accessibility</div><ul><li>Label always programmatically associated via <span class="iss-mono">for</span>/<span class="iss-mono">id</span>, never placeholder-as-label</li><li>Error text linked with <span class="iss-mono">aria-describedby</span>; field gets <span class="iss-mono">aria-invalid="true"</span></li></ul>
       <div class="field-label">Token usage</div><div class="iss-tokens"><span>--iss-color-border</span><span>--iss-color-accent</span><span>--iss-color-status-danger</span><span>--iss-space-3</span><span>--iss-radius-2</span></div>
-      <div class="field-label">Engineering notes</div><p><span class="iss-mono">&lt;iss-input&gt;</span> wraps a native <span class="iss-mono">&lt;input&gt;</span> in its shadow root so browser autofill and form participation (<span class="iss-mono">ElementInternals</span>) keep working; validation state is a prop, never computed inside the component.</p>
+      <div class="field-label">Engineering notes</div><p><span class="iss-mono">&lt;iss-input&gt;</span> wraps a native <span class="iss-mono">&lt;input&gt;</span>, or a native <span class="iss-mono">&lt;textarea&gt;</span> when multiline mode is enabled, in its shadow root so browser autofill and form participation (<span class="iss-mono">ElementInternals</span>) keep working; validation state is a prop, never computed inside the component.</p>
       <div class="field-label">Usage example</div>
       <div class="iss-code">&lt;iss-input
   label="Case ID"

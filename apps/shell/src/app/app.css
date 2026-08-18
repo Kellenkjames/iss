@@ -116,6 +116,11 @@ iss-card {
   letter-spacing: var(--iss-font-subheading-letter-spacing);
 }
 
+.shell-interpretation-demo iss-input {
+  min-width: 0;
+  width: 100%;
+}
+
 .shell-state-demo {
   margin-top: var(--iss-space-6);
   display: grid;

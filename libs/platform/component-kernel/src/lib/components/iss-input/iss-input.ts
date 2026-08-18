@@ -53,9 +53,11 @@ export class IssInput extends LitElement {
     .field {
       position: relative;
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr);
       align-items: center;
       gap: var(--iss-space-2);
+      width: 100%;
+      min-width: 0;
       min-height: 44px;
       padding: 0 var(--iss-space-3);
       border: 1px solid var(--_iss-input-border-color);
@@ -67,9 +69,20 @@ export class IssInput extends LitElement {
         background-color var(--iss-motion-fast);
     }
 
+    :host([variant='search']) .field {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
     .field:focus-within {
       border-color: var(--iss-color-accent);
       box-shadow: 0 0 0 2px color-mix(in oklch, var(--iss-color-accent) 35%, transparent);
+    }
+
+    :host([multiline]) .field {
+      align-items: stretch;
+      min-height: 96px;
+      padding-top: var(--iss-space-2);
+      padding-bottom: var(--iss-space-2);
     }
 
     :host([disabled]) .field {
@@ -122,6 +135,8 @@ export class IssInput extends LitElement {
 
     input {
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       border: none;
       background: transparent;
       color: var(--_iss-input-fg);
@@ -132,8 +147,32 @@ export class IssInput extends LitElement {
       outline: none;
     }
 
-    input::placeholder {
+    input::placeholder,
+    textarea::placeholder {
       color: var(--iss-color-text-muted);
+      opacity: 1;
+      transition: opacity var(--iss-motion-fast);
+    }
+
+    input:focus::placeholder,
+    textarea:focus::placeholder {
+      opacity: 0;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      min-height: 80px;
+      resize: vertical;
+      border: none;
+      background: transparent;
+      color: var(--_iss-input-fg);
+      font: inherit;
+      line-height: inherit;
+      padding: var(--iss-space-1) 0;
+      min-width: 0;
+      outline: none;
     }
 
     .search-indicator {
@@ -262,6 +301,9 @@ export class IssInput extends LitElement {
   @property({ type: Boolean, reflect: true })
   declare required: boolean;
 
+  @property({ type: Boolean, reflect: true })
+  declare multiline: boolean;
+
   private readonly inputId = `iss-input-${createInstanceId()}`;
 
   private readonly messageId = `${this.inputId}-message`;
@@ -280,6 +322,7 @@ export class IssInput extends LitElement {
     this.placeholder = '';
     this.type = 'text';
     this.required = false;
+    this.multiline = false;
   }
 
   protected override willUpdate(): void {
@@ -294,20 +337,38 @@ export class IssInput extends LitElement {
         ${this.variant === 'search'
           ? html`<span class="search-indicator" aria-hidden="true"></span>`
           : nothing}
-        <input
-          id=${this.inputId}
-          .value=${this.value}
-          type=${this.type}
-          name=${ifDefined(this.name || undefined)}
-          placeholder=${ifDefined(this.placeholder || undefined)}
-          aria-invalid=${ifDefined(this.hasError ? 'true' : undefined)}
-          aria-describedby=${ifDefined(this.messageText ? this.messageId : undefined)}
-          ?required=${this.required}
-          ?disabled=${this.disabled}
-          ?readonly=${this.readOnly}
-          @input=${this.handleInput}
-          @change=${this.handleChange}
-        />
+        ${this.multiline
+          ? html`
+              <textarea
+                id=${this.inputId}
+                .value=${this.value}
+                name=${ifDefined(this.name || undefined)}
+                placeholder=${ifDefined(this.placeholder || undefined)}
+                aria-invalid=${ifDefined(this.hasError ? 'true' : undefined)}
+                aria-describedby=${ifDefined(this.messageText ? this.messageId : undefined)}
+                ?required=${this.required}
+                ?disabled=${this.disabled}
+                ?readonly=${this.readOnly}
+                @input=${this.handleInput}
+                @change=${this.handleChange}
+              ></textarea>
+            `
+          : html`
+              <input
+                id=${this.inputId}
+                .value=${this.value}
+                type=${this.type}
+                name=${ifDefined(this.name || undefined)}
+                placeholder=${ifDefined(this.placeholder || undefined)}
+                aria-invalid=${ifDefined(this.hasError ? 'true' : undefined)}
+                aria-describedby=${ifDefined(this.messageText ? this.messageId : undefined)}
+                ?required=${this.required}
+                ?disabled=${this.disabled}
+                ?readonly=${this.readOnly}
+                @input=${this.handleInput}
+                @change=${this.handleChange}
+              />
+            `}
         ${this.shouldRenderClearControl
           ? html`
               <button
@@ -342,7 +403,7 @@ export class IssInput extends LitElement {
   }
 
   private handleInput = (event: Event) => {
-    const input = event.target as HTMLInputElement;
+    const input = event.target as HTMLInputElement | HTMLTextAreaElement;
     this.value = input.value;
 
     if (!event.composed) {
@@ -359,7 +420,7 @@ export class IssInput extends LitElement {
   };
 
   private handleChange = (event: Event) => {
-    const input = event.target as HTMLInputElement;
+    const input = event.target as HTMLInputElement | HTMLTextAreaElement;
     this.value = input.value;
 
     if (!event.composed) {

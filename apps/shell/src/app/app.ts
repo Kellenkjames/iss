@@ -19,6 +19,10 @@ import { interpretInformation } from './interpretation-provider.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
+  private readonly defaultInterpretationSubject = 'Deployment OPS-001';
+  private readonly defaultInterpretationContext = 'The dependency check failed during release validation.';
+  private readonly defaultInterpretationQuestion = 'What should we inspect first?';
+
   protected title = 'shell';
   protected buttonClicks = 0;
   protected inputValue = 'OPS-001';
@@ -79,9 +83,9 @@ export class App {
   protected aiProviderStatus: 'empty' | 'loading' | 'error' = 'empty';
   protected aiProviderMessage = 'No AI invocation has run yet.';
   protected aiProviderResponse = 'Awaiting provider execution.';
-  protected interpretationSubject = 'Deployment OPS-001';
-  protected interpretationContext = 'The dependency check failed during release validation.';
-  protected interpretationQuestion = 'What should we inspect first?';
+  protected interpretationSubject = '';
+  protected interpretationContext = '';
+  protected interpretationQuestion = '';
   protected interpretationStatus: 'empty' | 'loading' | 'error' = 'empty';
   protected interpretationMessage = 'No interpretation has been requested yet.';
   protected interpretationResponse = 'Awaiting interpretation.';
@@ -120,9 +124,9 @@ export class App {
 
     try {
       const response = await interpretInformation({
-        subject: this.interpretationSubject,
-        context: this.interpretationContext,
-        question: this.interpretationQuestion,
+        subject: this.interpretationSubject || this.defaultInterpretationSubject,
+        context: this.interpretationContext || this.defaultInterpretationContext,
+        question: this.interpretationQuestion || this.defaultInterpretationQuestion,
         source: 'shell-app',
       });
       this.interpretationStatus = response.success ? 'empty' : 'error';

@@ -156,7 +156,7 @@ model the interaction.
 Established examples include:
 
 -   `iss-button` → native `<button>`;
--   `iss-input` → native `<input>`;
+-   `iss-input` → native `<input>` or `<textarea>` when multiline mode is enabled;
 -   `iss-badge` → non-interactive text/status presentation;
 -   interactive components → native interactive semantics where
     applicable.

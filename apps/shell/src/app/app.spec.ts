@@ -25,6 +25,15 @@ describe('App', () => {
 
     expect(interpretationSection).not.toBeNull();
     expect(interpretationSection?.querySelectorAll('iss-input')).toHaveLength(3);
+    expect(
+      interpretationSection?.querySelector('iss-input[label="Question"]')?.getAttribute('placeholder'),
+    ).toBe('What should we inspect first?');
+    expect(
+      interpretationSection?.querySelector('iss-input[label="Context"]')?.getAttribute('placeholder'),
+    ).toBe('Dependency check failed during validation.');
+    expect(
+      interpretationSection?.querySelector('iss-input[label="Question"]')?.hasAttribute('multiline'),
+    ).toBe(false);
     expect(interpretationSection?.querySelector('iss-button')).not.toBeNull();
     expect(interpretationSection?.querySelector('iss-state')).not.toBeNull();
   });

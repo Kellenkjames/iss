@@ -36,7 +36,7 @@ The Kernel contains no Angular application code, application services, network b
 | Component | High-level purpose |
 |---|---|
 | `iss-button` | Native button action primitive |
-| `iss-input` | Labeled single-line text entry |
+| `iss-input` | Labeled text entry with opt-in multiline mode |
 | `iss-badge` | Non-interactive semantic status marker |
 | `iss-card` | Structural content container with optional single-action mode |
 | `iss-state` | Empty, loading, and error state presentation |

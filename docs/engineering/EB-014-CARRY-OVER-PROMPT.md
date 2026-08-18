@@ -54,7 +54,7 @@ The Intelligent Component Kernel provides 11 reusable Web Components as the shar
 | Component | Purpose | Scope |
 |---|---|---|
 | `iss-button` | Native button action primitive | Primary, secondary, tertiary, destructive variants; loading and disabled states |
-| `iss-input` | Labeled single-line text entry | Text, search, email, url, tel, password types; error/success/helper states |
+| `iss-input` | Labeled text entry | Single-line input types plus opt-in multiline text; error/success/helper states |
 | `iss-badge` | Non-interactive semantic status marker | Neutral, success, warning, danger, info tones |
 | `iss-card` | Structural content container | Default (non-interactive) and interactive (single-action) variants |
 | `iss-state` | Empty, loading, error state presentation | Canonical shared rendering across content regions |
