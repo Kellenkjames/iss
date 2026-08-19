@@ -13,6 +13,8 @@ const successfulResponse: AiProviderResponse = {
   promptTokens: 10,
   completionTokens: 6,
   totalTokens: 16,
+  estimatedCostUsd: 0.0000051,
+  costEstimateStatus: 'estimated',
   success: true,
 };
 
@@ -24,6 +26,8 @@ const failedResponse: AiProviderResponse = {
   promptTokens: 10,
   completionTokens: 0,
   totalTokens: 10,
+  estimatedCostUsd: 0,
+  costEstimateStatus: 'unavailable',
   success: false,
   error: {
     code: 'provider_error',

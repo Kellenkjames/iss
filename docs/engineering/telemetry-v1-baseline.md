@@ -147,6 +147,7 @@ Each record should include:
 - completionTokens
 - totalTokens
 - estimatedCostUsd
+- costEstimateStatus (`estimated` or `unavailable`)
 - latencyMs
 - invocationContext
 - success
@@ -202,6 +203,7 @@ Version 1 intentionally focuses on operational fundamentals.
 - token totals and estimated cost
 - invocation context and error metadata
 - minimal reviewable output formats
+- standard OpenAI API cost estimates for `gpt-4o-mini`
 
 ### Excluded
 
@@ -218,6 +220,12 @@ Version 1 intentionally focuses on operational fundamentals.
 - quota enforcement
 
 The objective is operational clarity, not enterprise observability.
+
+### Cost Estimation Policy
+
+Version 1 estimates cost at the provider boundary for standard OpenAI API requests using `gpt-4o-mini` pricing verified on 2026-08-18: $0.15 per million input tokens and $0.60 per million output tokens. Telemetry records the calculated value but does not own provider pricing policy.
+
+Unsupported models use `costEstimateStatus: 'unavailable'` and an `estimatedCostUsd` value of `0`; this represents unavailable pricing, not a zero-cost invocation. Cached-input, batch, regional, tool, and other non-standard pricing modes remain out of scope for Version 1.
 
 ---
 

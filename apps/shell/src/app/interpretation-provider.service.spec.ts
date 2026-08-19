@@ -13,6 +13,8 @@ const successfulResponse: AiProviderResponse = {
   promptTokens: 24,
   completionTokens: 11,
   totalTokens: 35,
+  estimatedCostUsd: 0.0000102,
+  costEstimateStatus: 'estimated',
   success: true,
 };
 

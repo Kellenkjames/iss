@@ -83,3 +83,9 @@ Both runtime adapters normalize records at the telemetry boundary:
 - Provider and model labels are trimmed and default to `unknown` when malformed.
 - Invocation and error metadata are whitespace-normalized and sensitive keys are removed.
 - Failed invocations remain recorded with `success: false` and sanitized `errorMetadata`.
+
+## Cost Estimates
+
+The AI Provider calculates estimates before passing records to Telemetry. The initial policy supports standard OpenAI API pricing for `gpt-4o-mini` only, using the rates verified on 2026-08-18 in the [OpenAI pricing reference](https://developers.openai.com/api/docs/pricing/): $0.15 per million input tokens and $0.60 per million output tokens.
+
+Records use `costEstimateStatus: 'estimated'` when a supported model is priced. Unsupported models record `estimatedCostUsd: 0` with `costEstimateStatus: 'unavailable'`; zero in that state does not mean the invocation was free. Batch, cached-input, regional, tool, and other non-standard pricing modes are intentionally outside this v1 policy.

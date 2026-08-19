@@ -1,4 +1,5 @@
 import type { AiProviderAdapter, AiProviderRequest, AiProviderResponse, OpenAiAdapterOptions } from './types';
+import { estimateOpenAiCost } from './openai-pricing';
 
 const normalizeOpenAiResponse = (
   payload: {
@@ -17,15 +18,18 @@ const normalizeOpenAiResponse = (
   const promptTokens = Number(payload.usage?.prompt_tokens ?? 0);
   const completionTokens = Number(payload.usage?.completion_tokens ?? 0);
   const totalTokens = Number(payload.usage?.total_tokens ?? promptTokens + completionTokens);
+  const model = payload.model ?? request.model ?? 'gpt-4o-mini';
+  const costEstimate = estimateOpenAiCost(model, promptTokens, completionTokens);
 
   return {
     content: payload.content ?? '',
-    model: payload.model ?? request.model ?? 'gpt-4o-mini',
+    model,
     provider: payload.provider ?? 'openai',
     latencyMs: 0,
     promptTokens,
     completionTokens,
     totalTokens,
+    ...costEstimate,
     success: !payload.error,
     error: payload.error ? { message: payload.error.message ?? 'OpenAI request failed' } : undefined,
   };

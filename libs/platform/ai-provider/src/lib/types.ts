@@ -1,4 +1,5 @@
 export type AiProviderStatus = 'success' | 'error';
+export type CostEstimateStatus = 'estimated' | 'unavailable';
 
 export interface AiProviderRequest {
   prompt: string;
@@ -22,6 +23,8 @@ export interface AiProviderResponse {
   promptTokens: number;
   completionTokens: number;
   totalTokens: number;
+  estimatedCostUsd: number;
+  costEstimateStatus: CostEstimateStatus;
   success: boolean;
   error?: AiProviderError;
 }
@@ -46,6 +49,7 @@ export interface AiProviderOptions {
       completionTokens: number;
       totalTokens: number;
       estimatedCostUsd: number;
+      costEstimateStatus?: CostEstimateStatus;
       latencyMs: number;
       invocationContext?: Record<string, unknown>;
       success?: boolean;

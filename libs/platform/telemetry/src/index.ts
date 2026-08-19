@@ -4,7 +4,7 @@ export {
     createTelemetryApi
 } from './lib/telemetry';
 export type {
-    TelemetryAggregateSummary, TelemetryApi,
+    CostEstimateStatus, TelemetryAggregateSummary, TelemetryApi,
     TelemetryOptions, TelemetryRecord,
     TelemetryRecordInput
 } from './lib/types';

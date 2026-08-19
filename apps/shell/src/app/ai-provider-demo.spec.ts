@@ -15,6 +15,7 @@ describe('ai-provider demo consumer', () => {
 
     const history = JSON.parse(localStorage.getItem('iss.telemetry.history') ?? '[]') as Array<{
       completionTokens: number;
+      costEstimateStatus: 'estimated' | 'unavailable';
       estimatedCostUsd: number;
       invocationContext: Record<string, unknown>;
       latencyMs: number;
@@ -45,12 +46,13 @@ describe('ai-provider demo consumer', () => {
       invocationContext: {
         workflow: 'ai-provider',
       },
+      costEstimateStatus: 'estimated',
       success: true,
     });
     expect(history[0].promptTokens).toBeGreaterThanOrEqual(0);
     expect(history[0].completionTokens).toBeGreaterThanOrEqual(0);
     expect(history[0].totalTokens).toBeGreaterThanOrEqual(0);
-    expect(history[0].estimatedCostUsd).toBeGreaterThanOrEqual(0);
+    expect(history[0].estimatedCostUsd).toBeGreaterThan(0);
     expect(history[0].latencyMs).toBeGreaterThanOrEqual(0);
     expect(Number.isNaN(new Date(history[0].timestamp).getTime())).toBe(false);
     expect(JSON.stringify(history)).not.toContain(prompt);

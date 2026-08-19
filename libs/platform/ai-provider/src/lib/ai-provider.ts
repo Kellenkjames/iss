@@ -66,6 +66,8 @@ export const createAiProvider = (
         promptTokens: response.promptTokens ?? 0,
         completionTokens: response.completionTokens ?? 0,
         totalTokens: response.totalTokens ?? response.promptTokens + response.completionTokens,
+        estimatedCostUsd: response.estimatedCostUsd ?? 0,
+        costEstimateStatus: response.costEstimateStatus ?? 'unavailable',
         success: response.success ?? true,
         error: response.error,
       };
@@ -76,7 +78,8 @@ export const createAiProvider = (
         promptTokens: normalizedResponse.promptTokens,
         completionTokens: normalizedResponse.completionTokens,
         totalTokens: normalizedResponse.totalTokens,
-        estimatedCostUsd: 0,
+        estimatedCostUsd: normalizedResponse.estimatedCostUsd,
+        costEstimateStatus: normalizedResponse.costEstimateStatus,
         latencyMs: normalizedResponse.latencyMs,
         invocationContext: {
           workflow: 'ai-provider',
@@ -99,6 +102,8 @@ export const createAiProvider = (
         promptTokens: 0,
         completionTokens: 0,
         totalTokens: 0,
+        estimatedCostUsd: 0,
+        costEstimateStatus: 'unavailable',
         success: false,
         error: normalizedError,
       };
@@ -110,6 +115,7 @@ export const createAiProvider = (
         completionTokens: 0,
         totalTokens: 0,
         estimatedCostUsd: 0,
+        costEstimateStatus: 'unavailable',
         latencyMs,
         invocationContext: {
           workflow: 'ai-provider',

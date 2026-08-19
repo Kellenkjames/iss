@@ -1,3 +1,5 @@
+export type CostEstimateStatus = 'estimated' | 'unavailable';
+
 export interface TelemetryRecordInput {
   provider: string;
   model: string;
@@ -5,6 +7,7 @@ export interface TelemetryRecordInput {
   completionTokens: number;
   totalTokens?: number;
   estimatedCostUsd?: number;
+  costEstimateStatus?: CostEstimateStatus;
   latencyMs?: number;
   invocationContext?: Record<string, unknown>;
   success?: boolean;
@@ -12,7 +15,7 @@ export interface TelemetryRecordInput {
   timestamp?: string;
 }
 
-export interface TelemetryRecord extends Required<Pick<TelemetryRecordInput, 'provider' | 'model' | 'promptTokens' | 'completionTokens' | 'totalTokens' | 'estimatedCostUsd' | 'latencyMs' | 'invocationContext' | 'success' | 'timestamp'>> {
+export interface TelemetryRecord extends Required<Pick<TelemetryRecordInput, 'provider' | 'model' | 'promptTokens' | 'completionTokens' | 'totalTokens' | 'estimatedCostUsd' | 'costEstimateStatus' | 'latencyMs' | 'invocationContext' | 'success' | 'timestamp'>> {
   errorMetadata?: Record<string, unknown>;
 }
 

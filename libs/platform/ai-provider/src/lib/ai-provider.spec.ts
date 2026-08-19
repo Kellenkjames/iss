@@ -6,6 +6,7 @@ import {
   validateProviderConfig,
 } from './config';
 import { createProviderFactory } from './factory';
+import { estimateOpenAiCost } from './openai-pricing';
 
 describe('ai-provider', () => {
   it('wraps a provider adapter and returns normalized output', async () => {
@@ -25,6 +26,8 @@ describe('ai-provider', () => {
         promptTokens: 12,
         completionTokens: 7,
         totalTokens: 19,
+        estimatedCostUsd: 0,
+        costEstimateStatus: 'unavailable',
         success: true,
       }),
     });
@@ -61,6 +64,8 @@ describe('ai-provider', () => {
         promptTokens: 10,
         completionTokens: 15,
         totalTokens: 25,
+        estimatedCostUsd: 0,
+        costEstimateStatus: 'unavailable',
         success: true,
       }),
     });
@@ -71,6 +76,7 @@ describe('ai-provider', () => {
     if (telemetryCall && typeof telemetryCall === 'object') {
       expect((telemetryCall as { provider: string }).provider).toBe('local-test');
       expect((telemetryCall as { totalTokens: number }).totalTokens).toBe(25);
+      expect((telemetryCall as { costEstimateStatus: string }).costEstimateStatus).toBe('unavailable');
     }
   });
 
@@ -114,7 +120,23 @@ describe('ai-provider', () => {
 
     expect(response.provider).toBe('openai');
     expect(response.model).toBe('gpt-4o-mini');
+    expect(response.estimatedCostUsd).toBeGreaterThan(0);
+    expect(response.costEstimateStatus).toBe('estimated');
     expect(response.success).toBe(true);
+  });
+
+  it('estimates standard cost for gpt-4o-mini token usage', () => {
+    expect(estimateOpenAiCost('gpt-4o-mini', 1_000_000, 1_000_000)).toEqual({
+      estimatedCostUsd: 0.75,
+      costEstimateStatus: 'estimated',
+    });
+  });
+
+  it('marks unsupported model pricing as unavailable', () => {
+    expect(estimateOpenAiCost('unsupported-model', 1_000_000, 1_000_000)).toEqual({
+      estimatedCostUsd: 0,
+      costEstimateStatus: 'unavailable',
+    });
   });
 
   it('normalizes provider configuration with the default model and optional fields', () => {

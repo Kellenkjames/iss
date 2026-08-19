@@ -62,6 +62,7 @@ export const createTelemetryRecord = (input: TelemetryRecordInput): TelemetryRec
     completionTokens,
     totalTokens: toFiniteNumber(input.totalTokens, promptTokens + completionTokens),
     estimatedCostUsd: toFiniteNumber(input.estimatedCostUsd),
+    costEstimateStatus: input.costEstimateStatus ?? (input.estimatedCostUsd === undefined ? 'unavailable' : 'estimated'),
     latencyMs: toFiniteNumber(input.latencyMs),
     invocationContext: sanitizeMetadata(input.invocationContext),
     success: input.success ?? true,
