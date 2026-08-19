@@ -25,7 +25,7 @@ const writeJsonFile = (targetPath: string, value: unknown) => {
 export const calculateTokenTotals = (items: TelemetryRecord[]) => {
   const totalPrompt = items.reduce((sum, item) => sum + (Number(item.promptTokens) || 0), 0);
   const totalCompletion = items.reduce((sum, item) => sum + (Number(item.completionTokens) || 0), 0);
-  const total = totalPrompt + totalCompletion;
+  const total = items.reduce((sum, item) => sum + (Number(item.totalTokens) || 0), 0);
 
   return {
     prompt: totalPrompt,

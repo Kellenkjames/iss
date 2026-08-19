@@ -48,7 +48,7 @@ const calculateAggregate = (records: TelemetryRecord[]): TelemetryAggregateSumma
     totalInvocations: records.length,
     totalPromptTokens: promptTokens,
     totalCompletionTokens: completionTokens,
-    totalTokens: promptTokens + completionTokens,
+    totalTokens: records.reduce((total, record) => total + record.totalTokens, 0),
     totalEstimatedCostUsd: records.reduce((total, record) => total + record.estimatedCostUsd, 0),
     averageLatencyMs: records.length
       ? Number((records.reduce((total, record) => total + record.latencyMs, 0) / records.length).toFixed(2))
@@ -91,7 +91,7 @@ export const createBrowserTelemetry = (): TelemetryApi => {
     calculateTokenTotals: (records) => ({
       prompt: records.reduce((total, record) => total + record.promptTokens, 0),
       completion: records.reduce((total, record) => total + record.completionTokens, 0),
-      total: records.reduce((total, record) => total + record.promptTokens + record.completionTokens, 0),
+      total: records.reduce((total, record) => total + record.totalTokens, 0),
     }),
     calculateEstimatedCost: (records) => records.reduce((total, record) => total + record.estimatedCostUsd, 0),
   };

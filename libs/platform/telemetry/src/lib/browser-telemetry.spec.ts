@@ -59,4 +59,22 @@ describe('browser telemetry', () => {
     expect(record.errorMetadata).toEqual({ reason: 'upstream timeout' });
     expect(Number.isNaN(new Date(record.timestamp).getTime())).toBe(false);
   });
+
+  it('uses reported total tokens in the aggregate', () => {
+    const storage = createMemoryStorage();
+    Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: storage });
+    const telemetry = createBrowserTelemetry();
+
+    telemetry.recordInvocation({
+      provider: 'openai',
+      model: 'gpt-4o-mini',
+      promptTokens: 12,
+      completionTokens: 29,
+      totalTokens: 36,
+      latencyMs: 100,
+      invocationContext: { workflow: 'test' },
+    });
+
+    expect(telemetry.generateJsonAggregate().totalTokens).toBe(36);
+  });
 });

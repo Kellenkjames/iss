@@ -72,6 +72,26 @@ describe('telemetry', () => {
     expect(aggregate.totalEstimatedCostUsd).toBe(0.003);
   });
 
+  it('uses reported total tokens when they differ from token component sums', () => {
+    const telemetry = createTelemetry({ outputDir: 'tmp/test-telemetry', fileName: 'telemetry-log.json' });
+
+    telemetry.recordInvocation({
+      provider: 'openai',
+      model: 'gpt-4o-mini',
+      promptTokens: 12,
+      completionTokens: 29,
+      totalTokens: 36,
+      latencyMs: 100,
+      invocationContext: { workflow: 'test' },
+    });
+
+    const aggregate = telemetry.generateJsonAggregate();
+
+    expect(aggregate.totalPromptTokens).toBe(12);
+    expect(aggregate.totalCompletionTokens).toBe(29);
+    expect(aggregate.totalTokens).toBe(36);
+  });
+
   it('generates a markdown summary report', () => {
     const telemetry = createTelemetry({ outputDir: 'tmp/test-telemetry', fileName: 'telemetry-log.json' });
 
