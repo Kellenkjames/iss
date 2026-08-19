@@ -1,10 +1,10 @@
+import { createTelemetryRecord } from './normalization';
 import type {
     TelemetryAggregateSummary,
     TelemetryApi,
     TelemetryRecord,
     TelemetryRecordInput,
 } from './types';
-import { createTelemetryRecord } from './normalization';
 
 const HISTORY_KEY = 'iss.telemetry.history';
 const AGGREGATE_KEY = 'iss.telemetry.aggregate';

@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { createTelemetryRecord } from './normalization';
 import type {
     TelemetryAggregateSummary,
     TelemetryApi,
@@ -7,7 +8,6 @@ import type {
     TelemetryRecord,
     TelemetryRecordInput,
 } from './types';
-import { createTelemetryRecord } from './normalization';
 
 const DEFAULT_OUTPUT_DIR = 'tmp/telemetry';
 const DEFAULT_FILE_NAME = 'telemetry-log.json';
