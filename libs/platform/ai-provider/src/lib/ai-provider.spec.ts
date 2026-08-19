@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { createAiProvider } from './ai-provider';
 import {
-  normalizeProviderConfig,
-  resolveProviderConfigFromEnvironment,
-  validateProviderConfig,
+    normalizeProviderConfig,
+    resolveProviderConfigFromEnvironment,
+    validateProviderConfig,
 } from './config';
 import { createProviderFactory } from './factory';
 import { estimateOpenAiCost } from './openai-pricing';

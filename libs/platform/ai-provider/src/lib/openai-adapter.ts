@@ -1,5 +1,5 @@
-import type { AiProviderAdapter, AiProviderRequest, AiProviderResponse, OpenAiAdapterOptions } from './types';
 import { estimateOpenAiCost } from './openai-pricing';
+import type { AiProviderAdapter, AiProviderRequest, AiProviderResponse, OpenAiAdapterOptions } from './types';
 
 const normalizeOpenAiResponse = (
   payload: {

@@ -1,9 +1,9 @@
 import type {
-  AiProvider,
-  AiProviderAdapter,
-  AiProviderOptions,
-  AiProviderRequest,
-  AiProviderResponse,
+    AiProvider,
+    AiProviderAdapter,
+    AiProviderOptions,
+    AiProviderRequest,
+    AiProviderResponse,
 } from './types';
 
 const sanitizeMetadata = (metadata: Record<string, unknown> | undefined): Record<string, unknown> => {
