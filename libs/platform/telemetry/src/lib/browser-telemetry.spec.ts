@@ -38,11 +38,19 @@ describe('browser telemetry', () => {
       invocationContext: {
         workflow: '  support   escalation  ',
         authorization: 'secret',
+        metadata: {
+          apiKey: 'secret',
+          requestId: 'abc-123',
+        },
       },
       success: false,
       errorMetadata: {
         reason: '  upstream timeout  ',
         apiToken: 'secret',
+        response: {
+          cookie: 'secret',
+          retryable: true,
+        },
       },
       timestamp: 'not-a-timestamp',
     });
@@ -55,8 +63,14 @@ describe('browser telemetry', () => {
     expect(record.completionTokens).toBe(0);
     expect(record.totalTokens).toBe(0);
     expect(record.success).toBe(false);
-    expect(record.invocationContext).toEqual({ workflow: 'support escalation' });
-    expect(record.errorMetadata).toEqual({ reason: 'upstream timeout' });
+    expect(record.invocationContext).toEqual({
+      workflow: 'support escalation',
+      metadata: { requestId: 'abc-123' },
+    });
+    expect(record.errorMetadata).toEqual({
+      reason: 'upstream timeout',
+      response: { retryable: true },
+    });
     expect(Number.isNaN(new Date(record.timestamp).getTime())).toBe(false);
   });
 

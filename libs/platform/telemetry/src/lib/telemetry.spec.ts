@@ -131,13 +131,20 @@ describe('telemetry', () => {
         apiKey: 'secret-value',
         password: 'hide-me',
         authorization: 'Bearer token',
+        metadata: {
+          accessToken: 'nested-secret',
+          requestId: 'abc-123',
+        },
       },
       success: true,
     });
 
     const history = telemetry.readHistory();
 
-    expect(history[0].invocationContext).toEqual({ workflow: 'support' });
+    expect(history[0].invocationContext).toEqual({
+      workflow: 'support',
+      metadata: { requestId: 'abc-123' },
+    });
   });
 
   it('normalizes malformed values and preserves failed invocation evidence', () => {

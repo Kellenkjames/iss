@@ -15,6 +15,29 @@ const normalizeTimestamp = (value: unknown): string => {
   return new Date().toISOString();
 };
 
+const isSensitiveKey = (key: string): boolean =>
+  SENSITIVE_FRAGMENTS.some((fragment) => key.toLowerCase().includes(fragment));
+
+const sanitizeValue = (value: unknown): unknown => {
+  if (typeof value === 'string') {
+    return value.replace(/\s+/g, ' ').trim();
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(sanitizeValue);
+  }
+
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .filter(([key]) => !isSensitiveKey(key))
+      .map(([key, nestedValue]) => [key, sanitizeValue(nestedValue)]),
+  );
+};
+
 export const sanitizeMetadata = (metadata: Record<string, unknown> | undefined): Record<string, unknown> => {
   if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
     return {};
@@ -22,11 +45,8 @@ export const sanitizeMetadata = (metadata: Record<string, unknown> | undefined):
 
   return Object.fromEntries(
     Object.entries(metadata)
-      .filter(([key]) => !SENSITIVE_FRAGMENTS.some((fragment) => key.toLowerCase().includes(fragment)))
-      .map(([key, value]) => [
-        key,
-        typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : value,
-      ]),
+      .filter(([key]) => !isSensitiveKey(key))
+      .map(([key, value]) => [key, sanitizeValue(value)]),
   );
 };
 
