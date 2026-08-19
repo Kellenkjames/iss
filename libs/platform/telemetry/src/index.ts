@@ -1,3 +1,4 @@
+export { resolveTelemetryConfig } from './lib/config';
 export {
     calculateEstimatedCost, calculateTokenTotals, createTelemetry,
     createTelemetryApi

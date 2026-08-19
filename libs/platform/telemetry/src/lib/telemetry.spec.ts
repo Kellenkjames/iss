@@ -1,6 +1,7 @@
 import { existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
+import { resolveTelemetryConfig } from './config';
 import { createTelemetry } from './telemetry';
 
 describe('telemetry', () => {
@@ -117,6 +118,37 @@ describe('telemetry', () => {
     const history = telemetry.readHistory();
 
     expect(history[0].invocationContext).toEqual({ workflow: 'support' });
+  });
+
+  describe('runtime configuration', () => {
+    it('resolves default telemetry config when environment is empty', () => {
+      const config = resolveTelemetryConfig({});
+
+      expect(config.outputDir).toBe('tmp/telemetry');
+      expect(config.fileName).toBe('telemetry-log.json');
+      expect(config.aggregateFileName).toBe('telemetry-aggregate.json');
+      expect(config.includeTimestampInFileName).toBe(false);
+    });
+
+    it('overrides config from environment variables', () => {
+      const config = resolveTelemetryConfig({
+        ISS_TELEMETRY_OUTPUT_DIR: 'custom/telemetry/path',
+        ISS_TELEMETRY_LOG_FILE: 'custom-log.json',
+        ISS_TELEMETRY_AGGREGATE_FILE: 'custom-aggregate.json',
+        ISS_TELEMETRY_INCLUDE_TIMESTAMP: 'true',
+      });
+
+      expect(config.outputDir).toBe('custom/telemetry/path');
+      expect(config.fileName).toBe('custom-log.json');
+      expect(config.aggregateFileName).toBe('custom-aggregate.json');
+      expect(config.includeTimestampInFileName).toBe(true);
+    });
+
+    it('treats non-true values for timestamp flag as false', () => {
+      expect(resolveTelemetryConfig({ ISS_TELEMETRY_INCLUDE_TIMESTAMP: 'false' }).includeTimestampInFileName).toBe(false);
+      expect(resolveTelemetryConfig({ ISS_TELEMETRY_INCLUDE_TIMESTAMP: '1' }).includeTimestampInFileName).toBe(false);
+      expect(resolveTelemetryConfig({ ISS_TELEMETRY_INCLUDE_TIMESTAMP: 'yes' }).includeTimestampInFileName).toBe(false);
+    });
   });
 
   it('creates the output files in the configured directory', () => {

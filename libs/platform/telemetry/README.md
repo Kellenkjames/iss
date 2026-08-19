@@ -60,3 +60,30 @@ const telemetry = createBrowserTelemetry();
 ```
 
 Applications still do not call `recordInvocation` directly. The AI Provider owns invocation capture; the runtime bootstrap only supplies the appropriate Telemetry implementation for its environment.
+
+## Runtime Configuration
+
+Node-based consumers can configure telemetry output through environment variables:
+
+```bash
+# Control the output directory
+export ISS_TELEMETRY_OUTPUT_DIR="./logs/telemetry"
+
+# Include timestamp in output filenames
+export ISS_TELEMETRY_INCLUDE_TIMESTAMP="true"
+
+# Customize filenames
+export ISS_TELEMETRY_LOG_FILE="invocations.json"
+export ISS_TELEMETRY_AGGREGATE_FILE="summary.json"
+```
+
+Then use the configuration resolver at bootstrap:
+
+```ts
+import { createTelemetry, resolveTelemetryConfig } from '@iss/telemetry';
+
+const config = resolveTelemetryConfig();
+const telemetry = createTelemetry(config);
+```
+
+Defaults are safe for local development. Browser consumers are unaffected by these variables.
