@@ -120,6 +120,43 @@ describe('telemetry', () => {
     expect(history[0].invocationContext).toEqual({ workflow: 'support' });
   });
 
+  it('normalizes malformed values and preserves failed invocation evidence', () => {
+    const telemetry = createTelemetry({ outputDir: 'tmp/test-telemetry', fileName: 'telemetry-log.json' });
+
+    telemetry.recordInvocation({
+      provider: '  openai  ',
+      model: '  gpt-4o-mini  ',
+      promptTokens: Number.NaN,
+      completionTokens: Number.POSITIVE_INFINITY,
+      estimatedCostUsd: Number.NaN,
+      latencyMs: Number.NaN,
+      invocationContext: {
+        workflow: '  support   escalation  ',
+        authorization: 'secret',
+      },
+      success: false,
+      errorMetadata: {
+        reason: '  upstream timeout  ',
+        apiToken: 'secret',
+      },
+      timestamp: 'not-a-timestamp',
+    });
+
+    const [record] = telemetry.readHistory();
+
+    expect(record.provider).toBe('openai');
+    expect(record.model).toBe('gpt-4o-mini');
+    expect(record.promptTokens).toBe(0);
+    expect(record.completionTokens).toBe(0);
+    expect(record.totalTokens).toBe(0);
+    expect(record.estimatedCostUsd).toBe(0);
+    expect(record.latencyMs).toBe(0);
+    expect(record.success).toBe(false);
+    expect(record.invocationContext).toEqual({ workflow: 'support escalation' });
+    expect(record.errorMetadata).toEqual({ reason: 'upstream timeout' });
+    expect(Number.isNaN(new Date(record.timestamp).getTime())).toBe(false);
+  });
+
   describe('runtime configuration', () => {
     it('resolves default telemetry config when environment is empty', () => {
       const config = resolveTelemetryConfig({});

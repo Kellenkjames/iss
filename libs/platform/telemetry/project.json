@@ -34,7 +34,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": ".",
-        "command": "pnpm vitest run libs/platform/telemetry/src/lib/telemetry.spec.ts --environment node"
+        "command": "pnpm vitest run libs/platform/telemetry/src/lib/*.spec.ts --environment node"
       }
     }
   }

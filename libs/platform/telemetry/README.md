@@ -11,23 +11,9 @@ The package has two runtime-safe entry points:
 
 ## Responsibilities
 
-- record AI invocation metadata
-- generate local JSON summaries
-- generate local Markdown summaries
-- calculate token totals and estimated cost
-- keep telemetry local-first and reviewable by engineers
 
 ## Explicit non-responsibilities
 
-- dashboards
-- cloud telemetry
-- product analytics
-- user analytics
-- alerting
-- real-time monitoring
-- provider benchmarking
-- prompt persistence
-- secret storage
 
 ## Example
 
@@ -87,3 +73,13 @@ const telemetry = createTelemetry(config);
 ```
 
 Defaults are safe for local development. Browser consumers are unaffected by these variables.
+
+## Boundary Guarantees
+
+Both runtime adapters normalize records at the telemetry boundary:
+
+- Missing, non-finite, or malformed numeric values become `0`.
+- Missing or invalid timestamps fall back to the current ISO timestamp.
+- Provider and model labels are trimmed and default to `unknown` when malformed.
+- Invocation and error metadata are whitespace-normalized and sensitive keys are removed.
+- Failed invocations remain recorded with `success: false` and sanitized `errorMetadata`.

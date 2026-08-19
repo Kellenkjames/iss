@@ -4,6 +4,7 @@ import type {
     TelemetryRecord,
     TelemetryRecordInput,
 } from './types';
+import { createTelemetryRecord } from './normalization';
 
 const HISTORY_KEY = 'iss.telemetry.history';
 const AGGREGATE_KEY = 'iss.telemetry.aggregate';
@@ -14,23 +15,6 @@ const getStorage = (): Storage | undefined => {
   } catch {
     return undefined;
   }
-};
-
-const sanitizeMetadata = (metadata: Record<string, unknown> | undefined): Record<string, unknown> => {
-  if (!metadata) {
-    return {};
-  }
-
-  const sensitiveFragments = ['apikey', 'token', 'secret', 'password', 'authorization', 'cookie'];
-
-  return Object.fromEntries(
-    Object.entries(metadata)
-      .filter(([key]) => !sensitiveFragments.some((fragment) => key.toLowerCase().includes(fragment)))
-      .map(([key, value]) => [
-        key,
-        typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : value,
-      ]),
-  );
 };
 
 const readRecords = (): TelemetryRecord[] => {
@@ -78,19 +62,7 @@ const calculateAggregate = (records: TelemetryRecord[]): TelemetryAggregateSumma
 
 export const createBrowserTelemetry = (): TelemetryApi => {
   const recordInvocation = (input: TelemetryRecordInput): void => {
-    const record: TelemetryRecord = {
-      provider: input.provider,
-      model: input.model,
-      promptTokens: Number(input.promptTokens) || 0,
-      completionTokens: Number(input.completionTokens) || 0,
-      totalTokens: Number(input.totalTokens ?? input.promptTokens + input.completionTokens) || 0,
-      estimatedCostUsd: Number(input.estimatedCostUsd) || 0,
-      latencyMs: Number(input.latencyMs) || 0,
-      invocationContext: sanitizeMetadata(input.invocationContext),
-      success: input.success ?? true,
-      errorMetadata: sanitizeMetadata(input.errorMetadata),
-      timestamp: input.timestamp ?? new Date().toISOString(),
-    };
+    const record = createTelemetryRecord(input);
     const records = [...readRecords(), record];
     const aggregate = calculateAggregate(records);
     const storage = getStorage();

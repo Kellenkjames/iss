@@ -7,32 +7,11 @@ import type {
     TelemetryRecord,
     TelemetryRecordInput,
 } from './types';
+import { createTelemetryRecord } from './normalization';
 
 const DEFAULT_OUTPUT_DIR = 'tmp/telemetry';
 const DEFAULT_FILE_NAME = 'telemetry-log.json';
 const DEFAULT_AGGREGATE_FILE_NAME = 'telemetry-aggregate.json';
-
-const sanitizeContext = (context: Record<string, unknown> | undefined): Record<string, unknown> => {
-  if (!context) return {};
-
-  return Object.fromEntries(
-    Object.entries(context).map(([key, value]) => {
-      if (typeof value === 'string') {
-        return [key, value.replace(/\s+/g, ' ').trim()];
-      }
-      return [key, value];
-    }),
-  );
-};
-
-const stripSensitiveMetadata = (context: Record<string, unknown> | undefined): Record<string, unknown> => {
-  if (!context) return {};
-
-  const suppressedKeys = ['apikey', 'token', 'secret', 'password', 'authorization', 'cookie'];
-  const entries = Object.entries(context).filter(([key]) => !suppressedKeys.some((s) => key.toLowerCase().includes(s)));
-
-  return Object.fromEntries(entries);
-};
 
 const ensureDirectory = (dir: string) => {
   mkdirSync(dir, { recursive: true });
@@ -82,27 +61,7 @@ export const createTelemetry = (options: TelemetryOptions = {}): TelemetryApi =>
   };
 
   const recordInvocation = (input: TelemetryRecordInput): void | Promise<void> => {
-    const timestamp = input.timestamp ?? new Date().toISOString();
-    const promptTokens = Number(input.promptTokens ?? 0);
-    const completionTokens = Number(input.completionTokens ?? 0);
-    const totalTokens = Number(input.totalTokens ?? promptTokens + completionTokens);
-    const latencyMs = Number(input.latencyMs ?? 0);
-    const estimatedCostUsd = Number(input.estimatedCostUsd ?? 0);
-    const success = input.success ?? true;
-
-    const record: TelemetryRecord = {
-      timestamp,
-      provider: input.provider,
-      model: input.model,
-      promptTokens,
-      completionTokens,
-      totalTokens,
-      estimatedCostUsd,
-      latencyMs,
-      invocationContext: sanitizeContext(stripSensitiveMetadata(input.invocationContext)),
-      success,
-      errorMetadata: input.errorMetadata ? stripSensitiveMetadata(input.errorMetadata as Record<string, unknown>) : undefined,
-    };
+    const record = createTelemetryRecord(input);
 
     const history = readHistory();
     const nextHistory = [...history, record];
