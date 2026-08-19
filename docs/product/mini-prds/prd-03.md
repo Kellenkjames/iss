@@ -12,7 +12,13 @@
 
 **Version:** 1.0
 
-**Status:** Planning (Phase 0)
+**Status:** Frozen v1.0 - Engineering Approved
+
+## Freeze Note
+
+Telemetry v1 is complete and frozen following implementation, end-to-end browser evidence validation, and final engineering review. The frozen boundary includes local-first JSON and Markdown evidence, browser `localStorage` capture, provider-boundary instrumentation, recursive sensitive metadata redaction, runtime configuration, and standard `gpt-4o-mini` cost estimation with explicit unavailable-pricing states.
+
+Future pricing-table updates, additional providers, cached or batch pricing modes, hosted observability, dashboards, and broader analytics require a new engineering brick or ADR. They are intentionally outside the frozen v1 contract.
 
 ---
 
