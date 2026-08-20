@@ -10,7 +10,9 @@
 
 **Version:** 1.0
 
-**Status:** Validated v1.0 Foundation
+**Revision:** 2026-08-19
+
+**Status:** v1.0 foundation; test configuration needs repair
 
 ---
 

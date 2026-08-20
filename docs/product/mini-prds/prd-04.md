@@ -10,7 +10,9 @@
 
 **Version:** 1.0
 
-**Status:** Planning (Phase 0)
+**Revision:** 2026-08-19
+
+**Status:** Architecture complete; provider adapter demo
 
 ---
 
@@ -45,14 +47,16 @@ AI Provider
         ↓
 Telemetry
         ↓
-Provider Implementation
-        ↓
-OpenAI
+Configured Provider Adapter
 ```
 
 Applications never communicate directly with external AI SDKs.
 
 The AI Provider package becomes the sole gateway into runtime intelligence.
+
+The current OpenAI adapter is a deterministic demo implementation. It proves the
+boundary and telemetry contract but does not make external API requests. Real
+provider execution remains incomplete for production use.
 
 ---
 
@@ -143,8 +147,8 @@ The provider layer should remain independent from presentation concerns.
 
 Version 1 implementation:
 
-- OpenAI SDK
 - TypeScript
+- A provider adapter boundary, currently exercised by a deterministic demo adapter
 
 Future implementations may include additional providers.
 
@@ -177,7 +181,7 @@ Version 1 intentionally focuses on one provider implementation.
 
 Included:
 
-- OpenAI provider
+- OpenAI provider boundary and adapter contract
 - Stable provider abstraction
 - Model configuration
 - Per-request execution options
@@ -245,7 +249,7 @@ The AI Provider is an infrastructure layer—not an AI framework.
 
 # 11. Engineering Signals
 
-This project demonstrates:
+This project currently demonstrates:
 
 ### Architectural Thinking
 
@@ -258,6 +262,9 @@ This project demonstrates:
 
 - Provider abstraction
 - Model encapsulation
+
+It does not yet demonstrate live OpenAI execution. That remains the next
+implementation milestone before a production-ready provider claim is made.
 - Runtime integration
 - AI platform design
 

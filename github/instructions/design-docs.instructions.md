@@ -18,8 +18,6 @@ Treat `docs/design/` as the canonical ISS Design Operating System and its onboar
 - Reuse approved foundations, components, and composition patterns before proposing new ones.
 - Do not invent one-off visual or interaction patterns.
 - Preserve accessibility requirements and human-in-the-loop AI principles.
-- Treat Claude Design HTML and JavaScript files as generated archival artifacts.
-- Do not manually alter generated Claude Design assets unless explicitly instructed.
 - Make governance changes through the approved design change lifecycle.
 - Distinguish documentation edits from design-system changes.
 
@@ -30,9 +28,9 @@ Consult first:
 - `design-partner-charter.md`
 - `design-kickoff-package.md`
 
-The generated design system is located under:
-
-- `claude-design-system/`
+The maintained design source is the Markdown documentation listed above. Generated
+design exports were removed during the documentation health cleanup and are not a
+source of truth.
 
 ## Validation
 
@@ -41,4 +39,4 @@ Before completing a design-document change:
 - identify the affected design phase,
 - confirm whether an existing component or pattern already covers the need,
 - identify downstream effects on components, composition, reference screens, or governance,
-- report whether generated archive files were modified.
+- report whether maintained design source files were modified.

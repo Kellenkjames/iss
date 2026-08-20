@@ -6,6 +6,8 @@
 
 **Version:** 1.0
 
+**Revision:** 2026-08-19
+
 **Status:** Draft for Review
 
 **Applies To:** Entire ISS monorepo
@@ -54,7 +56,11 @@ Platform packages must not depend on applications.
 
 ISS uses a public Nx monorepo with pnpm workspaces.
 
-Required top-level structure:
+The current implemented workspace contains `apps/shell` and the four platform
+libraries under `libs/platform`. The following is the target top-level structure;
+planned applications are intentionally documented before implementation.
+
+Target top-level structure:
 
 ```
 iss-monorepo/

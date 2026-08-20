@@ -16,81 +16,110 @@ npx nx <target> <project-name>
 
 For example:
 
-```sh
-npx nx build myproject
+# Intelligent Systems Suite
+
+ISS is an Nx monorepo for exploring AI-assisted software systems with explicit platform boundaries, operational evidence, and human-directed workflows.
+
+The current repository is a validated platform foundation and reference shell. It is not yet the complete future suite described by the roadmap documents.
+
+## Architecture
+
+Applications consume shared platform capabilities through stable public APIs:
+
+```text
+Applications
+	-> AI Provider
+		-> Telemetry
+
+Applications
+	-> Component Kernel
+		-> Design Tokens
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+Current projects:
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+| Project | Location | Current state |
+| --- | --- | --- |
+| Design Tokens | `libs/platform/design-tokens` | v1.0 foundation; test configuration needs repair |
+| Component Kernel | `libs/platform/component-kernel` | Frozen v1.0, human approved |
+| Telemetry | `libs/platform/telemetry` | Frozen v1.0, engineering approved |
+| AI Provider | `libs/platform/ai-provider` | Architecture complete; adapter is demo/mock |
+| Application Shell | `apps/shell` | Active reference integration |
 
-## Add new projects
+PRD-06 and PRD-07 remain planned roadmap applications. Their directories are not present in the current workspace.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+## Prerequisites
 
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
-```
+- Node.js compatible with the versions declared by the workspace toolchain
+- pnpm
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
-
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
-
-# Generate a library
-npx nx g @nx/react:lib some-lib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
+Install dependencies with:
 
 ```sh
-npx nx connect
+pnpm install
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## Development
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
+Run the browser shell with:
 
 ```sh
-npx nx g ci-workflow
+CI=1 pnpm nx serve shell
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+The shell demonstrates the component kernel and AI Provider boundary. The current AI adapter returns deterministic demo responses and does not call an external provider.
 
-## Install Nx Console
+Run any Nx target with:
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+```sh
+pnpm nx <target> <project>
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Validation
 
-## Useful links
+Focused project targets:
 
-Learn more:
+```sh
+pnpm nx lint design-tokens
+pnpm nx test design-tokens
+pnpm nx build design-tokens
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+pnpm nx lint component-kernel
+pnpm nx test component-kernel
+pnpm nx build component-kernel
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
+pnpm nx lint telemetry
+pnpm nx test telemetry
+pnpm nx build telemetry
+
+pnpm nx lint ai-provider
+pnpm nx test ai-provider
+pnpm nx build ai-provider
+
+pnpm nx lint shell
+pnpm nx test shell
+pnpm nx build shell
+```
+
+The shell has an existing CSS warning-budget warning in `apps/shell/src/app/app.css`; it is unrelated to the documentation cleanup.
+
+The design-token build and lint targets pass, but its current Vitest test imports
+the CSS module as an empty string. The Nx test target also lacks the inferred
+test executor configuration required to run it. This is a pre-existing
+validation defect and is intentionally outside this documentation-only pass.
+
+## Documentation
+
+Start with the [documentation index](docs/README.md). It links to architecture standards, engineering governance, design material, product mini-PRDs, and archived engineering-brick records.
+
+Repository-wide Copilot instructions live at [github/copilot-instructions.md](github/copilot-instructions.md).
+
+## Repository conventions
+
+- Keep dependency direction from applications into platform libraries.
+- Route AI execution through the AI Provider boundary.
+- Keep telemetry provider-neutral and local-first.
+- Preserve stable public contracts and document breaking changes.
+- Validate focused Nx targets before broader validation.
+- Commit messages follow the repository's Conventional Commit style.
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)

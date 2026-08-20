@@ -6,6 +6,8 @@
 
 **Version:** 1.0
 
+**Revision:** 2026-08-19
+
 **Status:** Phase 1 Operational Procedure
 
 **Owner:** Human Technical Lead
@@ -45,18 +47,18 @@ Every document should exist in **one authoritative location**.
 
 | Status | Document | Destination |
 | --- | --- | --- |
-| ☐ | Engineering Constitution | `docs/engineering/` |
-| ☐ | Architecture Standards | `docs/engineering/` |
-| ☐ | Universal Agent Contract | `docs/engineering/` |
-| ☐ | Role Selection Matrix | `docs/engineering/` |
-| ☐ | Product Development Lifecycle | `docs/engineering/` |
-| ☐ | GitHub Copilot Engineering Framework | `docs/engineering/` |
-| ☐ | Repository-Wide Copilot Instructions | `github/copilot-instructions.md` |
-| ☐ | Repository Blueprint | `docs/engineering/` |
-| ☐ | Repository Initialization Runbook | `docs/engineering/` |
-| ☐ | Documentation Migration Checklist | `docs/engineering/` |
-| ☐ | Repository README | Repository root |
-| ☐ | LICENSE | Repository root |
+| ✓ | Engineering Constitution | `docs/engineering/engineering-constitution.md` |
+| ✓ | Architecture Standards | `docs/engineering/architecture-standards.md` |
+| ✓ | Universal Agent Contract | `docs/engineering/universal-agent-contract.md` |
+| ✓ | Role Selection Matrix | `docs/engineering/role-selection-matrix.md` |
+| ✓ | Product Development Lifecycle | `docs/engineering/product-development-lifecycle.md` |
+| ✓ | GitHub Copilot Engineering Framework | `docs/engineering/copilot-framework.md` |
+| ✓ | Repository-Wide Copilot Instructions | `github/copilot-instructions.md` |
+| ✓ | Repository Blueprint | `docs/engineering/repository-blueprint.md` |
+| ✓ | Repository Initialization Runbook | `docs/engineering/initialization-runbook.md` |
+| ✓ | Documentation Migration Checklist | `docs/engineering/documentation-migration-checklist.md` |
+| ✓ | Repository README | `README.md` |
+| ! | LICENSE | Not present in current workspace; add before public release |
 
 ---
 
@@ -86,8 +88,7 @@ Documentation migration is complete when:
 
 # Next Step
 
-After documentation migration is complete:
-
-1. Execute the Repository Initialization Runbook.
-2. Create the initial repository commit.
-3. Begin the First Engineering Brick.
+Documentation migration is complete for the documents listed above. Future
+documentation changes should update the relevant canonical document and index,
+then validate links and repository-path claims. Commit and release operations
+remain human-authorized actions outside this checklist.

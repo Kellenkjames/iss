@@ -10,7 +10,13 @@
 
 **Version:** 1.0
 
-**Status:** Planning (Phase 0)
+**Revision:** 2026-08-19
+
+**Status:** Planned roadmap
+
+The target repository path is not currently implemented. This document remains
+an approved future application boundary and is not evidence that
+`apps/interpretation-engine` exists today.
 
 ---
 

@@ -6,6 +6,8 @@
 
 **Version:** 1.0
 
+**Revision:** 2026-08-19
+
 **Status:** Phase 1 Repository Architecture Standard
 
 **Owner:** Human Technical Lead
@@ -35,6 +37,14 @@ The blueprint should answer one recurring question:
 >
 
 It does not define implementation details for every package. Those remain the responsibility of the applicable Mini PRD, ADR, path-specific instruction, and engineering brick.
+
+## Current Implementation Baseline
+
+The current workspace implements the `shell` application and these platform
+libraries: `design-tokens`, `component-kernel`, `telemetry`, and `ai-provider`.
+The remaining applications and libraries shown in the canonical structure are
+target-state architecture, not current repository paths. Product mini-PRDs and
+the documentation indexes identify which targets are planned.
 
 ---
 
@@ -912,7 +922,8 @@ Each implementation package should be traceable to an applicable requirement.
 
 Design foundations, composition patterns, and governance artifacts.
 
-Generated design-system archive content remains under `docs/design/claude-design-system`.
+Generated design-system exports are not part of the maintained repository structure.
+The Markdown files under `docs/design` are the current design documentation source.
 
 ## `github`
 

@@ -10,7 +10,9 @@
 
 **Version:** 1.0
 
-**Status:** Planning (Phase 0)
+**Revision:** 2026-08-19
+
+**Status:** Active reference integration
 
 ---
 
@@ -55,6 +57,10 @@ Application Shell
 The Shell demonstrates architectural composition.
 
 It does not introduce new infrastructure.
+
+The current shell integrates the shared components, browser telemetry, and AI
+Provider boundary. Its AI interaction uses the provider's deterministic demo
+adapter; it is not a production application or live-provider verification.
 
 Future applications should resemble the Shell structurally while implementing different business capabilities.
 
