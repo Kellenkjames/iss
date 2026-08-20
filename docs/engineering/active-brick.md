@@ -174,3 +174,112 @@ Optional full baseline after completion:
 - secondary: AI Integration Engineer
 
 Use the engineering review gate due to shared boundary behavior change.
+
+---
+
+## Next Proposed Brick
+
+### Title
+
+PRD-04 Brick 2 - Provider Response and Model Metadata Normalization
+
+### Planning Status
+
+Proposed for human approval.
+
+### Outcome
+
+Ensure successful OpenAI responses remain internally consistent when the API
+returns a concrete model ID for a configured alias, and ensure supported model
+pricing remains available for recognized dated model IDs.
+
+### Why This Brick Exists
+
+The live smoke verification succeeded with the configured alias `gpt-4o-mini`,
+but OpenAI returned the concrete model ID `gpt-4o-mini-2024-07-18`. The current
+response normalization preserves that concrete ID while the pricing table only
+recognizes the alias. This can produce a successful invocation with an
+`unavailable` cost estimate even though the model family is supported.
+
+PRD-04 also contains one stale engineering-signal sentence that still says live
+OpenAI execution is not demonstrated. The next brick should reconcile that
+documentation with the completed Brick 1 evidence.
+
+### Local Hypothesis
+
+If model identity is normalized through a provider-owned alias/family mapping,
+then response model identity, pricing status, and telemetry cost evidence will
+remain consistent for both configured aliases and provider-returned dated model
+IDs without changing the application-facing provider contract.
+
+### Focused Validation Check
+
+After the first implementation edit:
+
+- `CI=1 pnpm nx test ai-provider`
+
+The first regression should use a mocked OpenAI response with
+`model: 'gpt-4o-mini-2024-07-18'` and verify estimated pricing remains available.
+
+### In Scope
+
+- normalize supported OpenAI model aliases and dated concrete IDs for pricing
+- preserve the concrete provider-returned model ID in the normalized response
+- verify telemetry receives the same concrete model ID as the response
+- add focused tests for alias, dated ID, and unsupported model pricing behavior
+- correct the stale PRD-04 engineering-signal wording
+- document the model identity/pricing normalization rule
+
+### Out of Scope
+
+- changing the public `AiProviderResponse` contract
+- automatic model selection
+- provider routing or failover
+- pricing optimization or billing behavior
+- additional provider implementations
+- streaming, tools, structured outputs, or retries
+- changing the frozen PRD-03 telemetry contract
+
+### Likely Files
+
+- `libs/platform/ai-provider/src/lib/openai-pricing.ts`
+- `libs/platform/ai-provider/src/lib/openai-pricing.spec.ts` (if present or created)
+- `libs/platform/ai-provider/src/lib/openai-adapter.spec.ts`
+- `libs/platform/ai-provider/src/lib/ai-provider.spec.ts`
+- `docs/product/mini-prds/prd-04.md`
+- `docs/engineering/active-brick.md`
+
+### Implementation Sequence
+
+1. inspect the current OpenAI pricing table and existing cost-estimate tests
+2. define the smallest provider-owned model-family matching rule
+3. update pricing normalization without changing Telemetry ownership
+4. add alias, dated model ID, unsupported model, and telemetry consistency tests
+5. correct the stale PRD-04 engineering-signal statement
+6. run `CI=1 pnpm nx test ai-provider` immediately after the first edit
+7. run AI Provider lint/build and the full current-project validation matrix
+8. request engineering review before marking the proposal complete
+
+### Acceptance Criteria
+
+- `gpt-4o-mini` pricing remains estimated
+- `gpt-4o-mini-2024-07-18` pricing is estimated using the same supported family policy
+- unsupported model IDs remain explicitly unavailable rather than silently free
+- normalized response and telemetry retain the same concrete provider model ID
+- no application-facing API changes are introduced
+- AI Provider lint, test, and build pass
+- PRD-04 no longer contradicts the completed live-execution evidence
+
+### Risks and Decisions
+
+- model-family matching must not accidentally classify unrelated future models as supported
+- pricing policy remains AI Provider-owned and provider-specific
+- a new model family should require an explicit pricing update rather than prefix-only inference
+
+### Recommended Review
+
+- primary: Engineering Reviewer
+- secondary: AI Integration Engineer
+
+Use the engineering review gate because this brick changes provider-owned cost
+normalization behavior, even though the public provider contract remains stable.
