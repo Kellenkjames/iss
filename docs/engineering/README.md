@@ -12,6 +12,7 @@ Engineering documents define the structure, operating rules, and review practice
 
 ## Workflow and organization
 
+- [Active Engineering Brick](active-brick.md)
 - [Product Development Lifecycle](product-development-lifecycle.md)
 - [Initialization Runbook](initialization-runbook.md)
 - [AI Engineering Organization](ai-engineering-organization.md)

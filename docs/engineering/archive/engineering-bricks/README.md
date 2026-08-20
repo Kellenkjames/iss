@@ -4,12 +4,14 @@ This directory contains completed or superseded engineering-brick records.
 
 These documents remain available for architectural history and implementation traceability, but they are not active work queues.
 
-## Active Documents
+## Active Planning Document
 
-The current active PRD-03 implementation records remain in the parent directory:
+Active in-flight planning lives in the single parent brief:
 
-- [EB-015 Telemetry Local-First](../../EB-015-TELEMETRY-LOCAL-FIRST.md)
-- [Telemetry v1 Baseline](../../telemetry-v1-baseline.md)
+- [Active Engineering Brick](../../active-brick.md)
+
+Durable baseline records such as Telemetry and release manifests remain in the
+parent engineering directory and are not treated as active planning queues.
 
 ## Archive Contents
 
@@ -26,4 +28,11 @@ The current active PRD-03 implementation records remain in the parent directory:
 
 ## Maintenance Rule
 
-Create a new committed engineering-brick document only when the work introduces a durable architectural boundary, public contract, or review decision. Smaller implementation increments should update the active brief and be represented by code, tests, and commits.
+Use one active planning file (`active-brick.md`) for ongoing work.
+
+Create a new committed numbered engineering-brick record only when the work
+introduces a durable architectural boundary, public contract, or explicit
+review decision that should be preserved historically.
+
+Smaller implementation increments should update the active brief and be
+represented primarily by code, tests, and commit history.
