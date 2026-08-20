@@ -40,11 +40,9 @@
       ]
     },
     "test": {
-      "executor": "@nx/js:node",
+      "executor": "nx:run-commands",
       "options": {
-        "main": "libs/platform/design-tokens/src/lib/tokens.spec.ts",
-        "outputPath": "dist/out-tsc/libs/platform/design-tokens",
-        "tsConfig": "libs/platform/design-tokens/tsconfig.json"
+        "command": "pnpm vitest run libs/platform/design-tokens/src/lib/tokens.spec.ts --environment node"
       }
     }
   }

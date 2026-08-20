@@ -77,6 +77,9 @@ pnpm nx <target> <project>
 
 ## Validation
 
+Pull requests and pushes to `main` run the same focused validation through
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
 Focused project targets:
 
 ```sh

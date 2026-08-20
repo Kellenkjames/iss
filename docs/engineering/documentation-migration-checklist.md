@@ -58,7 +58,7 @@ Every document should exist in **one authoritative location**.
 | ✓ | Repository Initialization Runbook | `docs/engineering/initialization-runbook.md` |
 | ✓ | Documentation Migration Checklist | `docs/engineering/documentation-migration-checklist.md` |
 | ✓ | Repository README | `README.md` |
-| ! | LICENSE | Not present in current workspace; add before public release |
+| ✓ | LICENSE | `LICENSE` |
 
 ---
 

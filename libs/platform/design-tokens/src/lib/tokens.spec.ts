@@ -1,5 +1,10 @@
+/// <reference types="node" />
+
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import designTokensCss from '../styles.css';
+
+const designTokensCss = readFileSync(resolve(__dirname, '../styles.css'), 'utf8');
 
 describe('design tokens', () => {
   it('emits css custom properties under the iss namespace', () => {
