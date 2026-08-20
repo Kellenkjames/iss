@@ -25,7 +25,7 @@ const sanitizeMetadata = (metadata: Record<string, unknown> | undefined): Record
 const normalizeError = (error: unknown): { code?: string; message?: string } => {
   if (error instanceof Error) {
     return {
-      code: 'provider_error',
+      code: 'code' in error && typeof error.code === 'string' ? error.code : 'provider_error',
       message: error.message,
     };
   }
@@ -62,7 +62,7 @@ export const createAiProvider = (
         content: response.content ?? '',
         model: response.model ?? request.model ?? modelName,
         provider: response.provider ?? providerName,
-        latencyMs: response.latencyMs ?? latencyMs,
+          latencyMs,
         promptTokens: response.promptTokens ?? 0,
         completionTokens: response.completionTokens ?? 0,
         totalTokens: response.totalTokens ?? response.promptTokens + response.completionTokens,

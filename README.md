@@ -40,10 +40,10 @@ Current projects:
 
 | Project | Location | Current state |
 | --- | --- | --- |
-| Design Tokens | `libs/platform/design-tokens` | v1.0 foundation; test configuration needs repair |
+| Design Tokens | `libs/platform/design-tokens` | Validated v1.0 foundation |
 | Component Kernel | `libs/platform/component-kernel` | Frozen v1.0, human approved |
 | Telemetry | `libs/platform/telemetry` | Frozen v1.0, engineering approved |
-| AI Provider | `libs/platform/ai-provider` | Architecture complete; adapter is demo/mock |
+| AI Provider | `libs/platform/ai-provider` | Live adapter implemented; browser demo remains offline |
 | Application Shell | `apps/shell` | Active reference integration |
 
 PRD-06 and PRD-07 remain planned roadmap applications. Their directories are not present in the current workspace.
@@ -67,7 +67,10 @@ Run the browser shell with:
 CI=1 pnpm nx serve shell
 ```
 
-The shell demonstrates the component kernel and AI Provider boundary. The current AI adapter returns deterministic demo responses and does not call an external provider.
+The shell demonstrates the component kernel and AI Provider boundary. The
+browser demo uses the explicit `demo-key` sentinel and returns deterministic
+offline responses. Runtime configurations with a real API key use the live
+OpenAI adapter; credentials must remain outside browser bundles.
 
 Run any Nx target with:
 
@@ -106,10 +109,8 @@ pnpm nx build shell
 
 The shell has an existing CSS warning-budget warning in `apps/shell/src/app/app.css`; it is unrelated to the documentation cleanup.
 
-The design-token build and lint targets pass, but its current Vitest test imports
-the CSS module as an empty string. The Nx test target also lacks the inferred
-test executor configuration required to run it. This is a pre-existing
-validation defect and is intentionally outside this documentation-only pass.
+The Design Tokens lint, test, and build targets validate the shared CSS asset
+contract.
 
 ## Documentation
 

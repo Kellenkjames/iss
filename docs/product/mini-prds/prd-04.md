@@ -12,7 +12,7 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Architecture complete; provider adapter demo
+**Status:** Live adapter implemented; browser demo remains offline
 
 ---
 
@@ -54,9 +54,13 @@ Applications never communicate directly with external AI SDKs.
 
 The AI Provider package becomes the sole gateway into runtime intelligence.
 
-The current OpenAI adapter is a deterministic demo implementation. It proves the
-boundary and telemetry contract but does not make external API requests. Real
-provider execution remains incomplete for production use.
+The OpenAI adapter performs live Chat Completions requests when configured with a
+runtime API key. The explicit `demo-key` sentinel remains deterministic and
+offline for browser demonstrations, where credentials must not be bundled or
+prompts sent directly from the client.
+
+Live execution is server-only for non-demo credentials. Browser consumers must
+use the offline demo path or a future approved server proxy.
 
 ---
 
@@ -148,7 +152,7 @@ The provider layer should remain independent from presentation concerns.
 Version 1 implementation:
 
 - TypeScript
-- A provider adapter boundary, currently exercised by a deterministic demo adapter
+- A native `fetch`-based OpenAI adapter boundary with an explicit offline demo sentinel
 
 Future implementations may include additional providers.
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createAiProvider } from './ai-provider';
 import {
     normalizeProviderConfig,
@@ -9,6 +9,11 @@ import { createProviderFactory } from './factory';
 import { estimateOpenAiCost } from './openai-pricing';
 
 describe('ai-provider', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
+
   it('wraps a provider adapter and returns normalized output', async () => {
     const provider = createAiProvider({
       provider: 'local-test',
@@ -45,6 +50,9 @@ describe('ai-provider', () => {
 
   it('captures telemetry on a successful execution', async () => {
     let telemetryCall: unknown = null;
+    vi.spyOn(Date, 'now')
+      .mockReturnValueOnce(1_000)
+      .mockReturnValueOnce(1_125);
 
     const provider = createAiProvider({
       provider: 'local-test',
@@ -77,6 +85,7 @@ describe('ai-provider', () => {
       expect((telemetryCall as { provider: string }).provider).toBe('local-test');
       expect((telemetryCall as { totalTokens: number }).totalTokens).toBe(25);
       expect((telemetryCall as { costEstimateStatus: string }).costEstimateStatus).toBe('unavailable');
+      expect((telemetryCall as { latencyMs: number }).latencyMs).toBe(125);
     }
   });
 
@@ -102,6 +111,12 @@ describe('ai-provider', () => {
   });
 
   it('creates a provider from configuration through the factory', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      model: 'gpt-4o-mini',
+      choices: [{ message: { content: 'factory response' } }],
+      usage: { prompt_tokens: 8, completion_tokens: 4, total_tokens: 12 },
+    }), { status: 200 })));
+
     const factory = createProviderFactory({
       telemetry: {
         recordInvocation: async () => undefined,

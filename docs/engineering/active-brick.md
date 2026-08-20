@@ -17,7 +17,7 @@ PRD-04 Brick 1 - AI Provider Live OpenAI Execution
 
 ### Status
 
-Planning the first PRD-04 execution brick that closes the gap between a deterministic demo adapter and live provider execution.
+Completed - Engineering review passed with conditions closed.
 
 ### Outcome
 
@@ -48,15 +48,18 @@ OpenAI Adapter (live execution)
 OpenAI Responses API / Chat Completions API
 ```
 
-### Next Incomplete Criterion
+### Completed Criterion
 
 From PRD-04 success criteria:
 
-- incomplete: the provider implementation must execute real provider requests while keeping implementation details invisible to applications.
+- the provider implementation executes real provider requests while keeping implementation details invisible to applications.
 
 ### Local Hypothesis
 
-If the OpenAI adapter performs live API execution using runtime configuration already enforced by the provider factory, then current shell and service consumers can remain unchanged while receiving normalized, telemetry-backed real responses.
+The adapter can perform live API execution using runtime configuration already
+enforced by the provider factory, while current shell and service consumers
+remain unchanged. The explicit `demo-key` sentinel remains offline so browser
+demonstrations do not send prompts or credentials to an external provider.
 
 ### Focused Validation Check
 
@@ -106,14 +109,23 @@ The first validation immediately after the first adapter edit:
 
 ### Implementation Sequence
 
-1. confirm the OpenAI endpoint strategy (Responses API versus Chat Completions API) without expanding public provider contract
+1. confirm the OpenAI Chat Completions endpoint strategy without expanding public provider contract
 2. implement live request execution in `openai-adapter.ts` using existing runtime config inputs
-3. map provider response content/tokens/model into the current normalized response shape
-4. preserve unsupported-model pricing behavior (`unavailable`)
-5. add or adjust tests for success, API-key missing, provider error payloads, and network failure normalization
-6. run narrow validation (`nx test ai-provider`) immediately after first edit
-7. run expanded project validation (ai-provider lint/test/build, then shell test/build)
-8. update documentation claims to remove demo-only language only if validated by passing tests and integration behavior
+3. preserve the explicit offline `demo-key` path for browser demonstrations
+4. enforce server-only live execution for non-demo credentials
+5. map provider response content/tokens/model into the current normalized response shape
+6. preserve unsupported-model pricing behavior (`unavailable`)
+7. add or adjust tests for success, demo mode, API-key missing, browser safety, provider error payloads, and latency normalization
+8. run narrow validation (`nx test ai-provider`) immediately after first edit
+9. run expanded project validation (ai-provider lint/test/build, then shell test/build)
+10. complete documentation and engineering review before closing the brick
+
+### Review Outcome
+
+- Result: Pass with Conditions
+- Recommendation: Approve with Changes
+- Engineering brick status: Approved with Conditions
+- Conditions closed: live smoke verification passed, server-only credential policy was verified, and this brief now records the final validation evidence.
 
 ### Validation Commands
 
@@ -129,6 +141,16 @@ Optional full baseline after completion:
 - `CI=1 pnpm nx run-many --target=test --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
 - `CI=1 pnpm nx run-many --target=build --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
 
+### Validation Evidence
+
+- AI Provider automated suite: 17 tests passed.
+- AI Provider lint and build: passed.
+- Shell suite: 10 tests passed.
+- Shell build: passed with the existing 530-byte CSS budget warning.
+- Live OpenAI smoke test: passed with a real API request through the provider factory.
+- Live verification confirmed normalized response content, concrete model identity, token usage, non-zero latency, and telemetry capture.
+- No credentials, prompt bodies, or response-sensitive content are persisted by the smoke test.
+
 ### Acceptance Criteria
 
 - adapter performs live provider execution when valid runtime config is present
@@ -141,8 +163,8 @@ Optional full baseline after completion:
 
 ### Risks and Unresolved Decisions
 
-- whether to use OpenAI SDK or native `fetch` client inside the adapter
-- browser runtime credential safety if execution is attempted from browser-only contexts
+- native `fetch` is the Version 1 OpenAI adapter strategy
+- live credentials are server-only; browser consumers must use `demo-key` or a future server proxy
 - API surface differences between OpenAI endpoints that could impact normalization
 - handling provider-side transient failures without introducing out-of-scope retry policy
 
