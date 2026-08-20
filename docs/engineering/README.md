@@ -23,7 +23,6 @@ Engineering documents define the structure, operating rules, and review practice
 ## Platform records
 
 - [Telemetry v1 Baseline](telemetry-v1-baseline.md)
-- [EB-015 Telemetry Local-First](EB-015-TELEMETRY-LOCAL-FIRST.md)
 - [Component Kernel Implementation Standard](iss-component-kernel-implementation-standard-v1.0.md)
 - [Component Kernel v1.0 Release Manifest](iss-component-kernel-v1.0-release-manifest.md)
 
