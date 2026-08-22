@@ -12,7 +12,7 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Live adapter implemented; browser demo remains offline
+**Status:** Completed v1.0; live adapter implemented, browser demo remains offline
 
 ---
 

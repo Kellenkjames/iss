@@ -14,7 +14,7 @@ This directory contains the maintained documentation for the Intelligent Systems
 - Design Tokens: validated v1.0 foundation.
 - Component Kernel: frozen v1.0, human approved.
 - Telemetry: frozen v1.0, engineering approved.
-- AI Provider: live adapter implemented; browser demo remains offline.
+- AI Provider: completed v1.0; browser demo remains offline.
 - Application Shell: active reference integration.
 
 Document versions identify contract generations. Revision metadata records current-state editorial updates without unnecessarily changing stable public versions.

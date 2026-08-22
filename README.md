@@ -43,7 +43,7 @@ Current projects:
 | Design Tokens | `libs/platform/design-tokens` | Validated v1.0 foundation |
 | Component Kernel | `libs/platform/component-kernel` | Frozen v1.0, human approved |
 | Telemetry | `libs/platform/telemetry` | Frozen v1.0, engineering approved |
-| AI Provider | `libs/platform/ai-provider` | Live adapter implemented; browser demo remains offline |
+| AI Provider | `libs/platform/ai-provider` | Completed v1.0; browser demo remains offline |
 | Application Shell | `apps/shell` | Active reference integration |
 
 PRD-06 and PRD-07 remain planned roadmap applications. Their directories are not present in the current workspace.

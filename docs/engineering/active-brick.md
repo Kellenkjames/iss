@@ -9,7 +9,7 @@ record.
 
 ---
 
-## Current Brick
+## Completed PRD-04 Record
 
 ### Title
 
@@ -177,15 +177,15 @@ Use the engineering review gate due to shared boundary behavior change.
 
 ---
 
-## Next Proposed Brick
+## Completed PRD-04 Record
 
 ### Title
 
 PRD-04 Brick 2 - Provider Response and Model Metadata Normalization
 
-### Planning Status
+### Status
 
-Completed - Engineering review approved with conditions closed.
+Completed - PRD-04 v1 engineering review approved with conditions closed.
 
 ### Outcome
 
@@ -314,13 +314,13 @@ normalization behavior, even though the public provider contract remains stable.
 
 ---
 
-## Next Proposed Brick
+## Completed PRD-04 Record
 
 ### Title
 
 PRD-04 Brick 3 - OpenAI Transport and Response Validation
 
-### Planning Status
+### Status
 
 Completed - Engineering review approved with conditions closed.
 
@@ -468,3 +468,88 @@ the shared AI Provider boundary while preserving its public contract.
         response body.
 - Provider transport failures retain zero token evidence, measured latency, and
         normalized failure telemetry.
+
+---
+
+## Next Proposed Brick
+
+### Title
+
+PRD-05 Brick 1 - Application Shell Reference Integration Validation
+
+### Planning Status
+
+Proposed for human approval.
+
+### Outcome
+
+Confirm that `apps/shell` is a complete, understandable reference integration
+for the current platform baseline without adding product features or new
+infrastructure.
+
+### Why This Brick Exists
+
+PRD-05 defines the shell as the canonical example of how an ISS application
+consumes Design Tokens, Component Kernel, AI Provider, and Telemetry. The shell
+already demonstrates these integrations, but its reference status should be
+closed through an explicit acceptance pass before PRD-06 or PRD-07 work begins.
+
+### Local Hypothesis
+
+If the shell's platform imports, component composition, AI workflows, browser
+demo behavior, and validation targets are checked together, then PRD-05 v1 can
+be confirmed without changing shared platform contracts or introducing shell
+infrastructure.
+
+### Focused Validation Check
+
+After the first implementation or documentation edit:
+
+- `CI=1 pnpm nx test shell`
+
+### In Scope
+
+- map PRD-05 success criteria to current shell code and tests
+- verify platform packages are consumed through their public entry points
+- verify the shell's browser AI demo remains offline with `demo-key`
+- verify component composition and telemetry evidence remain reviewable
+- close documentation gaps in the shell PRD and active brief
+- add only focused shell tests required to prove the reference integration
+
+### Out of Scope
+
+- new business workflows
+- authentication or user management
+- backend services or persistent storage
+- shell redesign or broad UX expansion
+- changes to Design Tokens, Component Kernel, Telemetry, or AI Provider contracts
+- PRD-06 Interpretation Engine implementation
+- PRD-07 Signal System implementation
+
+### Likely Files
+
+- `apps/shell/src/app/app.ts`
+- `apps/shell/src/app/app.html`
+- `apps/shell/src/app/ai-provider-demo.ts`
+- `apps/shell/src/app/ai-provider-demo.spec.ts`
+- `apps/shell/project.json`
+- `docs/product/mini-prds/prd-05.md`
+- `docs/engineering/active-brick.md`
+
+### Acceptance Criteria
+
+- shell consumes current platform packages through approved public boundaries
+- kernel components and shared styles render through the existing shell composition
+- AI calls route through `@iss/ai-provider`
+- browser demonstrations use offline `demo-key` behavior
+- telemetry evidence remains persisted through the browser adapter
+- shell lint, test, and production build pass
+- no new reusable infrastructure or product scope is introduced
+
+### Recommended Review
+
+- primary: Engineering Reviewer
+- secondary: Frontend Engineer
+
+Use the engineering review gate if the acceptance pass changes a shared boundary
+or introduces a new public shell contract.
