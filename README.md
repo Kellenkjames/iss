@@ -22,6 +22,8 @@ ISS is an Nx monorepo for exploring AI-assisted software systems with explicit p
 
 The current repository is a validated platform foundation and reference shell. It is not yet the complete future suite described by the roadmap documents.
 
+The shell is the canonical reference application for ISS: it demonstrates how the shared platform libraries compose into a real app without becoming a product surface of its own. Its default AI path remains the browser-safe demo configuration so the app remains reviewable and safe for local engineering validation.
+
 ## Architecture
 
 Applications consume shared platform capabilities through stable public APIs:
