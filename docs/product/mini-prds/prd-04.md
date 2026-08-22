@@ -59,6 +59,10 @@ runtime API key. The explicit `demo-key` sentinel remains deterministic and
 offline for browser demonstrations, where credentials must not be bundled or
 prompts sent directly from the client.
 
+Provider-returned dated model IDs are preserved in normalized responses. Pricing
+uses an explicit supported-model rule for the `gpt-4o-mini` alias and its dated
+IDs; unsupported models remain unavailable rather than appearing free.
+
 Live execution is server-only for non-demo credentials. Browser consumers must
 use the offline demo path or a future approved server proxy.
 
@@ -267,8 +271,8 @@ This project currently demonstrates:
 - Provider abstraction
 - Model encapsulation
 
-It does not yet demonstrate live OpenAI execution. That remains the next
-implementation milestone before a production-ready provider claim is made.
+It demonstrates live OpenAI execution through the provider boundary, with the
+browser path remaining offline by design.
 - Runtime integration
 - AI platform design
 

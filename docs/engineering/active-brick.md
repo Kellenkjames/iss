@@ -185,7 +185,7 @@ PRD-04 Brick 2 - Provider Response and Model Metadata Normalization
 
 ### Planning Status
 
-Proposed for human approval.
+Completed - Engineering review approved with conditions closed.
 
 ### Outcome
 
@@ -204,6 +204,16 @@ recognizes the alias. This can produce a successful invocation with an
 PRD-04 also contains one stale engineering-signal sentence that still says live
 OpenAI execution is not demonstrated. The next brick should reconcile that
 documentation with the completed Brick 1 evidence.
+
+### Implementation Progress
+
+- OpenAI model pricing now recognizes `gpt-4o-mini` and explicitly shaped dated
+        IDs such as `gpt-4o-mini-2024-07-18`.
+- The concrete provider-returned model ID remains unchanged in the normalized
+        response and telemetry record.
+- PRD-04 engineering-signal wording now reflects completed live execution.
+- AI Provider focused tests pass: 18 tests.
+- AI Provider lint and build pass.
 
 ### Local Hypothesis
 
@@ -275,6 +285,24 @@ The first regression should use a mocked OpenAI response with
 - model-family matching must not accidentally classify unrelated future models as supported
 - pricing policy remains AI Provider-owned and provider-specific
 - a new model family should require an explicit pricing update rather than prefix-only inference
+
+### Review Outcome
+
+- Result: Pass with Conditions
+- Recommendation: Approve with Changes
+- Engineering brick status: Approved with Conditions
+- Condition closed: the active brief now records completion after the full
+        validation matrix and review approval.
+
+### Validation Evidence
+
+- AI Provider focused suite: 18 tests passed.
+- AI Provider lint and build: passed.
+- Full current-project lint/test/build matrix: passed.
+- Concrete dated model ID pricing verified for `gpt-4o-mini-2024-07-18`.
+- Unsupported model pricing remains explicitly unavailable.
+- Response and telemetry model identity remain consistent through the provider
+        boundary.
 
 ### Recommended Review
 

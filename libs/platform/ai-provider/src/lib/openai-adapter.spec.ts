@@ -31,6 +31,21 @@ describe('openai adapter', () => {
     }));
   });
 
+  it('estimates pricing for a concrete dated gpt-4o-mini model ID', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      model: 'gpt-4o-mini-2024-07-18',
+      choices: [{ message: { content: 'Incident summary' } }],
+      usage: { prompt_tokens: 1_000_000, completion_tokens: 1_000_000, total_tokens: 2_000_000 },
+    }), { status: 200 })));
+
+    const adapter = createOpenAiAdapter({ apiKey: 'test-key', model: 'gpt-4o-mini' });
+    const response = await adapter.execute({ prompt: 'Summarize this incident' });
+
+    expect(response.model).toBe('gpt-4o-mini-2024-07-18');
+    expect(response.estimatedCostUsd).toBe(0.75);
+    expect(response.costEstimateStatus).toBe('estimated');
+  });
+
   it('keeps the explicit demo key offline for browser-safe demonstrations', async () => {
     const fetchMock = vi.fn();
     vi.stubGlobal('fetch', fetchMock);

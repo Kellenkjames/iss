@@ -112,7 +112,7 @@ describe('ai-provider', () => {
 
   it('creates a provider from configuration through the factory', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o-mini-2024-07-18',
       choices: [{ message: { content: 'factory response' } }],
       usage: { prompt_tokens: 8, completion_tokens: 4, total_tokens: 12 },
     }), { status: 200 })));
@@ -134,7 +134,7 @@ describe('ai-provider', () => {
     });
 
     expect(response.provider).toBe('openai');
-    expect(response.model).toBe('gpt-4o-mini');
+    expect(response.model).toBe('gpt-4o-mini-2024-07-18');
     expect(response.estimatedCostUsd).toBeGreaterThan(0);
     expect(response.costEstimateStatus).toBe('estimated');
     expect(response.success).toBe(true);
