@@ -17,7 +17,15 @@ PRD-05 Brick 1 - Shell Reference Integration Validation
 
 ### Status
 
-Active - reference application validation and contract alignment.
+Completed - Engineering review passed; documentation condition closed.
+
+### Review Checkpoint Status
+
+- Checkpoint A: implementation readiness - passed.
+- Checkpoint B: integration milestone - passed.
+- Checkpoint C: validation gate - passed.
+- Checkpoint D: documentation condition - closed by adding `apps/shell/README.md`.
+- Final closure decision: approved.
 
 ### Outcome
 
@@ -102,6 +110,7 @@ Then expand to the current repo baseline:
 - `apps/shell/src/app/ai-provider-demo.ts`
 - `apps/shell/src/app/interpretation-provider.service.ts`
 - `apps/shell/src/app/*.spec.ts`
+- `apps/shell/README.md`
 - `docs/product/mini-prds/prd-05.md`
 - `docs/engineering/active-brick.md`
 
@@ -140,8 +149,12 @@ Then expand to the current repo baseline:
 - update the PRD-05 wording or shell docs if the current reference-app framing is not explicit enough for future app teams
 - ensure the repo’s README and engineering docs continue to describe the shell as a proof object rather than a feature product
 - document any remaining assumptions about default demo behavior and runtime environment handling
+- completed: added `apps/shell/README.md` with the shell purpose, architectural role, dependencies, reference-only interface, usage, testing, limitations, and related documentation
 
 #### Phase 5 — Minimal validation and regression checks
+
+- completed: `CI=1 pnpm nx test shell` passed with 4 test files and 11 tests
+- completed: the full scoped lint, test, and build matrix passed after the documentation condition was implemented
 
 - run `CI=1 pnpm nx test shell` immediately after the first shell-oriented fix to confirm the boundary checks remain stable
 - run the repo validation matrix before closing the active brick:
@@ -175,6 +188,16 @@ Then expand to the current repo baseline:
 - secondary: AI Integration Engineer
 
 Use the engineering review gate because this brick is about validating architecture and platform boundaries rather than feature delivery.
+
+### Review Outcome
+
+- Result: Pass.
+- Recommendation: Approve.
+- Engineering brick status: Approved.
+- Review date: 2026-08-22.
+- Reviewed against: PRD-05, Architecture Standards, Engineering Review Gate, Repository Blueprint, Engineering Constitution, Product Development Lifecycle, Telemetry v1 Baseline, and the relevant design documentation.
+- Closure condition: `apps/shell/README.md` was added and documents the shell’s purpose, architectural role, dependencies, reference-only interface, usage, testing, limitations, and related documentation.
+- Validation evidence: shell tests passed with 4 test files and 11 tests; the scoped lint, test, and build matrix passed for all 5 projects.
 
 ---
 
