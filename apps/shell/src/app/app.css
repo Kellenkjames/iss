@@ -15,8 +15,23 @@
   box-shadow: var(--iss-elevation-2);
 }
 
+.shell-card h1,
+.shell-drawer-demo h2,
+.shell-ai-provider-demo h2,
+.shell-interpretation-demo h2,
+.shell-state-demo h2,
+.shell-table-demo h2,
+.shell-checkbox-demo h2,
+.shell-radio-demo h2,
+.shell-select-demo h2,
+.shell-filter-bar-demo h2 {
+  margin: 0;
+  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
+  letter-spacing: var(--iss-font-subheading-letter-spacing);
+}
+
 .shell-card h1 {
-  margin: 0 0 var(--iss-space-2);
+  margin-bottom: var(--iss-space-2);
   font: var(--iss-font-display-weight) var(--iss-font-display-size)/var(--iss-font-display-line-height) var(--iss-font-display-family);
 }
 
@@ -37,18 +52,25 @@
   color: var(--iss-color-text-muted);
 }
 
-.shell-drawer-demo {
+.shell-drawer-demo,
+.shell-ai-provider-demo,
+.shell-interpretation-demo,
+.shell-state-demo,
+.shell-table-demo,
+.shell-checkbox-demo,
+.shell-radio-demo,
+.shell-select-demo,
+.shell-filter-bar-demo {
+  margin-top: var(--iss-space-6);
   display: grid;
   gap: var(--iss-space-3);
+}
+
+.shell-drawer-demo {
+  margin-top: 0;
   padding: var(--iss-space-4) 0;
   border-top: 1px solid var(--iss-color-border);
   border-bottom: 1px solid var(--iss-color-border);
-}
-
-.shell-drawer-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
 }
 
 .shell-drawer-actions {
@@ -79,21 +101,14 @@
   align-items: center;
 }
 
-iss-card {
+iss-card,
+iss-filter-bar,
+iss-table {
   display: block;
+}
+
+iss-card {
   margin-top: var(--iss-space-4);
-}
-
-.shell-ai-provider-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-ai-provider-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
 }
 
 .shell-provider-response {
@@ -103,17 +118,8 @@ iss-card {
 }
 
 .shell-interpretation-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
   padding-top: var(--iss-space-6);
   border-top: 1px solid var(--iss-color-border);
-}
-
-.shell-interpretation-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
 }
 
 .shell-interpretation-demo iss-input {
@@ -121,82 +127,3 @@ iss-card {
   width: 100%;
 }
 
-.shell-state-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-state-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
-}
-
-.shell-table-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-table-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
-}
-
-.shell-checkbox-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-checkbox-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
-}
-
-.shell-radio-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-radio-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
-}
-
-.shell-select-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-select-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
-}
-
-.shell-filter-bar-demo {
-  margin-top: var(--iss-space-6);
-  display: grid;
-  gap: var(--iss-space-3);
-}
-
-.shell-filter-bar-demo h2 {
-  margin: 0;
-  font: var(--iss-font-subheading-weight) var(--iss-font-subheading-size)/var(--iss-font-subheading-line-height) var(--iss-font-subheading-family);
-  letter-spacing: var(--iss-font-subheading-letter-spacing);
-}
-
-iss-filter-bar {
-  display: block;
-}
-
-iss-table {
-  display: block;
-}
