@@ -6,6 +6,7 @@ import {
     validateProviderConfig,
 } from './config';
 import { createProviderFactory } from './factory';
+import { createOpenAiAdapter } from './openai-adapter';
 import { estimateOpenAiCost } from './openai-pricing';
 
 describe('ai-provider', () => {
@@ -90,11 +91,18 @@ describe('ai-provider', () => {
   });
 
   it('normalizes provider failures and records telemetry error state', async () => {
+    let telemetryCall: {
+      errorMetadata?: Record<string, unknown>;
+      latencyMs: number;
+      success?: boolean;
+    } | undefined;
     const provider = createAiProvider({
       provider: 'local-test',
       model: 'demo-model',
       telemetry: {
-        recordInvocation: async () => undefined,
+        recordInvocation: async (input) => {
+          telemetryCall = input;
+        },
       },
     }, {
       providerName: 'local-test',
@@ -108,6 +116,59 @@ describe('ai-provider', () => {
     expect(response.success).toBe(false);
     expect(response.error?.message).toContain('provider unavailable');
     expect(response.provider).toBe('local-test');
+    expect(telemetryCall).toMatchObject({
+      success: false,
+      latencyMs: expect.any(Number),
+      errorMetadata: {
+        error: {
+          message: 'provider unavailable',
+        },
+      },
+    });
+  });
+
+  it('normalizes adapter transport failures and records failure telemetry', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('upstream failure details', { status: 503 })));
+    let telemetryCall: {
+      completionTokens: number;
+      errorMetadata?: Record<string, unknown>;
+      latencyMs: number;
+      promptTokens: number;
+      success?: boolean;
+      totalTokens: number;
+    } | undefined;
+    const provider = createAiProvider({
+      provider: 'openai',
+      model: 'gpt-4o-mini',
+      telemetry: {
+        recordInvocation: async (input) => {
+          telemetryCall = input;
+        },
+      },
+    }, createOpenAiAdapter({ apiKey: 'test-key' }));
+
+    const response = await provider.complete({ prompt: 'transport failure' });
+
+    expect(response).toMatchObject({
+      provider: 'openai',
+      success: false,
+      error: {
+        code: 'openai_http_error',
+      },
+    });
+    expect(response.latencyMs).toBeGreaterThanOrEqual(0);
+    expect(telemetryCall).toMatchObject({
+      completionTokens: 0,
+      errorMetadata: {
+        error: {
+          code: 'openai_http_error',
+        },
+      },
+      latencyMs: expect.any(Number),
+      promptTokens: 0,
+      success: false,
+      totalTokens: 0,
+    });
   });
 
   it('creates a provider from configuration through the factory', async () => {

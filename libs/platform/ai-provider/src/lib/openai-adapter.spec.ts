@@ -113,6 +113,63 @@ describe('openai adapter', () => {
     });
   });
 
+  it('classifies non-JSON HTTP failures without exposing the response body', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('upstream failure details', { status: 503 })));
+
+    const adapter = createOpenAiAdapter({ apiKey: 'test-key' });
+
+    await expect(adapter.execute({ prompt: 'fail' })).rejects.toMatchObject({
+      message: 'OpenAI request failed with status 503.',
+      code: 'openai_http_error',
+    });
+  });
+
+  it('rejects successful responses without usable message content', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      model: 'gpt-4o-mini',
+      choices: [{}],
+    }), { status: 200 })));
+
+    const adapter = createOpenAiAdapter({ apiKey: 'test-key' });
+
+    await expect(adapter.execute({ prompt: 'malformed success' })).rejects.toMatchObject({
+      message: 'OpenAI returned a successful response without usable message content.',
+      code: 'openai_invalid_response',
+    });
+  });
+
+  it.each([
+    ['null', 'null'],
+    ['an array', '[]'],
+    ['a primitive', '"invalid"'],
+  ])('rejects successful responses with %s JSON payloads', async (_description, body) => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(body, { status: 200 })));
+
+    const adapter = createOpenAiAdapter({ apiKey: 'test-key' });
+
+    await expect(adapter.execute({ prompt: 'invalid payload' })).rejects.toMatchObject({
+      message: 'OpenAI returned a response with an invalid payload shape.',
+      code: 'openai_invalid_response',
+    });
+  });
+
+  it.each([
+    [[]],
+    [[{ text: '' }]],
+  ])('rejects successful responses with empty structured content', async (content) => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      model: 'gpt-4o-mini',
+      choices: [{ message: { content } }],
+    }), { status: 200 })));
+
+    const adapter = createOpenAiAdapter({ apiKey: 'test-key' });
+
+    await expect(adapter.execute({ prompt: 'empty content' })).rejects.toMatchObject({
+      message: 'OpenAI returned a successful response without usable message content.',
+      code: 'openai_invalid_response',
+    });
+  });
+
   it('fails fast when no API key is configured', async () => {
     const adapter = createOpenAiAdapter({ model: 'gpt-4o-mini' });
 

@@ -322,7 +322,7 @@ PRD-04 Brick 3 - OpenAI Transport and Response Validation
 
 ### Planning Status
 
-Proposed for human approval.
+Completed - Engineering review approved with conditions closed.
 
 ### Outcome
 
@@ -337,6 +337,24 @@ any successful HTTP response without a provider error as a successful normalized
 response. A malformed or empty provider payload can therefore appear successful
 with empty content and zero token usage, while a non-JSON error is reduced to a
 generic runtime parse failure.
+
+The adapter now classifies unreadable response bodies and invalid success payloads
+with stable error codes while preserving structured provider error codes.
+
+### Implementation Progress
+
+- Non-JSON successful responses now produce `openai_response_parse_error` without
+        persisting the response body; non-JSON HTTP failures produce
+        `openai_http_error`.
+- Structurally incomplete successful responses now produce
+        `openai_invalid_response` instead of false success.
+- Structured provider error codes remain preserved.
+- Provider-level failure telemetry retains normalized error metadata and latency.
+- Adapter transport failures now flow through provider normalization and failure
+        telemetry with zero token evidence and measured latency.
+- AI Provider focused tests pass: 26 tests.
+- JSON root-shape and empty structured-content regression cases now produce
+        `openai_invalid_response` deterministically.
 
 This is the next provider-boundary quality gap after model and pricing
 normalization. It affects failure evidence and response trustworthiness without
@@ -419,6 +437,8 @@ evidence.
         Chat Completions response shape
 - stable error codes should distinguish transport, HTTP, parse, and payload
         failures without leaking provider response bodies
+- HTTP status takes precedence for non-JSON failures; readable structured HTTP
+        errors preserve their provider code or type
 - timeout/cancellation behavior remains a separate future decision
 
 ### Recommended Review
@@ -428,3 +448,23 @@ evidence.
 
 Use the engineering review gate because this brick changes failure semantics at
 the shared AI Provider boundary while preserving its public contract.
+
+### Review Outcome
+
+- Result: Pass with Conditions
+- Recommendation: Approve with Changes
+- Engineering brick status: Approved with Conditions
+- Conditions closed: provider-level failure telemetry coverage was added and the
+        HTTP-first versus parse-error classification policy was documented.
+
+### Validation Evidence
+
+- AI Provider focused suite: 26 tests passed.
+- AI Provider lint and build: passed.
+- Full current-project lint/test/build matrix: passed.
+- Null, primitive, array-root, and empty structured-content payloads produce
+        `openai_invalid_response` deterministically.
+- Non-JSON HTTP failures produce `openai_http_error` without persisting the
+        response body.
+- Provider transport failures retain zero token evidence, measured latency, and
+        normalized failure telemetry.

@@ -25,11 +25,16 @@ const getContent = (payload: OpenAiResponsePayload): string => {
   const content = payload.choices?.[0]?.message?.content;
 
   if (Array.isArray(content)) {
-    return content.map((part) => part.text ?? '').join('');
+    return content
+      .map((part) => (part && typeof part === 'object' ? part.text ?? '' : ''))
+      .join('');
   }
 
   return content ?? '';
 };
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
 
 const createDemoResponse = (request: AiProviderRequest, model: string): OpenAiResponsePayload => {
   const finalPrompt = request.prompt;
@@ -48,6 +53,12 @@ const createDemoResponse = (request: AiProviderRequest, model: string): OpenAiRe
 };
 
 const isBrowserRuntime = (): boolean => typeof window !== 'undefined';
+
+const createAdapterError = (message: string, code: string): Error & { code: string } => {
+  const error = new Error(message) as Error & { code: string };
+  error.code = code;
+  return error;
+};
 
 const normalizeOpenAiResponse = (
   payload: OpenAiResponsePayload,
@@ -115,15 +126,47 @@ export const createOpenAiAdapter = (options: OpenAiAdapterOptions = {}): AiProvi
         }),
       });
 
-      const payload = (await response.json()) as OpenAiResponsePayload;
+      let parsedPayload: unknown;
+
+      try {
+        parsedPayload = await response.json();
+      } catch {
+        if (!response.ok) {
+          throw createAdapterError(
+            `OpenAI request failed with status ${response.status}.`,
+            'openai_http_error',
+          );
+        }
+
+        throw createAdapterError(
+          `OpenAI returned an unreadable response with status ${response.status}.`,
+          'openai_response_parse_error',
+        );
+      }
+
+      if (!isRecord(parsedPayload)) {
+        throw createAdapterError(
+          'OpenAI returned a response with an invalid payload shape.',
+          'openai_invalid_response',
+        );
+      }
+
+      const payload = parsedPayload as OpenAiResponsePayload;
 
       if (!response.ok || payload.error) {
-        const error = new Error(
+        const error = createAdapterError(
           payload.error?.message ?? `OpenAI request failed with status ${response.status}.`,
+          payload.error?.code ?? payload.error?.type ?? 'openai_http_error',
         ) as Error & { code?: string };
-        error.code = payload.error?.code ?? payload.error?.type;
         throw error;
       };
+
+      if (!getContent(payload).trim()) {
+        throw createAdapterError(
+          'OpenAI returned a successful response without usable message content.',
+          'openai_invalid_response',
+        );
+      }
 
       return normalizeOpenAiResponse(payload, request);
     },
