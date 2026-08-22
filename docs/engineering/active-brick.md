@@ -115,6 +115,45 @@ Then expand to the current repo baseline:
 6. run the full current-project validation matrix before closing the brief
 7. review the shell’s status against PRD-05 and prepare the next brick only if the repo evidence remains consistent
 
+### Concrete Implementation Plan
+
+#### Phase 1 — Confirm shell boundary usage
+
+- inspect the current shell composition in `apps/shell/src/app/app.ts`, `app.html`, and the provider demo entry points to confirm that UI code does not reach into vendor SDKs or provider implementation details
+- verify the shell depends only on the stable public APIs exposed by Design Tokens, Component Kernel, AI Provider, and Telemetry
+- check that the shell remains an application host and not a reusable platform library or business-service implementation
+
+#### Phase 2 — Validate offline-safe browser behavior
+
+- confirm `resolveShellProviderConfig` keeps demo behavior explicit and deterministic for browser execution
+- verify the app demonstrates the `demo-key` path clearly in provider-runtime configuration and any user-visible documentation or comments
+- confirm live credentials and non-demo execution remain server-only or otherwise intentionally excluded from browser-safe workflows
+
+#### Phase 3 — Prove telemetry and AI contract integrity
+
+- inspect AI invocation and telemetry flow in the shell demo path to ensure tool outputs remain visible, structured, and attributable to the provider boundary
+- validate that provider failures and success responses continue to normalize cleanly through the existing app-service boundary without leaking internal details
+- verify the shell demo uses the same model, telemetry, and error behavior expected by the platform baseline
+
+#### Phase 4 — Close any documentation or contract gaps
+
+- update the PRD-05 wording or shell docs if the current reference-app framing is not explicit enough for future app teams
+- ensure the repo’s README and engineering docs continue to describe the shell as a proof object rather than a feature product
+- document any remaining assumptions about default demo behavior and runtime environment handling
+
+#### Phase 5 — Minimal validation and regression checks
+
+- run `CI=1 pnpm nx test shell` immediately after the first shell-oriented fix to confirm the boundary checks remain stable
+- run the repo validation matrix before closing the active brick:
+  - `CI=1 pnpm nx run-many --target=lint --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
+  - `CI=1 pnpm nx run-many --target=test --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
+  - `CI=1 pnpm nx run-many --target=build --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
+
+#### Phase 6 — Scope gate for the next brick
+
+- if shell validation remains green and documentation is aligned, convert this brief into a completed PRD-05 record and proceed to the next upstream brick only after confirming the scope remains architectural and not product-led
+- if the shell fails the reference-app standard, do not broaden scope; fix the boundary gap or documentation mismatch before moving forward
+
 ### Acceptance Criteria
 
 - the shell remains the canonical ISS reference app and not a product UI
