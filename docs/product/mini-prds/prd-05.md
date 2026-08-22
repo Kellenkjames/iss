@@ -22,15 +22,15 @@ The **AI-Aware Application Shell** is the reference host application for the Int
 
 Its purpose is to demonstrate how the shared platform packages integrate into a cohesive application architecture.
 
-The Shell is intentionally lightweight.
+The Shell is intentionally lightweight and demonstration-oriented.
 
-It is not intended to become a feature-rich product.
+It is not intended to become a feature-rich product or a user-facing flagship experience.
 
-Instead, it serves as the canonical example of how Angular applications should consume the Design Tokens, Intelligent Component Kernel, AI Provider, and Telemetry packages.
+Instead, it serves as the canonical reference implementation of how Angular applications should consume the Design Tokens, Intelligent Component Kernel, AI Provider, and Telemetry packages.
 
-The Shell establishes architectural patterns that downstream applications inherit.
+The Shell establishes architectural patterns that downstream applications inherit and validates the platform by proving that the shared boundary contracts work together in context.
 
-It exists to validate the platform—not compete with the flagship application.
+It exists to validate the platform and its public integration model—not to compete with the flagship application.
 
 ---
 
@@ -60,9 +60,10 @@ It does not introduce new infrastructure.
 
 The current shell integrates the shared components, browser telemetry, and AI
 Provider boundary. Its AI interaction uses the provider's deterministic demo
-adapter; it is not a production application or live-provider verification.
+adapter and is intentionally structured as a reference validation path rather than
+production-grade product behavior.
 
-Future applications should resemble the Shell structurally while implementing different business capabilities.
+Future applications should resemble the Shell structurally while implementing different business capabilities, but the Shell remains the canonical proof object for ISS integration patterns.
 
 ---
 
@@ -79,10 +80,11 @@ The Application Shell is responsible for:
 - Demonstrating project structure
 - Providing reference implementations for shared patterns
 - Serving as the architectural baseline for future applications
+- Proving the shared platform contracts work together in a real application shell
 
 The Shell answers one question:
 
-**"How should an ISS application be constructed?"**
+**"How should an ISS application be constructed and validated?"**
 
 ---
 
@@ -100,16 +102,17 @@ The Application Shell will **not**:
 - Manage persistent data
 - Perform backend orchestration
 - Duplicate functionality belonging to shared packages
+- Be treated as a replacement for downstream application-specific product work
 
-The Shell demonstrates architecture.
+The Shell demonstrates architecture and integration proof.
 
-It does not demonstrate product complexity.
+It does not demonstrate product complexity beyond what is needed to validate platform boundaries.
 
 ---
 
 # 5. Public Interfaces
 
-The Application Shell intentionally exposes very little.
+The Application Shell intentionally exposes very little because it is a reference integration surface, not a reusable product API surface.
 
 Version 1 includes:
 
@@ -120,10 +123,11 @@ Version 1 includes:
 - Sample AI interaction
 - Sample telemetry generation
 - Component usage examples
+- Minimal workflow demos used to validate app-level contracts
 
 The Shell is primarily consumed by engineers.
 
-Its interface is educational rather than reusable.
+Its interface is educational and proof-oriented rather than reusable as a production application contract.
 
 ---
 
@@ -168,14 +172,15 @@ Version 1 is complete when:
 - Telemetry records every AI invocation automatically.
 - Repository conventions are demonstrated clearly.
 - New ISS applications can be modeled after the Shell.
+- The shell remains an understandable, reviewable reference integration boundary for future apps.
 
-Success is measured by architectural clarity rather than feature richness.
+Success is measured by architectural clarity and boundary correctness rather than feature richness.
 
 ---
 
 # 8. Version 1 Scope
 
-Version 1 intentionally focuses on platform integration.
+Version 1 intentionally focuses on platform integration and proof-of-pattern validation.
 
 Included:
 
@@ -187,6 +192,7 @@ Included:
 - Telemetry demonstration
 - Shared styling
 - Reference routing
+- Minimal validation flows that prove the integration contracts work together
 
 Excluded:
 
@@ -198,8 +204,9 @@ Excluded:
 - Reporting
 - Dashboards
 - Complex business features
+- Product-specific UX or feature scope beyond architectural validation
 
-The Shell exists to demonstrate architecture—not solve business problems.
+The Shell exists to demonstrate architecture and integration fidelity—not solve business problems or become a product surface.
 
 ---
 
