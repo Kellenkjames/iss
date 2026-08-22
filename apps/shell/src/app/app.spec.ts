@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { resolveShellProviderConfig } from './provider-runtime-config';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -36,5 +37,14 @@ describe('App', () => {
     ).toBe(false);
     expect(interpretationSection?.querySelector('iss-button')).not.toBeNull();
     expect(interpretationSection?.querySelector('iss-state')).not.toBeNull();
+  });
+
+  it('keeps the shell on the explicit browser-safe demo provider configuration by default', () => {
+    const config = resolveShellProviderConfig({});
+
+    expect(config.provider).toBe('openai');
+    expect(config.model).toBe('gpt-4o-mini');
+    expect(config.apiKey).toBe('demo-key');
+    expect(config.defaultSystemMessage).toContain('operational triage');
   });
 });
