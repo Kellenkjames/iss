@@ -311,3 +311,120 @@ The first regression should use a mocked OpenAI response with
 
 Use the engineering review gate because this brick changes provider-owned cost
 normalization behavior, even though the public provider contract remains stable.
+
+---
+
+## Next Proposed Brick
+
+### Title
+
+PRD-04 Brick 3 - OpenAI Transport and Response Validation
+
+### Planning Status
+
+Proposed for human approval.
+
+### Outcome
+
+Make OpenAI adapter failures deterministic when the provider returns non-JSON
+errors, non-success HTTP statuses, or structurally incomplete success payloads,
+while preserving the existing `AiProviderResponse` and Telemetry contracts.
+
+### Why This Brick Exists
+
+The current adapter assumes every HTTP response can be parsed as JSON and treats
+any successful HTTP response without a provider error as a successful normalized
+response. A malformed or empty provider payload can therefore appear successful
+with empty content and zero token usage, while a non-JSON error is reduced to a
+generic runtime parse failure.
+
+This is the next provider-boundary quality gap after model and pricing
+normalization. It affects failure evidence and response trustworthiness without
+requiring a new provider or application feature.
+
+### Local Hypothesis
+
+If the adapter validates HTTP status, safely parses response bodies, and rejects
+success payloads without usable response content, then `createAiProvider` will
+produce stable failure responses and Telemetry will receive actionable,
+secret-free error codes for transport and payload failures.
+
+### Focused Validation Check
+
+After the first implementation edit:
+
+- `CI=1 pnpm nx test ai-provider`
+
+The first regression should cover a non-JSON `429` response and verify the
+provider returns `success: false` with a stable error code and telemetry failure
+evidence.
+
+### In Scope
+
+- safely handle response-body parsing failures
+- classify non-success HTTP responses with stable provider error codes
+- validate required success payload structure before returning success
+- preserve provider error codes when supplied
+- verify failed invocations retain zero token evidence and measured latency
+- add focused adapter/provider tests for non-JSON errors, malformed success
+        payloads, and structured provider errors
+- document the normalized transport/payload failure behavior
+
+### Out of Scope
+
+- retries, backoff, or circuit breakers
+- request timeouts or cancellation policy
+- streaming responses
+- function calling/tools or structured outputs
+- provider routing or failover
+- new providers or SDK dependencies
+- changes to the public `AiProviderResponse` shape
+- changes to the frozen PRD-03 Telemetry contract
+
+### Likely Files
+
+- `libs/platform/ai-provider/src/lib/openai-adapter.ts`
+- `libs/platform/ai-provider/src/lib/ai-provider.ts` (only if normalization requires it)
+- `libs/platform/ai-provider/src/lib/openai-adapter.spec.ts`
+- `libs/platform/ai-provider/src/lib/ai-provider.spec.ts`
+- `docs/product/mini-prds/prd-04.md`
+- `docs/engineering/active-brick.md`
+
+### Implementation Sequence
+
+1. define stable error-code behavior for HTTP, parse, and malformed-payload failures
+2. add safe response parsing and HTTP-status handling in the OpenAI adapter
+3. validate the minimum usable success payload without expanding response capabilities
+4. preserve existing provider error code/type mapping
+5. add focused tests for non-JSON errors, structured errors, malformed success,
+         and failure telemetry
+6. run `CI=1 pnpm nx test ai-provider` immediately after the first edit
+7. run AI Provider lint/build and the full current-project validation matrix
+8. request engineering review before marking the proposal complete
+
+### Acceptance Criteria
+
+- non-JSON HTTP failures produce a stable normalized provider error
+- structured OpenAI errors preserve their provider code or type
+- malformed success payloads do not return `success: true`
+- failed invocations retain zero token evidence and measured latency
+- error messages do not include API keys or raw sensitive request data
+- existing demo and live-success behavior remains unchanged
+- AI Provider lint, test, and build pass
+- no public provider or Telemetry contract changes are introduced
+
+### Risks and Decisions
+
+- the minimum valid success payload must remain compatible with the current
+        Chat Completions response shape
+- stable error codes should distinguish transport, HTTP, parse, and payload
+        failures without leaking provider response bodies
+- timeout/cancellation behavior remains a separate future decision
+
+### Recommended Review
+
+- primary: Engineering Reviewer
+- secondary: AI Integration Engineer
+
+Use the engineering review gate because this brick changes failure semantics at
+the shared AI Provider boundary while preserving its public contract.
