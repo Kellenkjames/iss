@@ -65,6 +65,7 @@
       },
       "include": [
         "apps/shell/**/*",
+        "apps/interpretation-engine/**/*",
         "libs/platform/design-tokens/**/*",
         "libs/platform/component-kernel/**/*"
       ]

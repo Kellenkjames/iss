@@ -1,0 +1,31 @@
+<main class="engine-shell">
+  <header class="engine-header">
+    <p class="eyebrow">ISS / PRD-06</p>
+    <h1>Interpretation Engine</h1>
+    <p class="lede">Turn structured context into a concise explanation while keeping human judgment in the loop.</p>
+  </header>
+
+  <section class="engine-grid" aria-label="Interpretation workflow">
+    <section class="input-panel" aria-labelledby="input-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Source context</p>
+        <h2 id="input-heading">What should we interpret?</h2>
+      </div>
+      <iss-input label="Subject" placeholder="Deployment OPS-001" [value]="subject" (input)="onInput('subject', $event)"></iss-input>
+      <iss-input label="Context" placeholder="Dependency check failed during validation." [value]="context" (input)="onInput('context', $event)"></iss-input>
+      <iss-input label="Question" placeholder="What should we inspect first?" [value]="question" (input)="onInput('question', $event)"></iss-input>
+      <iss-button variant="primary" (click)="interpret()">Interpret context</iss-button>
+    </section>
+
+    <section class="result-panel" aria-labelledby="result-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Human-readable output</p>
+        <h2 id="result-heading">Interpretation</h2>
+      </div>
+      <iss-state [status]="status" [message]="message" action-label="Retry" (action)="interpret()"></iss-state>
+      <p class="result-copy">{{ result }}</p>
+    </section>
+  </section>
+
+  <p class="boundary-note">AI execution and telemetry remain behind the shared platform boundaries. Browser demonstrations use the offline demo provider.</p>
+</main>
