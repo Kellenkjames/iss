@@ -13,6 +13,8 @@ describe('Interpretation Engine App', () => {
     expect(element.querySelector('h1')?.textContent).toContain('Interpretation Engine');
     expect(element.querySelectorAll('iss-input')).toHaveLength(3);
     expect(element.querySelector('iss-table')).not.toBeNull();
+    expect(element.querySelector('[aria-labelledby="status-summary-heading"]')).not.toBeNull();
+    expect(element.querySelectorAll('.status-row')).toHaveLength(3);
     expect(element.querySelector('iss-select[label="Source record"]')).not.toBeNull();
     expect(element.querySelector('iss-button')?.textContent).toContain('Interpret context');
     expect(element.querySelector('iss-state')).not.toBeNull();

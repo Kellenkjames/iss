@@ -9,6 +9,12 @@ export interface SourceRecord {
   owner: string;
 }
 
+export interface SourceStatusSummary {
+  status: SourceRecord['status'];
+  count: number;
+  percentage: number;
+}
+
 export const sourceRecords: SourceRecord[] = [
   {
     id: 'ops-101',
@@ -50,3 +56,16 @@ export const sourceTableRows: IssTableRow[] = sourceRecords.map((record) => ({
   status: record.status,
   owner: record.owner,
 }));
+
+export const summarizeSourceStatuses = (records: SourceRecord[] = sourceRecords): SourceStatusSummary[] => {
+  const statuses: SourceRecord['status'][] = ['Open', 'Review', 'Blocked'];
+
+  return statuses.map((status) => {
+    const count = records.filter((record) => record.status === status).length;
+    return {
+      status,
+      count,
+      percentage: records.length ? Math.round((count / records.length) * 100) : 0,
+    };
+  });
+};

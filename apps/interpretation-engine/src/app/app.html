@@ -12,6 +12,19 @@
         <h2 id="source-heading">Inspect a record</h2>
       </div>
       <iss-table [columns]="sourceColumns" [rows]="sourceRows"></iss-table>
+      <div class="status-summary" aria-labelledby="status-summary-heading">
+        <h3 id="status-summary-heading">Status distribution</h3>
+        <p class="visually-hidden">Current records: {{ statusSummary[0].count }} open, {{ statusSummary[1].count }} in review, and {{ statusSummary[2].count }} blocked.</p>
+        @for (summary of statusSummary; track summary.status) {
+          <div class="status-row">
+            <span>{{ summary.status }}</span>
+            <div class="status-track" aria-hidden="true">
+              <span class="status-bar" [class]="'status-' + summary.status.toLowerCase()" [style.width.%]="summary.percentage"></span>
+            </div>
+            <strong>{{ summary.count }}</strong>
+          </div>
+        }
+      </div>
       <iss-select
         label="Source record"
         placeholder="Choose a record"

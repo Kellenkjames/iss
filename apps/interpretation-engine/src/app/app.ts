@@ -6,6 +6,7 @@ import {
   sourceRecords,
   sourceSelectOptions,
   sourceTableRows,
+  summarizeSourceStatuses,
   type SourceRecord,
 } from './source-dataset';
 
@@ -26,6 +27,7 @@ export class App {
   protected status: 'empty' | 'loading' | 'error' = 'empty';
   protected message = 'Add context to begin an interpretation.';
   protected result = 'Your interpretation will appear here.';
+  protected statusSummary = summarizeSourceStatuses();
 
   protected get selectedSource(): SourceRecord | undefined {
     return sourceRecords.find((record) => record.id === this.selectedSourceId);

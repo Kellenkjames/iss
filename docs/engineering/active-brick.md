@@ -16,7 +16,7 @@ PRD-06 Brick 4 - Purposeful Source Visualization
 
 ### Status
 
-Planning and design - implementation readiness pending.
+Implementation complete - validation passed; engineering review pending.
 
 ### Outcome
 
@@ -59,26 +59,27 @@ Design constraints:
 
 ### Review Checkpoint Status
 
-- Checkpoint A: design readiness - pending approval of the visual question, representation, accessibility approach, and dependency decision.
-- Checkpoint B: visualization milestone - required after the first visual summary is rendered from the dataset.
-- Checkpoint C: validation gate - required after focused accessibility, behavior, lint, test, and build checks pass.
-- Checkpoint D: scope gate - required before adding additional charts, metrics, filters, or external data.
-- Engineering-review trigger: mandatory before closure because visualization establishes a new PRD-06 interaction pattern and may introduce a dependency.
+- Checkpoint A: design readiness - passed; use a token-based CSS status distribution with a first-class text summary and no new dependency.
+- Checkpoint B: visualization milestone - passed; status distribution is rendered from the existing dataset and browser-tested.
+- Checkpoint C: validation gate - passed; focused accessibility, behavior, lint, test, and build checks pass.
+- Checkpoint D: scope gate - passed; no additional charts, metrics, filters, or external data were introduced.
+- Checkpoint E: review remediation - completed; undefined secondary-text tokens were replaced with the existing `--iss-color-text-muted` token and revalidated.
+- Engineering-review trigger: ready for re-review; visualization establishes a new PRD-06 interaction pattern.
 
 ### TODOs
 
-- [ ] Define the single visual question the chart answers.
-- [ ] Select the smallest representation that answers that question clearly.
-- [ ] Decide between token-based CSS, existing Kernel primitives, and a new visualization dependency.
-- [ ] Define the derived view-model without changing the `SourceRecord` contract.
-- [ ] Add a text-equivalent summary and accessible labeling.
-- [ ] Render the visualization from the existing deterministic dataset.
-- [ ] Keep the table authoritative and the interpretation handoff unchanged.
-- [ ] Add focused tests for derived values, empty data, labels, and responsive rendering.
-- [ ] Add browser checks for visual presence, no overflow, and accessible text.
-- [ ] Document the visualization’s purpose and known limitations.
-- [ ] Run focused application validation after the first implementation edit.
-- [ ] Run the applicable six-project repository matrix.
+- [x] Define the single visual question the chart answers: how are the current source records distributed by operational status?
+- [x] Select the smallest representation: three labeled horizontal status bars derived from the existing records.
+- [x] Decide between token-based CSS, existing Kernel primitives, and a new visualization dependency: use token-based CSS and native semantic markup; add no dependency.
+- [x] Define the derived view-model without changing the `SourceRecord` contract.
+- [x] Add a text-equivalent summary and accessible labeling.
+- [x] Render the visualization from the existing deterministic dataset.
+- [x] Keep the table authoritative and the interpretation handoff unchanged.
+- [x] Add focused tests for derived values, empty data, labels, and responsive rendering.
+- [x] Add browser checks for visual presence, no overflow, and accessible text.
+- [x] Document the visualization’s purpose and known limitations.
+- [x] Run focused application validation after the first implementation edit.
+- [x] Run the applicable six-project repository matrix.
 - [ ] Trigger engineering review before Brick 4 closure.
 
 ### In Scope
