@@ -33,60 +33,51 @@ Validate that `apps/shell` is the canonical ISS reference integration app and th
 
 ### Why This Brick Exists
 
+
 PRD-04 established the AI Provider baseline and closed the provider-boundary implementation work. The remaining gap is not product feature development; it is proving that the shell correctly consumes the shared platform packages through the intended public boundaries and that the browser-safe demo model remains explicit and safe.
+
+
 
 This brick exists to confirm that:
 
+
+
 - the shell is the canonical example of ISS application composition,
+
 - platform boundaries remain stable for downstream consumers,
+
 - the AI demo path remains offline-safe in browser contexts,
+
 - telemetry and provider behavior remain aligned with the repo’s architectural contracts,
+
 - documentation and review signals reflect the current proof-object role of the shell.
+
+
 
 ### Architecture and Boundary
 
-```text
-Applications
-        ↓
-Design Tokens
-        ↓
-Component Kernel
-        ↓
-AI Provider
-        ↓
-Telemetry
-        ↓
-Application Shell (reference integration proof)
-```
 
-### Current Working Hypothesis
+        ↓
+
+Component Kernel
+
+
+AI Provider
+
+        ↓
+
 
 The shell is intentionally a lightweight, evidence-oriented application whose value is architectural clarity and contract validation. The app should remain readable, minimal, and representative rather than product-rich. The platform packages already perform their jobs; the remaining work is to confirm the shell demonstrates them correctly and that no documentation or contract gaps would cause future app teams to copy the wrong pattern.
 
-### Focused Validation Check
 
-Immediately after the first shell validation edit:
 
-- `CI=1 pnpm nx test shell`
 
-Then expand to the current repo baseline:
 
-- `CI=1 pnpm nx run-many --target=lint --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
-- `CI=1 pnpm nx run-many --target=test --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
-- `CI=1 pnpm nx run-many --target=build --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1`
-
-### In Scope
-
-- confirm that the shell consumes platform packages through the intended public boundaries
 - verify the browser demo uses the explicit `demo-key` path without leaking real credentials
-- validate shell + provider + telemetry integration remains coherent and reviewable
-- confirm the shell continues to behave like a reference app rather than a product app
-- close documentation and contract gaps that would confuse downstream implementation patterns
-- add only the minimal shell tests or docs needed to prove the integration contract
 
-### Out of Scope
 
 - PRD-06 product features or interpretation-engine domain work
+
 - PRD-07 full flagship application scope
 - broader platform redesign or new shared infrastructure
 - UI redesigns for the sake of visual polish
@@ -96,7 +87,9 @@ Then expand to the current repo baseline:
 ### Dependencies
 
 - [PRD-05](../product/mini-prds/prd-05.md)
+
 - [PRD-04](../product/mini-prds/prd-04.md)
+
 - [Architecture Standards](./architecture-standards.md)
 - [Telemetry v1 Baseline](./telemetry-v1-baseline.md)
 - [Engineering Review Gate](./engineering-review-gate.md)
@@ -105,22 +98,17 @@ Then expand to the current repo baseline:
 
 - `apps/shell/src/app/app.ts`
 - `apps/shell/src/app/app.html`
-- `apps/shell/src/app/app.css`
-- `apps/shell/src/app/provider-runtime-config.ts`
-- `apps/shell/src/app/ai-provider-demo.ts`
-- `apps/shell/src/app/interpretation-provider.service.ts`
-- `apps/shell/src/app/*.spec.ts`
-- `apps/shell/README.md`
-- `docs/product/mini-prds/prd-05.md`
-- `docs/engineering/active-brick.md`
 
-### Implementation Sequence
+- `apps/shell/src/app/app.css`
+
+
+
 
 1. validate the shell’s current public-boundary consumption against the PRD-05 role and current repo architecture
+
 2. confirm the browser-safe demo path and the live-vs-demo distinction remain explicit and documented
-3. verify telemetry and AI execution remain observable without leaked secrets or app-level contract drift
-4. add minimal test or documentation updates only if the shell’s proof-object role is not yet explicit enough
-5. run the shell-focused validation immediately after the first fix
+
+
 6. run the full current-project validation matrix before closing the brief
 7. review the shell’s status against PRD-05 and prepare the next brick only if the repo evidence remains consistent
 
