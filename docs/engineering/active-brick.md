@@ -12,6 +12,133 @@ record.
 
 ### Title
 
+PRD-06 Brick 4 - Purposeful Source Visualization
+
+### Status
+
+Planning and design - implementation readiness pending.
+
+### Outcome
+
+Add one lightweight visualization to the Interpretation Engine that helps a user see a meaningful pattern in the current in-memory source dataset before requesting an interpretation. The visualization must support the inspection workflow, remain understandable without AI output, and avoid turning the reference application into a dashboard or analytics product.
+
+### Why This Brick Exists
+
+PRD-06 identifies lightweight charts as a v1 capability. Brick 3 established a typed source dataset and local selection boundary; Brick 4 can now add a visual summary without inventing data ingestion, persistence, or generalized chart infrastructure. The visualization is a supporting lens on the existing fixture, not a new source of truth.
+
+### Current Working Hypothesis
+
+If the application renders one accessible, deterministic visual summary derived from the existing `SourceRecord[]` fixture, while retaining the table as the authoritative inspection surface, then PRD-06 will demonstrate purposeful visualization without introducing analytics-platform scope or a new shared UI contract.
+
+### Design Direction
+
+The experience should remain an inspection workspace:
+
+```text
+Source records table
+        |
+Purposeful visual summary of the same records
+        |
+Selected record context -> existing interpretation workflow
+```
+
+Candidate visualization: a compact status-distribution graphic showing Open,
+Review, and Blocked records. The design checkpoint must confirm whether a
+CSS-based visual, an existing Kernel composition, or a small visualization
+dependency is appropriate. Do not add a charting dependency before that choice
+is reviewed.
+
+Design constraints:
+
+- use the existing dataset as the sole source of visual values
+- keep the table available as the accessible source representation
+- provide a text summary and meaningful labels for non-visual users
+- preserve the selected-record and manual interpretation paths
+- avoid animation that communicates essential information only visually
+- avoid dashboards, axes-heavy analytics, filtering, sorting, pagination, and multiple chart types
+
+### Review Checkpoint Status
+
+- Checkpoint A: design readiness - pending approval of the visual question, representation, accessibility approach, and dependency decision.
+- Checkpoint B: visualization milestone - required after the first visual summary is rendered from the dataset.
+- Checkpoint C: validation gate - required after focused accessibility, behavior, lint, test, and build checks pass.
+- Checkpoint D: scope gate - required before adding additional charts, metrics, filters, or external data.
+- Engineering-review trigger: mandatory before closure because visualization establishes a new PRD-06 interaction pattern and may introduce a dependency.
+
+### TODOs
+
+- [ ] Define the single visual question the chart answers.
+- [ ] Select the smallest representation that answers that question clearly.
+- [ ] Decide between token-based CSS, existing Kernel primitives, and a new visualization dependency.
+- [ ] Define the derived view-model without changing the `SourceRecord` contract.
+- [ ] Add a text-equivalent summary and accessible labeling.
+- [ ] Render the visualization from the existing deterministic dataset.
+- [ ] Keep the table authoritative and the interpretation handoff unchanged.
+- [ ] Add focused tests for derived values, empty data, labels, and responsive rendering.
+- [ ] Add browser checks for visual presence, no overflow, and accessible text.
+- [ ] Document the visualization’s purpose and known limitations.
+- [ ] Run focused application validation after the first implementation edit.
+- [ ] Run the applicable six-project repository matrix.
+- [ ] Trigger engineering review before Brick 4 closure.
+
+### In Scope
+
+- one visualization answering one clearly stated inspection question
+- derived values from the existing in-memory source dataset
+- accessible text summary and semantic labeling
+- responsive presentation using existing design tokens
+- focused application tests and documentation
+
+### Out of Scope
+
+- multiple charts or a configurable visualization system
+- external data sources, ingestion, or persistence
+- charting infrastructure shared across applications
+- dashboards, filters, sorting, pagination, or reporting
+- predictive analytics or autonomous recommendations
+- changes to AI Provider, Telemetry, Design Tokens, or Component Kernel contracts
+
+### Likely Files or Projects Affected
+
+- `apps/interpretation-engine/src/app/app.ts`
+- `apps/interpretation-engine/src/app/app.html`
+- `apps/interpretation-engine/src/app/app.css`
+- `apps/interpretation-engine/src/app/source-dataset.ts` only if a derived view-model is needed
+- `apps/interpretation-engine/src/app/app.spec.ts`
+- `apps/interpretation-engine/README.md`
+- `docs/engineering/active-brick.md`
+- `package.json` and `pnpm-lock.yaml` only if Checkpoint A approves a new visualization dependency
+
+### Acceptance Criteria
+
+- one purposeful visual summary is visible beside or near the authoritative source table
+- the visual is derived only from the deterministic source dataset
+- the visual question and interpretation are clear without invoking AI
+- an equivalent text summary is available to assistive technology and non-visual users
+- empty data behavior is explicit
+- the visualization remains usable on desktop and mobile without overflow
+- table selection, manual input, and interpretation handoff remain intact
+- no persistence, external ingestion, dashboard behavior, or platform contract changes are introduced
+- focused tests and applicable lint, test, and build targets pass
+- engineering review approves the visualization boundary before closure
+
+### Review Gate
+
+Engineering review is required at Checkpoint A if a new dependency or reusable visualization abstraction is proposed, at Checkpoint B for the visual-to-source relationship, and at Checkpoint C before closure. Review must verify that the visualization is purposeful, accessible, deterministic, application-local, and subordinate to human inspection and interpretation.
+
+### Risks and Unresolved Decisions
+
+- A new charting dependency could be disproportionate to one visual summary; resolve this before implementation.
+- Visual summaries can imply analytical certainty; labels and supporting text must make the derived nature of the fixture clear.
+- SVG or canvas output could weaken accessibility if the text equivalent is not treated as first-class content.
+- Additional metrics or chart types belong in later bricks and require new scope approval.
+
+---
+
+## Completed PRD-06 Record
+
+### Title
+
 PRD-06 Brick 3 - Structured Source Dataset Presentation
 
 ### Status
