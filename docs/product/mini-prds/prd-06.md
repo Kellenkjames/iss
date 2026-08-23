@@ -12,11 +12,13 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Active reference implementation
+**Status:** Completed v1.0 reference implementation
 
 The dedicated `apps/interpretation-engine` reference application now exists.
-This PRD remains active while its v1 interpretation capabilities are delivered
-through focused engineering bricks.
+PRD-06 v1 is complete: its focused engineering bricks delivered the
+interpretation workflow, structured source presentation, and purposeful visual
+summary described by this document. Future capabilities remain separately
+scoped under Section 9.
 
 ---
 

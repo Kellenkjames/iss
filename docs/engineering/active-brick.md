@@ -8,7 +8,7 @@ public contract, or explicit review decision needs a permanent historical
 record.
 
 
-## Active PRD-06 Record
+## Completed PRD-06 v1 Record
 
 ### Title
 
@@ -16,7 +16,7 @@ PRD-06 Brick 4 - Purposeful Source Visualization
 
 ### Status
 
-Completed - Engineering review passed; remediation condition closed.
+Completed - Engineering review passed; PRD-06 v1 closure approved.
 
 ### Outcome
 
@@ -141,6 +141,15 @@ Engineering review is required at Checkpoint A if a new dependency or reusable v
 - Review date: 2026-08-23.
 - Previous blocking token findings were resolved with existing shared tokens; no conditions remain.
 - Final review confirmed scope alignment, application-local visualization ownership, accessible text equivalence, responsive behavior, documentation completeness, and validation evidence.
+
+### PRD-06 v1 Closure
+
+- PRD-06 v1 completion assessment: Pass.
+- Decision: Close PRD-06 v1 now.
+- Recommendation: Approve Closure.
+- Required v1 gaps: none identified.
+- Optional future extensions remain deferred under PRD-06 Section 9 and require separate planning and review.
+- Closure date: 2026-08-23.
 
 ### Risks and Unresolved Decisions
 
