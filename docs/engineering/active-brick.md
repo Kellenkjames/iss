@@ -7,9 +7,104 @@ engineering-brick documents only when a durable architectural boundary,
 public contract, or explicit review decision needs a permanent historical
 record.
 
+
+## Active PRD-06 Record
+
+### Title
+
+PRD-06 Brick 2 - Thin Interpretation Engine UI Consumer
+
+### Status
+
+Completed - Engineering review passed; no conditions remain.
+
+### Outcome
+
+Deliver the first dedicated Interpretation Engine application as a thin consumer of the reviewed interpretation service contract. The application demonstrates one AI-assisted interpretation workflow without expanding the platform, adding persistence, or becoming an analytics product.
+
+### Scope and Boundary
+
+The application owns input presentation and interaction state. Its local interpretation service owns request validation, prompt composition, provider delegation, and response mapping. AI execution and telemetry remain behind the existing `@iss/ai-provider` and `@iss/telemetry/browser` boundaries.
+
+The application uses existing Component Kernel controls and Design Tokens. It does not modify the AI Provider, Telemetry, or Component Kernel contracts.
+
+### Review Checkpoint Status
+
+- Checkpoint A: implementation readiness - passed; dedicated `apps/interpretation-engine` ownership selected.
+- Checkpoint B: interaction milestone - passed; focused interpretation workflow is implemented and browser-tested.
+- Checkpoint C: validation gate - passed; dedicated lint, test, and build targets pass.
+- Checkpoint D: scope gate - passed; no visualization, persistence, authentication, or product-scale workflow was introduced.
+- Final engineering review: passed; Brick 2 approved on 2026-08-23.
+
+### TODOs
+
+- [x] Create the dedicated `apps/interpretation-engine` Nx application.
+- [x] Compose subject, context, and optional question inputs with existing Kernel controls.
+- [x] Add explicit empty, loading, success, and failure states.
+- [x] Connect the UI to the local interpretation service without direct vendor access.
+- [x] Preserve browser-safe `demo-key` behavior and shared telemetry capture.
+- [x] Add focused application and service tests.
+- [x] Add application README documenting purpose, boundaries, usage, testing, and limitations.
+- [x] Register the application with the Nx ESLint plugin.
+- [x] Run dedicated lint, test, and production build validation.
+- [x] Run the final Engineering Reviewer pass.
+- [x] Close Brick 2 after review approval.
+
+### Implementation Files
+
+- `apps/interpretation-engine/project.json`
+- `apps/interpretation-engine/src/app/app.ts`
+- `apps/interpretation-engine/src/app/app.html`
+- `apps/interpretation-engine/src/app/app.css`
+- `apps/interpretation-engine/src/app/interpretation.service.ts`
+- `apps/interpretation-engine/src/app/interpretation.service.spec.ts`
+- `apps/interpretation-engine/src/app/app.spec.ts`
+- `apps/interpretation-engine/src/app/provider-runtime-config.ts`
+- `apps/interpretation-engine/README.md`
+- `nx.json`
+
+### Validation Evidence
+
+- `CI=1 pnpm nx test interpretation-engine` passed: 2 test files, 4 tests.
+- `CI=1 pnpm nx lint interpretation-engine` passed.
+- `CI=1 pnpm nx build interpretation-engine` passed with all four platform build dependencies.
+- Integrated browser validation passed for initial rendering, required-field validation, custom interpretation, offline demo behavior, telemetry storage, and responsive layout.
+
+### Acceptance Criteria
+
+- A dedicated Interpretation Engine application exists at `apps/interpretation-engine`.
+- Users can submit subject and context with an optional question.
+- Invalid required input is rejected before provider execution.
+- Empty, loading, success, and failure states are explicit.
+- Successful output is rendered from the interpretation payload.
+- The UI does not access provider adapters, vendor SDKs, or telemetry storage directly.
+- Existing platform contracts remain unchanged.
+- The application remains a narrow PRD-06 reference workflow.
+- Focused lint, test, build, and browser checks pass.
+- Engineering review approves the application boundary before closure.
+
+### Review Gate
+
+Engineering review is mandatory before closure. Review against PRD-06, PRD-05, EB-024, Architecture Standards, Repository Blueprint, Product Development Lifecycle, Engineering Review Gate, Telemetry v1 Baseline, and the relevant design documentation. Confirm scope, ownership, public boundaries, browser safety, design-system usage, documentation, and validation evidence.
+
+### Review Outcome
+
+- Result: Pass.
+- Recommendation: Approve.
+- Engineering brick status: Approved.
+- Review date: 2026-08-23.
+- No blocking findings, conditions, or human decisions remain.
+- Review confirmed the dedicated application boundary, PRD-06 scope alignment, public platform consumption, browser-safe demo behavior, documentation completeness, and six-project validation evidence.
+
+### Risks and Decisions
+
+- The dedicated application path avoids an app-to-app dependency on the shell.
+- The UI intentionally uses the deterministic browser demo path; live credentials are not bundled.
+- Visualization, persistence, and additional interpretation workflows are deferred to later bricks.
+
 ---
 
-## Active PRD-05 Record
+## Completed PRD-05 Record
 
 ### Title
 
