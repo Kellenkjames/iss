@@ -134,6 +134,12 @@ Engineering review is required at Checkpoint A if the source dataset or selectio
 - A table may invite sorting and filtering scope; those interactions should remain deferred until a later brick demonstrates a concrete need.
 - The handoff must preserve the existing manual input path so Brick 3 does not replace the validated Brick 2 workflow prematurely.
 
+### Future Planning Notes
+
+- Standardize the current `ISS / PRD-06` eyebrow treatment across visible applications through design guidance; keep application-specific labels contextual.
+- Evaluate dark mode as a separate Design Tokens and Component Kernel initiative covering semantic theme mappings, contrast, system preference, user override, and application adoption.
+- These ideas are recorded in [Design Documentation](../design/README.md) and remain outside Brick 3 scope.
+
 ---
 
 ## Completed PRD-06 Record
