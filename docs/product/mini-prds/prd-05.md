@@ -12,7 +12,7 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Active reference integration
+**Status:** Validated v1.0 reference integration
 
 ---
 
@@ -76,7 +76,6 @@ The Application Shell is responsible for:
 - Consuming Design Tokens
 - Invoking AI through the AI Provider package
 - Automatically generating telemetry
-- Establishing routing conventions
 - Demonstrating project structure
 - Providing reference implementations for shared patterns
 - Serving as the architectural baseline for future applications
@@ -101,6 +100,7 @@ The Application Shell will **not**:
 - Implement authentication
 - Manage persistent data
 - Perform backend orchestration
+- Establish multi-route navigation; v1 remains a single-surface reference application
 - Duplicate functionality belonging to shared packages
 - Be treated as a replacement for downstream application-specific product work
 
@@ -117,7 +117,6 @@ The Application Shell intentionally exposes very little because it is a referenc
 Version 1 includes:
 
 - Reference application structure
-- Routing configuration
 - Layout composition
 - Shared package integration examples
 - Sample AI interaction
@@ -185,13 +184,10 @@ Version 1 intentionally focuses on platform integration and proof-of-pattern val
 Included:
 
 - Application layout
-- Navigation
-- Sample pages
 - Component demonstrations
 - AI interaction example
 - Telemetry demonstration
 - Shared styling
-- Reference routing
 - Minimal validation flows that prove the integration contracts work together
 
 Excluded:

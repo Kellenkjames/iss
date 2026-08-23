@@ -10,7 +10,7 @@ Mini-PRDs define product and platform boundaries. Their Version identifies the i
 | [PRD-02](prd-02.md) | Intelligent Component Kernel | `libs/platform/component-kernel` | Frozen v1.0, human approved |
 | [PRD-03](prd-03.md) | Telemetry | `libs/platform/telemetry` | Frozen v1.0, engineering approved |
 | [PRD-04](prd-04.md) | AI Provider | `libs/platform/ai-provider` | Completed v1.0; browser demo offline |
-| [PRD-05](prd-05.md) | AI-Aware Application Shell | `apps/shell` | Active reference integration |
+| [PRD-05](prd-05.md) | AI-Aware Application Shell | `apps/shell` | Validated v1.0 reference integration |
 
 ## Roadmap
 
