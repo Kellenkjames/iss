@@ -2,6 +2,7 @@ import type { AiProviderResponse, ProviderConfigInput } from '@iss/ai-provider';
 import { createProviderFactory, validateProviderConfig } from '@iss/ai-provider';
 import { createBrowserTelemetry } from '@iss/telemetry/browser';
 
+/** Application-internal interpretation boundary; future applications should own their service layer. */
 export interface InterpretationRequest {
   subject: string;
   context: string;

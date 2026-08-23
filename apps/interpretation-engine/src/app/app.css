@@ -47,16 +47,45 @@ h2 {
 
 .engine-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
+.source-panel,
 .input-panel,
 .result-panel {
   min-height: 360px;
   padding: 28px;
   border: 1px solid var(--iss-color-border-subtle);
   background: var(--iss-color-surface-1);
+}
+
+.source-panel {
+  grid-column: 1 / -1;
+}
+
+.source-panel iss-table,
+.source-panel iss-select {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.source-summary {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-left: 3px solid var(--iss-color-accent);
+  background: var(--iss-color-surface-0);
+}
+
+.source-summary p {
+  margin: 0;
+  color: var(--iss-color-text-secondary);
+  line-height: 1.5;
+}
+
+.source-summary strong {
+  color: var(--iss-color-text-primary);
 }
 
 .section-heading {
@@ -95,6 +124,10 @@ h2 {
 
   .engine-grid {
     grid-template-columns: 1fr;
+  }
+
+  .source-panel {
+    grid-column: auto;
   }
 
   .input-panel,

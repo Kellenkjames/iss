@@ -6,6 +6,30 @@
   </header>
 
   <section class="engine-grid" aria-label="Interpretation workflow">
+    <section class="source-panel" aria-labelledby="source-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Structured source</p>
+        <h2 id="source-heading">Inspect a record</h2>
+      </div>
+      <iss-table [columns]="sourceColumns" [rows]="sourceRows"></iss-table>
+      <iss-select
+        label="Source record"
+        placeholder="Choose a record"
+        [options]="sourceOptions"
+        [value]="selectedSourceId"
+        (change)="onSourceChange($event)"
+      ></iss-select>
+      @if (selectedSource; as source) {
+        <div class="source-summary" aria-live="polite">
+          <p><strong>{{ source.subject }}</strong> owned by {{ source.owner }}</p>
+          <p>{{ source.context }}</p>
+          <iss-button variant="secondary" (click)="useSelectedSource()">Use selected context</iss-button>
+        </div>
+      } @else {
+        <iss-state status="empty" message="Select a source record to inspect its context."></iss-state>
+      }
+    </section>
+
     <section class="input-panel" aria-labelledby="input-heading">
       <div class="section-heading">
         <p class="eyebrow">Source context</p>

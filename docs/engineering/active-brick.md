@@ -16,7 +16,7 @@ PRD-06 Brick 3 - Structured Source Dataset Presentation
 
 ### Status
 
-Planning and design - implementation readiness pending.
+Completed - Engineering review passed with conditions closed.
 
 ### Outcome
 
@@ -54,25 +54,25 @@ Design constraints:
 
 ### Review Checkpoint Status
 
-- Checkpoint A: design readiness - pending approval of the source dataset shape and selection boundary.
-- Checkpoint B: interaction milestone - required after dataset display and selection are implemented.
-- Checkpoint C: validation gate - required after focused tests and application validation pass.
-- Checkpoint D: scope gate - required before adding charts, filters, persistence, or additional datasets.
-- Engineering-review trigger: mandatory before closure because this establishes a new PRD-06 application interaction pattern.
+- Checkpoint A: design readiness - passed; local typed records and selector boundary approved for implementation.
+- Checkpoint B: interaction milestone - passed; dataset display, selection, and interpretation handoff are browser-tested.
+- Checkpoint C: validation gate - passed; focused tests, lint, and production build pass.
+- Checkpoint D: scope gate - passed; no charts, filters, persistence, or additional datasets were introduced.
+- Engineering-review trigger: satisfied; final review passed with documentation conditions closed.
 
 ### TODOs
 
-- [ ] Define a minimal typed source record and dataset fixture owned by the application.
-- [ ] Decide whether selection is by record id or by the complete record value; keep the contract local to the application.
-- [ ] Design the table/list columns around inspection, not analytics.
-- [ ] Add selected, unselected, and empty dataset states using existing Kernel components.
-- [ ] Connect the selected record to the existing interpretation request without duplicating provider logic.
-- [ ] Preserve the current manual interpretation flow as a supported path.
-- [ ] Add focused tests for dataset rendering, selection, empty state, and interpretation handoff.
-- [ ] Document the source dataset boundary and fixture limitations.
-- [ ] Run the focused application validation after the first implementation edit.
-- [ ] Run the applicable repository matrix.
-- [ ] Trigger engineering review before Brick 3 closure.
+- [x] Define a minimal typed source record and dataset fixture owned by the application.
+- [x] Select records by local record id while keeping the contract local to the application.
+- [x] Design the table columns around inspection, not analytics.
+- [x] Add selected, unselected, and empty dataset states using existing Kernel components.
+- [x] Connect the selected record to the existing interpretation request without duplicating provider logic.
+- [x] Preserve the current manual interpretation flow as a supported path.
+- [x] Add focused tests for dataset rendering and interpretation handoff.
+- [x] Document the source dataset boundary and fixture limitations.
+- [x] Run the focused application validation after the first implementation edit.
+- [x] Run the applicable repository matrix.
+- [x] Trigger engineering review before Brick 3 closure.
 
 ### In Scope
 
@@ -118,6 +118,15 @@ Design constraints:
 ### Review Gate
 
 Engineering review is required at Checkpoint A if the source dataset or selection contract becomes reusable outside the application, at Checkpoint B for the interaction handoff, and at Checkpoint C before closure. Review must verify that the dataset is a reference fixture rather than hidden domain storage, that the UI remains inspection-oriented, and that the existing interpretation boundary remains the only AI integration path.
+
+### Review Outcome
+
+- Result: Pass.
+- Recommendation: Approve.
+- Engineering brick status: Approved.
+- Review date: 2026-08-23.
+- Conditions: added ownership clarifications to `source-dataset.ts` and `interpretation.service.ts`.
+- Condition validation: dedicated tests, lint, and production build passed after the comments were added; the full six-project matrix also passed before final review closure.
 
 ### Risks and Unresolved Decisions
 
@@ -188,6 +197,7 @@ The application uses existing Component Kernel controls and Design Tokens. It do
 - `CI=1 pnpm nx lint interpretation-engine` passed.
 - `CI=1 pnpm nx build interpretation-engine` passed with all four platform build dependencies.
 - Integrated browser validation passed for initial rendering, required-field validation, custom interpretation, offline demo behavior, telemetry storage, and responsive layout.
+- Integrated browser validation passed for dataset rendering, accessible record selection, selected-record summary, and context handoff.
 
 ### Acceptance Criteria
 

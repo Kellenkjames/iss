@@ -1,6 +1,13 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { interpretInformation } from './interpretation.service';
 import { resolveInterpretationProviderConfig } from './provider-runtime-config';
+import {
+  sourceColumns,
+  sourceRecords,
+  sourceSelectOptions,
+  sourceTableRows,
+  type SourceRecord,
+} from './source-dataset';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +16,39 @@ import { resolveInterpretationProviderConfig } from './provider-runtime-config';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
+  protected sourceColumns = sourceColumns;
+  protected sourceRows = sourceTableRows;
+  protected sourceOptions = sourceSelectOptions;
+  protected selectedSourceId = '';
   protected subject = '';
   protected context = '';
   protected question = '';
   protected status: 'empty' | 'loading' | 'error' = 'empty';
   protected message = 'Add context to begin an interpretation.';
   protected result = 'Your interpretation will appear here.';
+
+  protected get selectedSource(): SourceRecord | undefined {
+    return sourceRecords.find((record) => record.id === this.selectedSourceId);
+  }
+
+  protected onSourceChange(event: Event): void {
+    const target = event.target as EventTarget & { value?: string };
+    this.selectedSourceId = target.value ?? '';
+  }
+
+  protected useSelectedSource(): void {
+    const source = this.selectedSource;
+    if (!source) {
+      return;
+    }
+
+    this.subject = source.subject;
+    this.context = source.context;
+    this.question = '';
+    this.message = `Context loaded from ${source.id}. Add a question or interpret it as provided.`;
+    this.result = 'The selected source is ready for interpretation.';
+    this.status = 'empty';
+  }
 
   protected onInput(field: 'subject' | 'context' | 'question', event: Event): void {
     const target = event.target as EventTarget & { value?: string };

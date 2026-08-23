@@ -6,7 +6,7 @@ The Interpretation Engine is the first dedicated PRD-06 reference application. I
 
 This application is a thin consumer of the existing ISS platform. The UI owns interaction state and presentation. Its local interpretation service owns domain intent and delegates AI execution through `@iss/ai-provider`. Browser telemetry is supplied through `@iss/telemetry/browser` at the application boundary.
 
-It is distinct from `apps/shell`: the shell proves platform composition, while this application demonstrates a focused AI-native interaction.
+It is distinct from `apps/shell`: the shell proves platform composition, while this application demonstrates a focused AI-native interaction. The current workflow includes a small in-memory source dataset that can be inspected and handed into the interpretation form.
 
 ## Dependencies
 
@@ -35,7 +35,8 @@ CI=1 pnpm nx build interpretation-engine
 ## Known Limitations
 
 - This is a narrow reference workflow, not a general analytics or reporting product.
-- It does not persist source records, provide charts, authenticate users, or execute workflows.
+- Its source dataset is a deterministic fixture; it does not ingest or persist external records.
+- It does not provide charts, authenticate users, or execute workflows.
 - The UI consumes the existing interpretation contract and does not expose provider or telemetry implementation details.
 
 ## Related Documentation
