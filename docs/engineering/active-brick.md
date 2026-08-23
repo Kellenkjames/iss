@@ -16,7 +16,7 @@ PRD-06 Brick 4 - Purposeful Source Visualization
 
 ### Status
 
-Implementation complete - validation passed; engineering review pending.
+Completed - Engineering review passed; remediation condition closed.
 
 ### Outcome
 
@@ -63,8 +63,8 @@ Design constraints:
 - Checkpoint B: visualization milestone - passed; status distribution is rendered from the existing dataset and browser-tested.
 - Checkpoint C: validation gate - passed; focused accessibility, behavior, lint, test, and build checks pass.
 - Checkpoint D: scope gate - passed; no additional charts, metrics, filters, or external data were introduced.
-- Checkpoint E: review remediation - completed; undefined secondary-text tokens were replaced with the existing `--iss-color-text-muted` token and revalidated.
-- Engineering-review trigger: ready for re-review; visualization establishes a new PRD-06 interaction pattern.
+- Checkpoint E: review remediation - completed; undefined text and border tokens were replaced with the existing `--iss-color-text-muted` and `--iss-color-border` tokens and revalidated.
+- Engineering-review trigger: satisfied; final re-review passed on 2026-08-23.
 
 ### TODOs
 
@@ -80,7 +80,7 @@ Design constraints:
 - [x] Document the visualization’s purpose and known limitations.
 - [x] Run focused application validation after the first implementation edit.
 - [x] Run the applicable six-project repository matrix.
-- [ ] Trigger engineering review before Brick 4 closure.
+- [x] Trigger engineering review before Brick 4 closure.
 
 ### In Scope
 
@@ -126,6 +126,21 @@ Design constraints:
 ### Review Gate
 
 Engineering review is required at Checkpoint A if a new dependency or reusable visualization abstraction is proposed, at Checkpoint B for the visual-to-source relationship, and at Checkpoint C before closure. Review must verify that the visualization is purposeful, accessible, deterministic, application-local, and subordinate to human inspection and interpretation.
+
+### Review Remediation Evidence
+
+- Focused tests, lint, and production build passed after replacing the undefined tokens.
+- Browser computed styles confirmed the panel border and status-track background resolve to `--iss-color-border`.
+- Browser computed styles confirmed no values are supplied by the removed `--iss-color-text-secondary` or `--iss-color-border-subtle` tokens.
+
+### Review Outcome
+
+- Result: Pass.
+- Recommendation: Approve.
+- Engineering brick status: Approved.
+- Review date: 2026-08-23.
+- Previous blocking token findings were resolved with existing shared tokens; no conditions remain.
+- Final review confirmed scope alignment, application-local visualization ownership, accessible text equivalence, responsive behavior, documentation completeness, and validation evidence.
 
 ### Risks and Unresolved Decisions
 

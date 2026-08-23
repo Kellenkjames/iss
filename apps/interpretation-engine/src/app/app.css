@@ -56,7 +56,7 @@ h2 {
 .result-panel {
   min-height: 360px;
   padding: 28px;
-  border: 1px solid var(--iss-color-border-subtle);
+  border: 1px solid var(--iss-color-border);
   background: var(--iss-color-surface-1);
 }
 
@@ -100,7 +100,7 @@ h2 {
 .status-track {
   height: 8px;
   overflow: hidden;
-  background: var(--iss-color-border-subtle);
+  background: var(--iss-color-border);
 }
 
 .status-bar {
