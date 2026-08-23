@@ -12,6 +12,125 @@ record.
 
 ### Title
 
+PRD-06 Brick 3 - Structured Source Dataset Presentation
+
+### Status
+
+Planning and design - implementation readiness pending.
+
+### Outcome
+
+Introduce a small, deterministic source dataset view in the dedicated Interpretation Engine so users can inspect the information that will later be interpreted. This brick establishes the presentation and selection boundary for structured information without adding persistence, charts, ingestion, or new platform infrastructure.
+
+### Why This Brick Exists
+
+Brick 2 proved the interpretation interaction with manually supplied subject and context. PRD-06 also requires structured data presentation before the application can demonstrate interpretation of a dataset. Brick 3 should establish that source-information surface independently, keeping the input understandable and the future chart boundary open without prematurely building an analytics product.
+
+### Current Working Hypothesis
+
+If the Interpretation Engine presents a small typed in-memory dataset through existing Kernel components, with clear empty and selected states, then future interpretation and visualization bricks can consume a stable source-selection contract without introducing persistence or domain storage.
+
+### Design Direction
+
+The experience should read as an inspection workspace, not a dashboard:
+
+```text
+Page heading and purpose
+        |
+Source dataset summary
+        |
+Structured records table/list  ->  selected record context
+        |
+Interpret selected context (handoff to existing interpretation flow)
+```
+
+Design constraints:
+
+- use existing Design Tokens and Component Kernel primitives
+- show one deliberately small dataset with human-readable columns
+- make the selected record obvious and keyboard-accessible
+- preserve the existing interpretation workflow rather than duplicating it
+- avoid charts, filters, pagination, persistence, and dashboard chrome
+
+### Review Checkpoint Status
+
+- Checkpoint A: design readiness - pending approval of the source dataset shape and selection boundary.
+- Checkpoint B: interaction milestone - required after dataset display and selection are implemented.
+- Checkpoint C: validation gate - required after focused tests and application validation pass.
+- Checkpoint D: scope gate - required before adding charts, filters, persistence, or additional datasets.
+- Engineering-review trigger: mandatory before closure because this establishes a new PRD-06 application interaction pattern.
+
+### TODOs
+
+- [ ] Define a minimal typed source record and dataset fixture owned by the application.
+- [ ] Decide whether selection is by record id or by the complete record value; keep the contract local to the application.
+- [ ] Design the table/list columns around inspection, not analytics.
+- [ ] Add selected, unselected, and empty dataset states using existing Kernel components.
+- [ ] Connect the selected record to the existing interpretation request without duplicating provider logic.
+- [ ] Preserve the current manual interpretation flow as a supported path.
+- [ ] Add focused tests for dataset rendering, selection, empty state, and interpretation handoff.
+- [ ] Document the source dataset boundary and fixture limitations.
+- [ ] Run the focused application validation after the first implementation edit.
+- [ ] Run the applicable repository matrix.
+- [ ] Trigger engineering review before Brick 3 closure.
+
+### In Scope
+
+- one typed, in-memory dataset fixture
+- structured record presentation using existing Kernel components
+- selection state for one source record
+- selected-record handoff into the existing interpretation request
+- empty and selected state behavior
+- focused application tests and documentation
+
+### Out of Scope
+
+- charting or visualization libraries
+- data ingestion or external data sources
+- persistence, accounts, or collaboration
+- advanced filtering, pagination, sorting, or dashboard layout
+- changes to AI Provider, Telemetry, Design Tokens, or Component Kernel contracts
+- autonomous recommendations or workflow execution
+
+### Likely Files or Projects Affected
+
+- `apps/interpretation-engine/src/app/app.ts`
+- `apps/interpretation-engine/src/app/app.html`
+- `apps/interpretation-engine/src/app/app.css`
+- `apps/interpretation-engine/src/app/source-dataset.ts`
+- `apps/interpretation-engine/src/app/app.spec.ts`
+- `apps/interpretation-engine/README.md`
+- `docs/product/mini-prds/prd-06.md` only if the dataset boundary needs clarification
+- `docs/engineering/active-brick.md`
+
+### Acceptance Criteria
+
+- a small typed source dataset is visible in the Interpretation Engine
+- a user can select a source record through existing Kernel components
+- selected-record state is explicit and accessible
+- empty dataset behavior is explicit even when the default fixture is populated
+- the selected record can populate the existing interpretation request
+- provider and telemetry responsibilities remain behind the existing service boundary
+- no persistence, charts, new dependencies, or shared contract changes are introduced
+- focused tests and applicable lint, test, and build targets pass
+- engineering review approves the interaction boundary before closure
+
+### Review Gate
+
+Engineering review is required at Checkpoint A if the source dataset or selection contract becomes reusable outside the application, at Checkpoint B for the interaction handoff, and at Checkpoint C before closure. Review must verify that the dataset is a reference fixture rather than hidden domain storage, that the UI remains inspection-oriented, and that the existing interpretation boundary remains the only AI integration path.
+
+### Risks and Unresolved Decisions
+
+- The fixture shape could accidentally become an application-wide domain model; keep it local and typed only for this reference workflow.
+- A table may invite sorting and filtering scope; those interactions should remain deferred until a later brick demonstrates a concrete need.
+- The handoff must preserve the existing manual input path so Brick 3 does not replace the validated Brick 2 workflow prematurely.
+
+---
+
+## Completed PRD-06 Record
+
+### Title
+
 PRD-06 Brick 2 - Thin Interpretation Engine UI Consumer
 
 ### Status

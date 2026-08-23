@@ -18,7 +18,7 @@ The following PRDs are retained as planned future work. Their repository paths a
 
 | PRD | Project | Target path | Status |
 | --- | --- | --- | --- |
-| [PRD-06](prd-06.md) | Interpretation Engine | `apps/interpretation-engine` | Planned roadmap |
+| [PRD-06](prd-06.md) | Interpretation Engine | `apps/interpretation-engine` | Active reference implementation |
 | [PRD-07](prd-07.md) | Full-Stack Signal System | `apps/signal-system` | Planned roadmap |
 
 A PRD may describe a target architecture before its implementation exists. Current implementation status must be stated explicitly in the PRD and this index.

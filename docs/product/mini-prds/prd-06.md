@@ -12,11 +12,11 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Planned roadmap
+**Status:** Active reference implementation
 
-The target repository path is not currently implemented. This document remains
-an approved future application boundary and is not evidence that
-`apps/interpretation-engine` exists today.
+The dedicated `apps/interpretation-engine` reference application now exists.
+This PRD remains active while its v1 interpretation capabilities are delivered
+through focused engineering bricks.
 
 ---
 
