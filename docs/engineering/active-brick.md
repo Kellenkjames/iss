@@ -1115,3 +1115,153 @@ After the first implementation or documentation edit:
 
 Use the engineering review gate if the acceptance pass changes a shared boundary
 or introduces a new public shell contract.
+
+---
+
+## Next Proposed Brick
+
+### Title
+
+PRD-07 Brick 1 - Signal Discovery and Decision-Ready Detail
+
+### Status
+
+Proposed - Planning and design readiness checkpoint required before implementation.
+
+### Outcome
+
+Define the first PRD-07 release slice as a narrow, human-centered signal workflow that demonstrates discovery, inspection, AI-assisted interpretation, and operational evidence without introducing enterprise, backend, or platform-scope expansion.
+
+### Why This Brick Exists
+
+PRD-07 is the flagship application boundary for ISS. The first release must prove one complete, coherent application workflow rather than broad product scope. The Shell and Interpretation Engine already establish the repository pattern: reuse platform contracts, keep application logic local, and use deterministic data for v1 validation. This first brick should establish the exact user problem, signal model, workflow, and ownership boundaries for the Signal System before any app scaffolding or dependency expansion occurs.
+
+### Current Working Hypothesis
+
+If the Signal System defines one clear signal workflow around meaningful evidence, human decision authority, and AI-supported interpretation, while keeping initial data deterministic and all platform work in approved packages, then the first PRD-07 brick will deliver a flagship-quality vertical slice without turning the project into a generalized SaaS product or a new shared platform layer.
+
+### Design Direction
+
+The experience should read as a disciplined decision workspace rather than a dashboard or AI demo.
+
+```text
+Signal discovery list
+        |
+Selected signal detail
+        |
+Evidence and context review
+        |
+AI-assisted interpretation
+        |
+Human decision / actionability
+        |
+Telemetry evidence
+```
+
+Design constraints:
+
+- use the existing Design Tokens and Component Kernel primitives wherever possible
+- keep the initial data deterministic and application-local
+- make the signal status, owner, and evidence explicit
+- keep the AI output secondary to the user’s review of the signal itself
+- preserve human judgment as the authority for any decision
+- avoid dashboards, notifications, collaboration, authentication, and workflow automation
+- avoid back-end and persistence requirements until the workflow is proven
+
+### Review Checkpoint Status
+
+- Checkpoint A: design readiness - proposed; confirm user context, signal model, lifecycle, discovery surface, detail surface, AI interpretation boundary, telemetry expectations, and validation strategy.
+- Checkpoint B: implementation milestone - pending; only after the brick is approved and the app workflow is implemented.
+- Checkpoint C: validation gate - pending; focused tests, lint, and build checks required before closure.
+- Checkpoint D: scope gate - pending; confirm no enterprise, collaboration, automation, or platform drift enters the brick.
+- Checkpoint E: engineering review - pending; required before closure once the implementation is ready.
+- Checkpoint F: closure - pending; only after review conditions close and PRD criteria are satisfied.
+
+### TODOs
+
+- [ ] Define the primary user and decision context for the Signal System.
+- [ ] Define a minimal, explicit signal data model owned by the application.
+- [ ] Decide the initial source of truth: deterministic in-memory fixture, not an early backend.
+- [ ] Design the discovery surface, selected-signal detail view, and interpretation flow.
+- [ ] Confirm AI usage stays in the application boundary and relies on `@iss/ai-provider`.
+- [ ] Confirm telemetry remains captured through the repository’s approved browser evidence path.
+- [ ] Define the minimal successful vertical slice for v1.
+- [ ] Document application-owned versus platform-owned responsibilities for the first brick.
+- [ ] Confirm no enterprise, collaboration, or workflow automation scope enters v1.
+- [ ] Validate the design against PRD-07 success criteria and repo architecture standards.
+
+### In Scope
+
+- signal discovery
+- signal presentation
+- structured detail views
+- AI-assisted interpretation
+- human decision authority
+- shared Design Tokens usage
+- shared Component Kernel usage
+- AI Provider integration
+- browser telemetry evidence
+- one complete end-to-end workflow with deterministic data
+
+### Out of Scope
+
+- multi-user collaboration
+- authentication and role-based access control
+- notifications or event-driven user messaging
+- workflow automation
+- persistent business storage or backend services
+- analytics dashboards or generalized reporting
+- mobile-native development
+- plugin ecosystems or extensibility frameworks
+- enterprise SaaS features
+- autonomous agent logic
+- generalized AI agent infrastructure
+
+### Likely Files or Projects Affected
+
+- `apps/signal-system/` (new app project to be created only after this design checkpoint)
+- `apps/signal-system/src/app/` for application-local signal workflow and composition
+- `apps/signal-system/src/app/signal-model.ts` or equivalent for the domain contract
+- `apps/signal-system/src/app/signal-service.ts` for application-owned signal orchestration
+- `apps/signal-system/src/app/app.html` and `app.ts` for discovery/detail/interpretation UI
+- `apps/signal-system/src/app/app.css` for token-based styling
+- `apps/signal-system/project.json` for Nx project registration
+- `docs/engineering/active-brick.md`
+- `docs/product/mini-prds/prd-07.md` only if the design checkpoint requires a scope clarification
+
+### Acceptance Criteria
+
+- the user and decision context are explicit and reviewable
+- the signal concept is understandable without requiring product speculation
+- the initial workflow is a narrow, polished vertical slice rather than a broad toolkit
+- signal discovery and detail surfaces are clearly separated and purposeful
+- AI interpretation is a support layer, not a replacement for human judgment
+- the app consumes platform packages through the approved public boundaries
+- telemetry evidence is captured for the AI interaction path
+- deterministic local source data is the v1 default unless a later approved brick adds a real backend
+- no enterprise, collaboration, automation, or analytics drift is introduced
+- design readiness is approved before app scaffolding or dependency creation begins
+
+### Review Trigger
+
+Engineering review is required before implementation begins because this brick establishes the flagship application boundary, application ownership model, and the first public workflow contract for PRD-07.
+
+### Risks and Unresolved Decisions
+
+- the app could drift into dashboard or analytics territory if signal detail expands too early
+- AI could become the dominant experience instead of a support tool without a sharp human-judgment boundary
+- a backend could be introduced too early before the application workflow is validated
+- a reusable abstraction could accidentally become a shared platform feature before the application proves its necessity
+- the signal model must remain narrow and reviewable; overgeneralization would weaken the flagship signal
+
+### Recommended Review
+
+- primary: Engineering Reviewer
+- secondary: Frontend Engineer
+- tertiary: AI Integration Engineer
+
+### Recommended Human Decision
+
+This brick should be explicitly approved only after the design checkpoint confirms the signal model, vertical slice, ownership boundaries, and validation strategy. Do not begin creating the `apps/signal-system` implementation until that checkpoint closes.
+
+---
