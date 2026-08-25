@@ -152,6 +152,28 @@ h2 {
   margin-bottom: 18px;
 }
 
+.decision-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.decision-actions iss-button {
+  display: inline-block;
+}
+
+.decision-banner {
+  margin: 0 0 16px;
+  color: var(--iss-color-text-muted);
+  font-size: 0.95rem;
+}
+
+.decision-banner strong {
+  color: var(--iss-color-text-primary);
+  text-transform: capitalize;
+}
+
 .result-panel iss-state {
   display: block;
   margin-bottom: 24px;

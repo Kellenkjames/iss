@@ -1,14 +1,16 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { resolveSignalProviderConfig } from './provider-runtime-config';
 import {
-    signalColumns,
-    signalRecords,
-    signalSelectOptions,
-    signalTableRows,
-    summarizeSignalStatuses,
-    type SignalRecord,
+  signalColumns,
+  signalRecords,
+  signalSelectOptions,
+  signalTableRows,
+  summarizeSignalStatuses,
+  type SignalRecord,
 } from './signal-data';
 import { interpretSignal } from './signal.service';
+
+type SignalDecision = 'accept' | 'defer' | 'escalate';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,7 @@ export class App {
   protected status: 'empty' | 'loading' | 'error' = 'empty';
   protected message = 'Choose a signal to begin the review.';
   protected result = 'Signal interpretation will appear here.';
+  protected decision: SignalDecision | '' = '';
   protected statusSummary = summarizeSignalStatuses();
 
   protected get selectedSignal(): SignalRecord | undefined {
@@ -36,6 +39,7 @@ export class App {
   protected onSignalChange(event: Event): void {
     const target = event.target as EventTarget & { value?: string };
     this.selectedSignalId = target.value ?? '';
+    this.decision = '';
   }
 
   protected useSelectedSignal(): void {
@@ -47,9 +51,28 @@ export class App {
     this.subject = signal.title;
     this.context = signal.evidence;
     this.question = '';
+    this.decision = '';
     this.message = `Signal ${signal.id} loaded for review.`;
     this.result = 'The signal evidence is ready for interpretation.';
     this.status = 'empty';
+  }
+
+  protected recordDecision(decision: SignalDecision): void {
+    const signal = this.selectedSignal;
+    if (!signal) {
+      return;
+    }
+
+    const decisionMap: Record<SignalDecision, string> = {
+      accept: 'accepted',
+      defer: 'deferred',
+      escalate: 'escalated',
+    };
+
+    this.decision = decision;
+    this.status = 'empty';
+    this.message = `Decision recorded: signal ${signal.title} was ${decisionMap[decision]}.`;
+    this.result = `Human decision: ${decisionMap[decision]}. The operator retains final authority for the response.`;
   }
 
   protected onInput(field: 'subject' | 'context' | 'question', event: Event): void {

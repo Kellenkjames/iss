@@ -41,4 +41,24 @@ describe('Signal System App', () => {
     expect(instance.subject).toBe('Release build failure');
     expect(instance.context).toContain('telemetry package update');
   });
+
+  it('captures a human decision for the selected signal', async () => {
+    await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
+
+    const fixture = TestBed.createComponent(App);
+    const instance = fixture.componentInstance as unknown as {
+      selectedSignalId: string;
+      useSelectedSignal: () => void;
+      recordDecision: (decision: 'accept' | 'defer' | 'escalate') => void;
+      decision: string;
+      message: string;
+    };
+
+    instance.selectedSignalId = 'sig-101';
+    instance.useSelectedSignal();
+    instance.recordDecision('accept');
+
+    expect(instance.decision).toBe('accept');
+    expect(instance.message).toContain('Decision recorded');
+  });
 });

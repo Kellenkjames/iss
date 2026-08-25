@@ -57,6 +57,14 @@
       <iss-input label="Evidence" placeholder="The release failed after the dependency update." [value]="context" (input)="onInput('context', $event)"></iss-input>
       <iss-input label="Question" placeholder="What should we inspect next?" [value]="question" (input)="onInput('question', $event)"></iss-input>
       <iss-button variant="primary" (click)="interpret()">Interpret signal</iss-button>
+
+      @if (selectedSignal) {
+        <div class="decision-actions" aria-label="Human decision actions">
+          <iss-button variant="secondary" (click)="recordDecision('accept')">Accept</iss-button>
+          <iss-button variant="secondary" (click)="recordDecision('defer')">Defer</iss-button>
+          <iss-button variant="secondary" (click)="recordDecision('escalate')">Escalate</iss-button>
+        </div>
+      }
     </section>
 
     <section class="result-panel" aria-labelledby="result-heading">
@@ -64,6 +72,10 @@
         <p class="eyebrow">Human review</p>
         <h2 id="result-heading">Interpretation</h2>
       </div>
+
+      @if (decision) {
+        <p class="decision-banner">Current decision: <strong>{{ decision }}</strong></p>
+      }
 
       <iss-state [status]="status" [message]="message" action-label="Retry" (action)="interpret()"></iss-state>
       <p class="result-copy">{{ result }}</p>
