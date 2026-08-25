@@ -1260,6 +1260,120 @@ Engineering review is required before implementation begins because this brick e
 - secondary: Frontend Engineer
 - tertiary: AI Integration Engineer
 
+### Checkpoint A: Planning And Design Readiness
+
+The following checklist must be satisfied before implementation begins. If any item is unresolved, the brick remains in planning status and the work should not advance to scaffolding or dependency changes.
+
+#### 1. User and Decision Context
+
+- [ ] The primary user is explicitly defined and tied to a real decision-making role.
+- [ ] The user’s core question is stated in plain language.
+- [ ] The workflow is framed around decision support, not generalized AI interaction.
+- [ ] The product concept remains a narrow operational signal workflow rather than a platform or dashboard abstraction.
+
+#### 2. Signal Concept and Definition
+
+- [ ] A signal is defined as a discrete, actionable unit of meaningful information.
+- [ ] Each signal contains enough evidence for an informed review without requiring a large analytics system.
+- [ ] Signal meaning is distinct from generic notifications, feed items, or platform events.
+- [ ] The signal definition remains application-local and not promoted into a shared platform contract.
+
+#### 3. Signal Lifecycle and States
+
+- [ ] The signal lifecycle is explicit: discovered, inspected, interpreted, decided, and closed or deferred.
+- [ ] The minimum required states are defined, such as open, review, action required, and resolved.
+- [ ] State transitions remain understandable to a human reviewer.
+- [ ] The lifecycle does not imply workflow automation, orchestration, or enterprise process systems.
+
+#### 4. Discovery and Detail Surfaces
+
+- [ ] The discovery surface is designed as a compact signal list or feed that supports quick triage.
+- [ ] The detail surface exposes the signal’s evidence, context, status, and ownership clearly.
+- [ ] The detail surface is intentionally narrower than a dashboard and remains easy to review within a single screen.
+- [ ] The selection and presentation path is clear for keyboard and screen-reader users.
+
+#### 5. AI Interpretation Entry Point
+
+- [ ] The AI interpretation entry point is explicitly tied to a user’s review of the signal.
+- [ ] The model input includes subject, evidence, and optional user question, without introducing hidden context or opaque prompt behavior.
+- [ ] AI output remains explanatory and secondary to the human evidence review.
+- [ ] The app does not treat AI as the final authority on the decision.
+
+#### 6. Telemetry Expectations
+
+- [ ] The AI interaction path is expected to emit telemetry through the approved repository boundary.
+- [ ] Telemetry captures operational evidence such as provider, model, timing, and outcome without storing raw sensitive content.
+- [ ] The application does not implement custom telemetry storage or duplicated logging behavior.
+- [ ] Telemetry remains observability evidence for engineering review rather than product analytics.
+
+#### 7. Human Decision Authority
+
+- [ ] The user is clearly the decision-maker for acceptance, deferral, or rejection of the signal.
+- [ ] The AI interpretation is framed as evidence support rather than autonomous decision-making.
+- [ ] There is no hidden automation, forced action, or silent state mutation.
+- [ ] The UI makes the decision boundary explicit and reviewable.
+
+#### 8. Minimum Successful Vertical Slice
+
+- [ ] The first brick defines one complete workflow: discover signal -> inspect evidence -> request interpretation -> record/capture evidence -> decide.
+- [ ] The slice remains intentionally small enough for review and validation.
+- [ ] Deterministic fixture data is approved as the initial source of truth for v1.
+- [ ] The slice does not depend on authentication, persistence, or external systems to prove the architectural pattern.
+
+#### 9. Application Versus Platform Ownership
+
+- [ ] Signal concepts, business flow, and UX remain owned by the application layer.
+- [ ] Reusable platform packages remain limited to design tokens, kernel components, AI Provider, and telemetry.
+- [ ] No new shared infrastructure is proposed before the application need is proven.
+- [ ] The app does not duplicate any provider or telemetry logic already defined at the platform layer.
+
+#### 10. Frontend / Backend Boundary
+
+- [ ] The initial implementation is defined as frontend-first with local deterministic data.
+- [ ] No backend contract is introduced unless the brick explicitly requires it and the design checkpoint approves it.
+- [ ] The application boundary is described precisely and does not depend on hidden services.
+- [ ] The v1 implementation remains browser-safe and local-first.
+
+#### 11. Data and Persistence Assumptions
+
+- [ ] The initial data model is in-memory and deterministic.
+- [ ] Persistence is explicitly out of scope for the first brick.
+- [ ] No enterprise data model, user data store, or app-specific database is introduced prematurely.
+- [ ] The application can be understood and validated from the repository without requiring a service layer.
+
+#### 12. Runtime and Browser Safety Constraints
+
+- [ ] The v1 execution path remains safe for browser-only local execution.
+- [ ] No secrets, raw credentials, or sensitive provider details are embedded in the app.
+- [ ] The AI Provider boundary handles runtime config safely and deterministically.
+- [ ] The app behavior is reviewable without relying on any external environment-specific configuration.
+
+#### 13. Design Direction and Accessibility Expectations
+
+- [ ] The visual language matches the repository’s Design Tokens and shared interaction patterns.
+- [ ] The app remains understandable and accessible without relying on color alone.
+- [ ] Labels, status semantics, and text summaries are treated as first-class content.
+- [ ] The design supports both desktop and mobile readability without creating dashboard-scale complexity.
+
+#### 14. Explicit Out-of-Scope Statement
+
+- [ ] The brick explicitly lists excluded features and product domains.
+- [ ] Collaboration, auth, workflow orchestration, and enterprise SaaS scope are clearly rejected for v1.
+- [ ] The work is intentionally narrower than a general-purpose product or platform.
+- [ ] No roadmap drift is hidden inside the implementation plan.
+
+#### Approval Decision
+
+- [ ] Ready for implementation
+- [ ] Needs design revision before implementation
+- [ ] Rejected for architecture or scope reasons
+
+#### Required Reviewer Signoff
+
+- Primary reviewer: Engineering Reviewer
+- Secondary reviewer: Frontend Engineer
+- Tertiary reviewer: AI Integration Engineer
+
 ### Recommended Human Decision
 
 This brick should be explicitly approved only after the design checkpoint confirms the signal model, vertical slice, ownership boundaries, and validation strategy. Do not begin creating the `apps/signal-system` implementation until that checkpoint closes.
