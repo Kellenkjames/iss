@@ -66,6 +66,8 @@
       "include": [
         "apps/shell/**/*",
         "apps/interpretation-engine/**/*",
+        "apps/signal-system/**/*",
+        "apps/signal-api/**/*",
         "libs/platform/design-tokens/**/*",
         "libs/platform/component-kernel/**/*"
       ]

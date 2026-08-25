@@ -29,6 +29,10 @@
       "options": {
         "command": "./node_modules/.bin/vitest run apps/signal-api/src/server.test.ts"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["apps/signal-api/src/**/*.ts"] }
     }
   }
 }

@@ -38,7 +38,9 @@
       }
     },
     "lint": {
-      "inputs": ["default", "^default", "{workspaceRoot}/eslint.config.mjs", { "externalDependencies": ["eslint"] }]
+      "executor": "@nx/eslint:lint",
+      "inputs": ["default", "^default", "{workspaceRoot}/eslint.config.mjs", { "externalDependencies": ["eslint"] }],
+      "options": { "lintFilePatterns": ["apps/signal-system/src/**/*.ts"] }
     },
     "test": { "executor": "@angular/build:unit-test", "options": { "watch": false } },
     "serve-static": {

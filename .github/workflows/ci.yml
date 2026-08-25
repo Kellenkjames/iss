@@ -36,10 +36,10 @@ jobs:
         run: git diff --check
 
       - name: Lint projects
-        run: pnpm nx run-many --target=lint --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1
+        run: pnpm nx run-many --target=lint --projects=design-tokens,component-kernel,telemetry,ai-provider,shell,interpretation-engine,signal-system,signal-api --parallel=1
 
       - name: Test projects
-        run: pnpm nx run-many --target=test --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1
+        run: pnpm nx run-many --target=test --projects=design-tokens,component-kernel,telemetry,ai-provider,shell,interpretation-engine,signal-system,signal-api --parallel=1
 
       - name: Build projects
-        run: pnpm nx run-many --target=build --projects=design-tokens,component-kernel,telemetry,ai-provider,shell --parallel=1
+        run: pnpm nx run-many --target=build --projects=design-tokens,component-kernel,telemetry,ai-provider,shell,interpretation-engine,signal-system,signal-api --parallel=1
