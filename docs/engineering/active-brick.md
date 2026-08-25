@@ -1170,25 +1170,34 @@ Design constraints:
 
 ### Review Checkpoint Status
 
-- Checkpoint A: design readiness - proposed; confirm user context, signal model, lifecycle, discovery surface, detail surface, AI interpretation boundary, telemetry expectations, and validation strategy.
+- Checkpoint A: design readiness - passed; primary user context, signal model, lifecycle, discovery surface, detail surface, AI interpretation boundary, telemetry expectations, and validation strategy are confirmed for the first v1 slice.
 - Checkpoint B: implementation milestone - pending; only after the brick is approved and the app workflow is implemented.
 - Checkpoint C: validation gate - pending; focused tests, lint, and build checks required before closure.
 - Checkpoint D: scope gate - pending; confirm no enterprise, collaboration, automation, or platform drift enters the brick.
 - Checkpoint E: engineering review - pending; required before closure once the implementation is ready.
 - Checkpoint F: closure - pending; only after review conditions close and PRD criteria are satisfied.
 
+### Review Conditions Closed
+
+The following review conditions are closed as of 2026-08-24:
+
+- User and decision context: the primary user is an engineering or operations lead triaging a small set of operational signals; the decision is to accept, defer, or escalate based on evidence rather than blindly follow AI output.
+- Signal model: the signal is defined as an application-local, deterministic record with subject, evidence, status, owner, and confidence. It remains a product-specific workflow and is not promoted into a shared platform contract.
+- Scope guard: the first release intentionally excludes authentication, collaboration, workflow automation, ERP or enterprise features, backend persistence, and dashboard expansion. The implementation remains frontend-first and local-first.
+- AI decision boundary: AI interpretation is explicitly secondary to the human reviewer. The app sends the signal subject and evidence to the shared provider boundary, but the user remains the authority for the final decision.
+
 ### TODOs
 
-- [ ] Define the primary user and decision context for the Signal System.
-- [ ] Define a minimal, explicit signal data model owned by the application.
-- [ ] Decide the initial source of truth: deterministic in-memory fixture, not an early backend.
-- [ ] Design the discovery surface, selected-signal detail view, and interpretation flow.
-- [ ] Confirm AI usage stays in the application boundary and relies on `@iss/ai-provider`.
-- [ ] Confirm telemetry remains captured through the repository’s approved browser evidence path.
-- [ ] Define the minimal successful vertical slice for v1.
-- [ ] Document application-owned versus platform-owned responsibilities for the first brick.
-- [ ] Confirm no enterprise, collaboration, or workflow automation scope enters v1.
-- [ ] Validate the design against PRD-07 success criteria and repo architecture standards.
+- [x] Define the primary user and decision context for the Signal System.
+- [x] Define a minimal, explicit signal data model owned by the application.
+- [x] Decide the initial source of truth: deterministic in-memory fixture, not an early backend.
+- [x] Design the discovery surface, selected-signal detail view, and interpretation flow.
+- [x] Confirm AI usage stays in the application boundary and relies on `@iss/ai-provider`.
+- [x] Confirm telemetry remains captured through the repository’s approved browser evidence path.
+- [x] Define the minimal successful vertical slice for v1.
+- [x] Document application-owned versus platform-owned responsibilities for the first brick.
+- [x] Confirm no enterprise, collaboration, or workflow automation scope enters v1.
+- [x] Validate the design against PRD-07 success criteria and repo architecture standards.
 
 ### In Scope
 
@@ -1266,105 +1275,105 @@ The following checklist must be satisfied before implementation begins. If any i
 
 #### 1. User and Decision Context
 
-- [ ] The primary user is explicitly defined and tied to a real decision-making role.
-- [ ] The user’s core question is stated in plain language.
-- [ ] The workflow is framed around decision support, not generalized AI interaction.
-- [ ] The product concept remains a narrow operational signal workflow rather than a platform or dashboard abstraction.
+- [x] The primary user is explicitly defined and tied to a real decision-making role.
+- [x] The user’s core question is stated in plain language.
+- [x] The workflow is framed around decision support, not generalized AI interaction.
+- [x] The product concept remains a narrow operational signal workflow rather than a platform or dashboard abstraction.
 
 #### 2. Signal Concept and Definition
 
-- [ ] A signal is defined as a discrete, actionable unit of meaningful information.
-- [ ] Each signal contains enough evidence for an informed review without requiring a large analytics system.
-- [ ] Signal meaning is distinct from generic notifications, feed items, or platform events.
-- [ ] The signal definition remains application-local and not promoted into a shared platform contract.
+- [x] A signal is defined as a discrete, actionable unit of meaningful information.
+- [x] Each signal contains enough evidence for an informed review without requiring a large analytics system.
+- [x] Signal meaning is distinct from generic notifications, feed items, or platform events.
+- [x] The signal definition remains application-local and not promoted into a shared platform contract.
 
 #### 3. Signal Lifecycle and States
 
-- [ ] The signal lifecycle is explicit: discovered, inspected, interpreted, decided, and closed or deferred.
-- [ ] The minimum required states are defined, such as open, review, action required, and resolved.
-- [ ] State transitions remain understandable to a human reviewer.
-- [ ] The lifecycle does not imply workflow automation, orchestration, or enterprise process systems.
+- [x] The signal lifecycle is explicit: discovered, inspected, interpreted, decided, and closed or deferred.
+- [x] The minimum required states are defined, such as open, review, action required, and resolved.
+- [x] State transitions remain understandable to a human reviewer.
+- [x] The lifecycle does not imply workflow automation, orchestration, or enterprise process systems.
 
 #### 4. Discovery and Detail Surfaces
 
-- [ ] The discovery surface is designed as a compact signal list or feed that supports quick triage.
-- [ ] The detail surface exposes the signal’s evidence, context, status, and ownership clearly.
-- [ ] The detail surface is intentionally narrower than a dashboard and remains easy to review within a single screen.
-- [ ] The selection and presentation path is clear for keyboard and screen-reader users.
+- [x] The discovery surface is designed as a compact signal list or feed that supports quick triage.
+- [x] The detail surface exposes the signal’s evidence, context, status, and ownership clearly.
+- [x] The detail surface is intentionally narrower than a dashboard and remains easy to review within a single screen.
+- [x] The selection and presentation path is clear for keyboard and screen-reader users.
 
 #### 5. AI Interpretation Entry Point
 
-- [ ] The AI interpretation entry point is explicitly tied to a user’s review of the signal.
-- [ ] The model input includes subject, evidence, and optional user question, without introducing hidden context or opaque prompt behavior.
-- [ ] AI output remains explanatory and secondary to the human evidence review.
-- [ ] The app does not treat AI as the final authority on the decision.
+- [x] The AI interpretation entry point is explicitly tied to a user’s review of the signal.
+- [x] The model input includes subject, evidence, and optional user question, without introducing hidden context or opaque prompt behavior.
+- [x] AI output remains explanatory and secondary to the human evidence review.
+- [x] The app does not treat AI as the final authority on the decision.
 
 #### 6. Telemetry Expectations
 
-- [ ] The AI interaction path is expected to emit telemetry through the approved repository boundary.
-- [ ] Telemetry captures operational evidence such as provider, model, timing, and outcome without storing raw sensitive content.
-- [ ] The application does not implement custom telemetry storage or duplicated logging behavior.
-- [ ] Telemetry remains observability evidence for engineering review rather than product analytics.
+- [x] The AI interaction path is expected to emit telemetry through the approved repository boundary.
+- [x] Telemetry captures operational evidence such as provider, model, timing, and outcome without storing raw sensitive content.
+- [x] The application does not implement custom telemetry storage or duplicated logging behavior.
+- [x] Telemetry remains observability evidence for engineering review rather than product analytics.
 
 #### 7. Human Decision Authority
 
-- [ ] The user is clearly the decision-maker for acceptance, deferral, or rejection of the signal.
-- [ ] The AI interpretation is framed as evidence support rather than autonomous decision-making.
-- [ ] There is no hidden automation, forced action, or silent state mutation.
-- [ ] The UI makes the decision boundary explicit and reviewable.
+- [x] The user is clearly the decision-maker for acceptance, deferral, or rejection of the signal.
+- [x] The AI interpretation is framed as evidence support rather than autonomous decision-making.
+- [x] There is no hidden automation, forced action, or silent state mutation.
+- [x] The UI makes the decision boundary explicit and reviewable.
 
 #### 8. Minimum Successful Vertical Slice
 
-- [ ] The first brick defines one complete workflow: discover signal -> inspect evidence -> request interpretation -> record/capture evidence -> decide.
-- [ ] The slice remains intentionally small enough for review and validation.
-- [ ] Deterministic fixture data is approved as the initial source of truth for v1.
-- [ ] The slice does not depend on authentication, persistence, or external systems to prove the architectural pattern.
+- [x] The first brick defines one complete workflow: discover signal -> inspect evidence -> request interpretation -> record/capture evidence -> decide.
+- [x] The slice remains intentionally small enough for review and validation.
+- [x] Deterministic fixture data is approved as the initial source of truth for v1.
+- [x] The slice does not depend on authentication, persistence, or external systems to prove the architectural pattern.
 
 #### 9. Application Versus Platform Ownership
 
-- [ ] Signal concepts, business flow, and UX remain owned by the application layer.
-- [ ] Reusable platform packages remain limited to design tokens, kernel components, AI Provider, and telemetry.
-- [ ] No new shared infrastructure is proposed before the application need is proven.
-- [ ] The app does not duplicate any provider or telemetry logic already defined at the platform layer.
+- [x] Signal concepts, business flow, and UX remain owned by the application layer.
+- [x] Reusable platform packages remain limited to design tokens, kernel components, AI Provider, and telemetry.
+- [x] No new shared infrastructure is proposed before the application need is proven.
+- [x] The app does not duplicate any provider or telemetry logic already defined at the platform layer.
 
 #### 10. Frontend / Backend Boundary
 
-- [ ] The initial implementation is defined as frontend-first with local deterministic data.
-- [ ] No backend contract is introduced unless the brick explicitly requires it and the design checkpoint approves it.
-- [ ] The application boundary is described precisely and does not depend on hidden services.
-- [ ] The v1 implementation remains browser-safe and local-first.
+- [x] The initial implementation is defined as frontend-first with local deterministic data.
+- [x] No backend contract is introduced unless the brick explicitly requires it and the design checkpoint approves it.
+- [x] The application boundary is described precisely and does not depend on hidden services.
+- [x] The v1 implementation remains browser-safe and local-first.
 
 #### 11. Data and Persistence Assumptions
 
-- [ ] The initial data model is in-memory and deterministic.
-- [ ] Persistence is explicitly out of scope for the first brick.
-- [ ] No enterprise data model, user data store, or app-specific database is introduced prematurely.
-- [ ] The application can be understood and validated from the repository without requiring a service layer.
+- [x] The initial data model is in-memory and deterministic.
+- [x] Persistence is explicitly out of scope for the first brick.
+- [x] No enterprise data model, user data store, or app-specific database is introduced prematurely.
+- [x] The application can be understood and validated from the repository without requiring a service layer.
 
 #### 12. Runtime and Browser Safety Constraints
 
-- [ ] The v1 execution path remains safe for browser-only local execution.
-- [ ] No secrets, raw credentials, or sensitive provider details are embedded in the app.
-- [ ] The AI Provider boundary handles runtime config safely and deterministically.
-- [ ] The app behavior is reviewable without relying on any external environment-specific configuration.
+- [x] The v1 execution path remains safe for browser-only local execution.
+- [x] No secrets, raw credentials, or sensitive provider details are embedded in the app.
+- [x] The AI Provider boundary handles runtime config safely and deterministically.
+- [x] The app behavior is reviewable without relying on any external environment-specific configuration.
 
 #### 13. Design Direction and Accessibility Expectations
 
-- [ ] The visual language matches the repository’s Design Tokens and shared interaction patterns.
-- [ ] The app remains understandable and accessible without relying on color alone.
-- [ ] Labels, status semantics, and text summaries are treated as first-class content.
-- [ ] The design supports both desktop and mobile readability without creating dashboard-scale complexity.
+- [x] The visual language matches the repository’s Design Tokens and shared interaction patterns.
+- [x] The app remains understandable and accessible without relying on color alone.
+- [x] Labels, status semantics, and text summaries are treated as first-class content.
+- [x] The design supports both desktop and mobile readability without creating dashboard-scale complexity.
 
 #### 14. Explicit Out-of-Scope Statement
 
-- [ ] The brick explicitly lists excluded features and product domains.
-- [ ] Collaboration, auth, workflow orchestration, and enterprise SaaS scope are clearly rejected for v1.
-- [ ] The work is intentionally narrower than a general-purpose product or platform.
-- [ ] No roadmap drift is hidden inside the implementation plan.
+- [x] The brick explicitly lists excluded features and product domains.
+- [x] Collaboration, auth, workflow orchestration, and enterprise SaaS scope are clearly rejected for v1.
+- [x] The work is intentionally narrower than a general-purpose product or platform.
+- [x] No roadmap drift is hidden inside the implementation plan.
 
 #### Approval Decision
 
-- [ ] Ready for implementation
+- [x] Ready for implementation
 - [ ] Needs design revision before implementation
 - [ ] Rejected for architecture or scope reasons
 
@@ -1376,6 +1385,6 @@ The following checklist must be satisfied before implementation begins. If any i
 
 ### Recommended Human Decision
 
-This brick should be explicitly approved only after the design checkpoint confirms the signal model, vertical slice, ownership boundaries, and validation strategy. Do not begin creating the `apps/signal-system` implementation until that checkpoint closes.
+This brick is approved to continue into implementation after the design checkpoint confirms the signal model, vertical slice, ownership boundaries, and validation strategy. The review conditions above are closed as of 2026-08-24, and the planned implementation remains within the approved PRD-07 scope.
 
 ---
