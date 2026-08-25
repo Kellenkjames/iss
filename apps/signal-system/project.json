@@ -1,0 +1,50 @@
+{
+  "name": "signal-system",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/signal-system/src",
+  "tags": ["type:app", "scope:signal-system", "runtime:browser"],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/signal-system",
+        "browser": "apps/signal-system/src/main.ts",
+        "tsConfig": "apps/signal-system/tsconfig.app.json",
+        "assets": [{ "glob": "**/*", "input": "apps/signal-system/public" }],
+        "styles": ["apps/signal-system/src/styles.css"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            { "type": "initial", "maximumWarning": "500kb", "maximumError": "1mb" },
+            { "type": "anyComponentStyle", "maximumWarning": "4kb", "maximumError": "8kb" }
+          ],
+          "outputHashing": "all"
+        },
+        "development": { "optimization": false, "extractLicenses": false, "sourceMap": true }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": { "buildTarget": "signal-system:build:production" },
+        "development": { "buildTarget": "signal-system:build:development" }
+      }
+    },
+    "lint": {
+      "inputs": ["default", "^default", "{workspaceRoot}/eslint.config.mjs", { "externalDependencies": ["eslint"] }]
+    },
+    "test": { "executor": "@angular/build:unit-test", "options": { "watch": false } },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": { "buildTarget": "signal-system:build", "staticFilePath": "dist/apps/signal-system/browser", "spa": true }
+    }
+  }
+}

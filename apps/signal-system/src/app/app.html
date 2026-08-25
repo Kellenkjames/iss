@@ -1,0 +1,74 @@
+<main class="signal-shell">
+  <header class="signal-header">
+    <p class="eyebrow">ISS / PRD-07</p>
+    <h1>Signal System</h1>
+    <p class="lede">Review meaningful operational signals, inspect their evidence, and keep AI support aligned with human judgment.</p>
+  </header>
+
+  <section class="signal-grid" aria-label="Signal review workflow">
+    <section class="discovery-panel" aria-labelledby="discovery-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Signal discovery</p>
+        <h2 id="discovery-heading">Current signals</h2>
+      </div>
+
+      <iss-table [columns]="signalColumns" [rows]="signalRows"></iss-table>
+
+      <div class="status-summary" aria-labelledby="status-summary-heading">
+        <h3 id="status-summary-heading">Status distribution</h3>
+        <p class="visually-hidden">Current signals: {{ statusSummary[0].count }} open, {{ statusSummary[1].count }} in review, and {{ statusSummary[2].count }} blocked.</p>
+        @for (summary of statusSummary; track summary.status) {
+          <div class="status-row">
+            <span>{{ summary.status }}</span>
+            <div class="status-track" aria-hidden="true">
+              <span class="status-bar" [class]="'status-' + summary.status.toLowerCase()" [style.width.%]="summary.percentage"></span>
+            </div>
+            <strong>{{ summary.count }}</strong>
+          </div>
+        }
+      </div>
+
+      <iss-select
+        label="Signal"
+        placeholder="Choose a signal"
+        [options]="signalOptions"
+        [value]="selectedSignalId"
+        (change)="onSignalChange($event)"
+      ></iss-select>
+
+      @if (selectedSignal; as signal) {
+        <div class="signal-summary" aria-live="polite">
+          <p><strong>{{ signal.title }}</strong> owned by {{ signal.owner }}</p>
+          <p>{{ signal.summary }}</p>
+          <iss-button variant="secondary" (click)="useSelectedSignal()">Use selected signal</iss-button>
+        </div>
+      } @else {
+        <iss-state status="empty" message="Select a signal to inspect the evidence."></iss-state>
+      }
+    </section>
+
+    <section class="input-panel" aria-labelledby="input-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Evidence</p>
+        <h2 id="input-heading">Review signal details</h2>
+      </div>
+
+      <iss-input label="Subject" placeholder="Release build failure" [value]="subject" (input)="onInput('subject', $event)"></iss-input>
+      <iss-input label="Evidence" placeholder="The release failed after the dependency update." [value]="context" (input)="onInput('context', $event)"></iss-input>
+      <iss-input label="Question" placeholder="What should we inspect next?" [value]="question" (input)="onInput('question', $event)"></iss-input>
+      <iss-button variant="primary" (click)="interpret()">Interpret signal</iss-button>
+    </section>
+
+    <section class="result-panel" aria-labelledby="result-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Human review</p>
+        <h2 id="result-heading">Interpretation</h2>
+      </div>
+
+      <iss-state [status]="status" [message]="message" action-label="Retry" (action)="interpret()"></iss-state>
+      <p class="result-copy">{{ result }}</p>
+    </section>
+  </section>
+
+  <p class="boundary-note">AI execution and telemetry remain behind the shared platform boundaries. This first release uses a deterministic local signal set and browser-safe demo provider behavior.</p>
+</main>
