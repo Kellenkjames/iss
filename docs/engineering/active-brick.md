@@ -10,70 +10,77 @@ archived to preserve evidence without polluting the active brief.
 
 ## Active Work
 
-### PRD-07 Brick 2 - Signal Source Boundary and Operational Ingestion
+### PRD-07 Brick 3 - Minimal CI Ingestion Boundary
 
 ### Status
 
-Active - Checkpoint A complete; ready for engineering review before external ingestion.
+Proposed - planning and design readiness checkpoint required before implementation.
 
-### Previous Brick
+### Previous Bricks
 
 PRD-07 Brick 1 - Signal Discovery and Decision-Ready Detail was implemented,
 validated, reviewed, approved, and committed in `68a5eec`. Its completed scope
 remains the working user experience for this brick.
 
+PRD-07 Brick 2 - Signal Source Boundary and Operational Ingestion established
+the fixture-backed CI mapping shape, was reviewed and approved for Checkpoint A,
+and was committed in `af32008`. Its deterministic mapper and signal metadata
+remain the application contract for this brick.
+
 ### Outcome
 
-Define the smallest credible source boundary for feeding operational signals
-into the existing Signal System workflow. The brick must determine whether one
-realistic source, beginning with CI or release-build status, can be introduced
-without prematurely creating backend infrastructure, persistence, or a shared
-platform contract.
+Define the smallest secure server-side boundary for obtaining one CI or
+release-build signal and returning it to the existing Signal System workflow.
+The brick must establish whether a minimal `apps/signal-api` application is
+required, what its read-only contract is, and how credentials, validation,
+freshness, fallback, and errors are handled without turning the API into a
+generalized backend.
 
 ### Scope
 
 In scope:
 
-- one source domain candidate, preferably CI or release-build status
-- source provenance and signal freshness requirements
-- a narrow application-owned source boundary
-- a deterministic fixture adapter retained for local development
-- a decision on whether a backend or HTTP boundary is actually required
-- compatibility with the existing discovery, interpretation, and decision flow
-- a focused validation strategy for source mapping and fallback behavior
+- one read-only CI or release-build source integration
+- a minimal server-side `apps/signal-api` boundary if required
+- a stable application-facing read contract for mapped signals
+- server-side credential handling and source response validation
+- explicit freshness, unavailable-source, invalid-record, and fallback behavior
+- deterministic fixture fallback for local development and unavailable-source
+   scenarios
+- compatibility with the existing discovery, interpretation, and human decision
+   flow
+- focused contract, mapping, security, and failure-path validation
 
 Out of scope:
 
 - multiple source integrations
-- backend persistence or production infrastructure before approval
-- event streaming, background processing, or polling orchestration
+- persistence, write endpoints, or signal mutation APIs
+- event streaming, background processing, scheduled polling, or orchestration
 - auth, collaboration, notifications, or role systems
 - analytics dashboards or generalized reporting
 - new shared platform packages without demonstrated cross-application need
 - enterprise features, multi-tenancy, or SaaS expansion
 
-### Current Implementation Status
+### Current Planning Status
 
-- Brick 1 provides the current application-owned signal workflow and deterministic
-   fixture dataset.
-- A deterministic CI fixture mapper now adds source provenance and freshness to
-   the existing signal model.
-- The mapper remains application-local; no backend contract, persistence layer,
-   polling loop, or shared platform package was introduced.
-- The existing discovery, interpretation, and human decision workflow remains
-   unchanged and consumes the mapped signal records.
-- Real external ingestion remains blocked on the unresolved runtime and source
-   access decisions below; this brick currently proves the source mapping shape
-   using deterministic fixtures only.
+- Brick 2 provides the application-local CI mapping contract, deterministic
+  fixtures, provenance, and freshness metadata.
+- No `apps/signal-api` project, external CI client, backend contract, credential
+  flow, persistence layer, or source runtime exists yet.
+- The browser application must not call a CI vendor directly or receive source
+  credentials.
+- Implementation is blocked until the server boundary and source contract pass
+  this brick's Checkpoint A and engineering review.
 
 ### Current Working Hypothesis
 
-If the Signal System adds one narrow source boundary around CI or release-build
-status, maps source records into the existing application-local signal model,
-and preserves a deterministic fixture fallback, then the product can become
-operationally meaningful without prematurely becoming a backend platform.
+If a minimal server-side read boundary retrieves one CI or release-build record,
+validates and maps it into the existing application-local signal model, and
+falls back deterministically when the source is unavailable, then the Signal
+System can use a credible operational source without exposing credentials or
+creating a generalized backend platform.
 
-### Brick 1 Evidence Carried Forward
+### Prior Evidence Carried Forward
 
 - `CI=1 pnpm nx test signal-system` - passed; 3 tests passed.
 - `CI=1 pnpm nx build signal-system` - passed; production bundle generated.
@@ -86,81 +93,75 @@ operationally meaningful without prematurely becoming a backend platform.
 
 ### Checkpoint A: Planning and Design Readiness
 
-- [x] One source domain is selected and justified against the current fixture:
-  CI or release-build status matches the existing release failure fixture.
-- [x] The source boundary is defined as application-owned unless reuse is
-   demonstrated and approved.
-- [x] Required provenance fields are explicit, including source identity and
-   source record reference.
-- [x] Freshness semantics are explicit and understandable to a human reviewer.
-- [x] Source-to-signal mapping rules are deterministic and testable.
-- [x] Fixture data is retained as the local development source and mapping
-  failures remain testable without an external system.
-- [x] External-source fallback is explicitly deferred: a future ingestion brick
-   must define how the fixture view, source-unavailable state, and signal
-   decisions behave; this fixture-only slice has no external source failure path.
-- [x] The current brick uses an application-local adapter over fixtures; no
-   backend, HTTP, file, or external runtime is required for this milestone.
-- [x] No persistence, polling, event streaming, or background processing is
-  included in the current implementation.
-- [x] Existing AI interpretation and human decision behavior remains unchanged.
-- [x] No source credentials or secrets are accepted by the browser application;
-   any future external access must use a reviewed server-side boundary and must
-   avoid exposing raw sensitive source content to the client.
-- [x] Validation covers source mapping, provenance, freshness, and regression of
-   the existing review workflow. Fixture fallback and invalid-record validation
-   remain deferred until external input is implemented.
-- [x] The current design does not require a new shared platform contract.
+- [ ] The first CI or release-build source is selected and its read-only value
+   is justified.
+- [ ] The need for `apps/signal-api` is documented against browser security and
+   the repository blueprint.
+- [ ] The application-facing read contract is explicit and excludes writes,
+   persistence, and signal mutation.
+- [ ] Server-side credential ownership, configuration, and failure behavior are
+   defined without exposing secrets to the browser.
+- [ ] External records have explicit required fields and runtime validation rules.
+- [ ] Source-to-signal mapping preserves the Brick 2 contract deterministically.
+- [ ] Freshness, stale data, unavailable-source, and invalid-record semantics are
+   explicit and user-understandable.
+- [ ] Fixture fallback behavior is explicit, bounded, and testable.
+- [ ] Timeout, authentication failure, malformed response, and retry behavior
+   are defined without introducing polling or orchestration.
+- [ ] Existing AI interpretation and human decision behavior remains unchanged.
+- [ ] Telemetry and sensitive-content handling follow existing platform
+   boundaries.
+- [ ] No new shared platform contract or dependency is required without review.
+- [ ] Contract, security, mapping, failure-path, build, lint, test, and runtime
+   validation are specified.
 
 ### TODOs
 
-- [x] Select the first operational source domain.
-- [x] Define the source record and provenance requirements.
-- [x] Define freshness semantics for mapped fixture records.
-- [x] Defer unavailable-source behavior and fixture fallback semantics to the
-   external-ingestion brick; no external source exists in this milestone.
-- [x] Decide that the current adapter remains application-local.
-- [x] Document the backend and persistence decision: both remain deferred for
-   this fixture-backed milestone.
-- [x] Define and test source-to-signal mapping for valid records.
-- [x] Defer invalid-record behavior and validation rules to the
-   external-ingestion brick; current fixture records are typed at compile time.
-- [x] Define focused test, build, lint, and runtime validation.
-- [x] Validate the design against PRD-07 and architecture standards.
-- [x] Request engineering review before implementing external source access or a
-   new boundary.
+- [ ] Select the concrete CI or release-build source.
+- [ ] Decide whether the minimal `apps/signal-api` boundary is required.
+- [ ] Define the server-to-source and browser-to-API read contracts.
+- [ ] Define credential, configuration, and secret-handling rules.
+- [ ] Define external record validation and source-to-signal mapping.
+- [ ] Define freshness, stale, unavailable, invalid, and fallback states.
+- [ ] Define timeout, authentication failure, and retry behavior.
+- [ ] Confirm no writes, persistence, polling, or background processing enter
+   this brick.
+- [ ] Define focused contract, security, mapping, and regression validation.
+- [ ] Validate the design against PRD-07, the repository blueprint, and
+   architecture standards.
+- [ ] Request Engineering Review before scaffolding `apps/signal-api` or adding
+   external integration code.
 
 ### Review Conditions Closed
 
-The following conditions are carried forward from Brick 1 and remain closed for
-the existing user workflow:
+The following conditions are carried forward from Bricks 1 and 2 and remain
+closed for the existing user workflow and fixture-backed mapping:
 
 - user and decision context are explicit
 - signal model stays local and deterministic
 - AI is a support layer, not the final authority
 - telemetry remains in the approved browser-provided path
-- no backend or persistence is required for v1
+- no backend or persistence is approved for the completed fixture-backed scope
 
-Brick 2 Checkpoint A conditions are closed for the fixture-backed source
-boundary. External source access, fallback behavior, and invalid-record rules
-remain outside the approved implementation scope until a future ingestion brick
-defines and reviews that runtime and security boundary.
+Brick 3 review conditions are not yet closed. External source access, server
+runtime, credential handling, validation, fallback, and failure semantics require
+explicit approval before implementation.
 
 ### Immediate Next Steps
 
-1. Request Engineering Review for the completed Checkpoint A design and
-   deterministic source-mapping implementation.
-2. Keep signal logic and domain ownership in the app layer unless a reuse case
-   is proven and reviewed.
-3. Preserve the fixture and review workflow while external ingestion remains
-   deferred.
+1. Complete Brick 3 Checkpoint A for the minimal server-side CI read boundary.
+2. Keep the existing fixture-backed workflow operational while external access
+   remains deferred.
+3. Request Engineering Review before scaffolding `apps/signal-api` or adding
+   external source access.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
-Brick 2 Checkpoint A is complete for the fixture-backed source boundary and is
-ready for Engineering Review. External ingestion is not approved by this brief.
+Brick 3 is in planning and design readiness. External CI ingestion is not
+approved until its server boundary and security decisions pass Checkpoint A and
+Engineering Review.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
