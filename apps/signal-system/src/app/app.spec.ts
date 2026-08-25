@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
 import { App } from './app';
+import { mapCiBuildToSignal } from './signal-data';
 
 describe('Signal System App', () => {
   it('renders the focused signal review workflow', async () => {
@@ -60,5 +61,30 @@ describe('Signal System App', () => {
 
     expect(instance.decision).toBe('accept');
     expect(instance.message).toContain('Decision recorded');
+  });
+
+  it('maps CI source records into signals with provenance and freshness', () => {
+    const signal = mapCiBuildToSignal(
+      {
+        recordId: 'build-test-001',
+        title: 'Test build',
+        summary: 'A deterministic CI fixture.',
+        evidence: 'The fixture completed with a review state.',
+        status: 'Review',
+        owner: 'Platform team',
+        confidence: 'Medium',
+        observedAt: '2026-08-25T16:30:00Z',
+        freshness: 'Current',
+      },
+      0,
+    );
+
+    expect(signal.id).toBe('sig-101');
+    expect(signal.source).toEqual({
+      system: 'CI',
+      recordId: 'build-test-001',
+      observedAt: '2026-08-25T16:30:00Z',
+      freshness: 'Current',
+    });
   });
 });

@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Proposed - planning and design readiness checkpoint required before implementation.
+Active - Checkpoint A complete; ready for engineering review before external ingestion.
 
 ### Previous Brick
 
@@ -56,12 +56,15 @@ Out of scope:
 
 - Brick 1 provides the current application-owned signal workflow and deterministic
    fixture dataset.
-- The existing signal model includes subject, evidence, status, owner, and
-   confidence, but does not yet include source provenance or freshness.
-- No source adapter, backend contract, persistence layer, or ingestion
-   abstraction has been proposed or implemented for Brick 2.
-- The next implementation decision is intentionally blocked on source-boundary
-   and runtime-shape approval.
+- A deterministic CI fixture mapper now adds source provenance and freshness to
+   the existing signal model.
+- The mapper remains application-local; no backend contract, persistence layer,
+   polling loop, or shared platform package was introduced.
+- The existing discovery, interpretation, and human decision workflow remains
+   unchanged and consumes the mapped signal records.
+- Real external ingestion remains blocked on the unresolved runtime and source
+   access decisions below; this brick currently proves the source mapping shape
+   using deterministic fixtures only.
 
 ### Current Working Hypothesis
 
@@ -83,38 +86,49 @@ operationally meaningful without prematurely becoming a backend platform.
 
 ### Checkpoint A: Planning and Design Readiness
 
-- [ ] One source domain is selected and justified against the current fixture.
-- [ ] The source boundary is defined as application-owned unless reuse is
+- [x] One source domain is selected and justified against the current fixture:
+  CI or release-build status matches the existing release failure fixture.
+- [x] The source boundary is defined as application-owned unless reuse is
    demonstrated and approved.
-- [ ] Required provenance fields are explicit, including source identity and
+- [x] Required provenance fields are explicit, including source identity and
    source record reference.
-- [ ] Freshness semantics are explicit and understandable to a human reviewer.
-- [ ] Source-to-signal mapping rules are deterministic and testable.
-- [ ] Fixture fallback behavior is defined for local development and failure
-   states.
-- [ ] Backend, HTTP, file, or adapter shape is selected only if required by the
-   chosen source.
-- [ ] No persistence, polling, event streaming, or background processing is
-   included without explicit approval.
-- [ ] Existing AI interpretation and human decision behavior remains unchanged.
-- [ ] Security, secret handling, and sensitive-source data constraints are
-   documented.
-- [ ] Validation covers source mapping, provenance, freshness, fallback, and
-   regression of the existing review workflow.
-- [ ] The design does not require a new shared platform contract.
+- [x] Freshness semantics are explicit and understandable to a human reviewer.
+- [x] Source-to-signal mapping rules are deterministic and testable.
+- [x] Fixture data is retained as the local development source and mapping
+  failures remain testable without an external system.
+- [x] External-source fallback is explicitly deferred: a future ingestion brick
+   must define how the fixture view, source-unavailable state, and signal
+   decisions behave; this fixture-only slice has no external source failure path.
+- [x] The current brick uses an application-local adapter over fixtures; no
+   backend, HTTP, file, or external runtime is required for this milestone.
+- [x] No persistence, polling, event streaming, or background processing is
+  included in the current implementation.
+- [x] Existing AI interpretation and human decision behavior remains unchanged.
+- [x] No source credentials or secrets are accepted by the browser application;
+   any future external access must use a reviewed server-side boundary and must
+   avoid exposing raw sensitive source content to the client.
+- [x] Validation covers source mapping, provenance, freshness, and regression of
+   the existing review workflow. Fixture fallback and invalid-record validation
+   remain deferred until external input is implemented.
+- [x] The current design does not require a new shared platform contract.
 
-### Proposed TODOs
+### TODOs
 
-- [ ] Select the first operational source domain.
-- [ ] Define the source record and provenance requirements.
-- [ ] Define freshness and unavailable-source behavior.
-- [ ] Decide whether the source can remain fixture-backed for this brick.
-- [ ] Decide whether an application-local adapter is sufficient.
-- [ ] Document the backend and persistence decision.
-- [ ] Define source-to-signal mapping and invalid-record behavior.
-- [ ] Define focused test, build, lint, and runtime validation.
-- [ ] Validate the design against PRD-07 and architecture standards.
-- [ ] Request engineering review before implementing a new boundary.
+- [x] Select the first operational source domain.
+- [x] Define the source record and provenance requirements.
+- [x] Define freshness semantics for mapped fixture records.
+- [x] Defer unavailable-source behavior and fixture fallback semantics to the
+   external-ingestion brick; no external source exists in this milestone.
+- [x] Decide that the current adapter remains application-local.
+- [x] Document the backend and persistence decision: both remain deferred for
+   this fixture-backed milestone.
+- [x] Define and test source-to-signal mapping for valid records.
+- [x] Defer invalid-record behavior and validation rules to the
+   external-ingestion brick; current fixture records are typed at compile time.
+- [x] Define focused test, build, lint, and runtime validation.
+- [x] Validate the design against PRD-07 and architecture standards.
+- [x] Request engineering review before implementing external source access or a
+   new boundary.
 
 ### Review Conditions Closed
 
@@ -127,25 +141,26 @@ the existing user workflow:
 - telemetry remains in the approved browser-provided path
 - no backend or persistence is required for v1
 
-Brick 2 review conditions are not yet closed. The source, boundary, runtime
-shape, provenance, and freshness decisions require explicit approval before
-implementation.
+Brick 2 Checkpoint A conditions are closed for the fixture-backed source
+boundary. External source access, fallback behavior, and invalid-record rules
+remain outside the approved implementation scope until a future ingestion brick
+defines and reviews that runtime and security boundary.
 
 ### Immediate Next Steps
 
-1. Complete Checkpoint A for Brick 2, beginning with the CI or release-build
-   source decision.
+1. Request Engineering Review for the completed Checkpoint A design and
+   deterministic source-mapping implementation.
 2. Keep signal logic and domain ownership in the app layer unless a reuse case
    is proven and reviewed.
-3. Preserve the Brick 1 fixture and review workflow while evaluating ingestion.
-4. Request engineering review before implementing any new source or boundary.
-5. Continue to keep historical PRD artifacts archived instead of carrying them
+3. Preserve the fixture and review workflow while external ingestion remains
+   deferred.
+4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
-Brick 2 is in planning and design readiness. Implementation is not approved
-until the source boundary and runtime decisions are closed through Checkpoint A.
+Brick 2 Checkpoint A is complete for the fixture-backed source boundary and is
+ready for Engineering Review. External ingestion is not approved by this brief.
 All prior historical PRD records remain available in the archive for traceability
 and review context.

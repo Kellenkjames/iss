@@ -40,6 +40,7 @@
         <div class="signal-summary" aria-live="polite">
           <p><strong>{{ signal.title }}</strong> owned by {{ signal.owner }}</p>
           <p>{{ signal.summary }}</p>
+          <p>Source: {{ signal.source.system }} record {{ signal.source.recordId }}. Observed {{ signal.source.observedAt }} ({{ signal.source.freshness }}).</p>
           <iss-button variant="secondary" (click)="useSelectedSignal()">Use selected signal</iss-button>
         </div>
       } @else {
