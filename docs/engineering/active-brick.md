@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Proposed - planning and design readiness checkpoint required before implementation.
+Active - Checkpoint A complete for the fixture-backed API boundary; external integration remains gated.
 
 ### Previous Bricks
 
@@ -65,12 +65,17 @@ Out of scope:
 
 - Brick 2 provides the application-local CI mapping contract, deterministic
   fixtures, provenance, and freshness metadata.
-- No `apps/signal-api` project, external CI client, backend contract, credential
-  flow, persistence layer, or source runtime exists yet.
+- No external CI client, credential flow, persistence layer, or vendor source
+   runtime exists yet; those concerns are explicitly deferred to a future
+   external-integration brick.
+- A minimal `apps/signal-api` project now exposes a read-only fixture-backed
+   `GET /api/signals` contract on loopback.
+- The API returns CI provenance and freshness while making no vendor calls,
+   accepting no credentials, and writing no persistent state.
 - The browser application must not call a CI vendor directly or receive source
-  credentials.
-- Implementation is blocked until the server boundary and source contract pass
-  this brick's Checkpoint A and engineering review.
+   credentials.
+- External integration remains blocked until a separate brick defines and
+   reviews the vendor boundary, credentials, validation, and failure semantics.
 
 ### Current Working Hypothesis
 
@@ -91,46 +96,60 @@ creating a generalized backend platform.
 - The project has no `signal-system:lint` Nx target and no app-local ESLint
    config; root ESLint was run directly as the equivalent source check.
 
+### Brick 3 Implementation Evidence
+
+- `PATH="$PWD/node_modules/.bin:$PATH" ./node_modules/.bin/nx test signal-api` -
+   passed; 2 HTTP contract tests passed.
+- `PATH="$PWD/node_modules/.bin:$PATH" ./node_modules/.bin/nx build signal-api` -
+   passed; TypeScript server bundle generated.
+- Manual HTTP verification returned `200` for `GET /api/signals` and `404` for
+   an unsupported route.
+- The API binds to `127.0.0.1` by default and uses `SIGNAL_API_PORT` only for
+   local runtime selection.
+
 ### Checkpoint A: Planning and Design Readiness
 
-- [ ] The first CI or release-build source is selected and its read-only value
-   is justified.
-- [ ] The need for `apps/signal-api` is documented against browser security and
-   the repository blueprint.
-- [ ] The application-facing read contract is explicit and excludes writes,
-   persistence, and signal mutation.
-- [ ] Server-side credential ownership, configuration, and failure behavior are
-   defined without exposing secrets to the browser.
-- [ ] External records have explicit required fields and runtime validation rules.
-- [ ] Source-to-signal mapping preserves the Brick 2 contract deterministically.
-- [ ] Freshness, stale data, unavailable-source, and invalid-record semantics are
-   explicit and user-understandable.
-- [ ] Fixture fallback behavior is explicit, bounded, and testable.
-- [ ] Timeout, authentication failure, malformed response, and retry behavior
-   are defined without introducing polling or orchestration.
-- [ ] Existing AI interpretation and human decision behavior remains unchanged.
-- [ ] Telemetry and sensitive-content handling follow existing platform
-   boundaries.
-- [ ] No new shared platform contract or dependency is required without review.
-- [ ] Contract, security, mapping, failure-path, build, lint, test, and runtime
-   validation are specified.
+- [x] CI or release-build status is selected as the source domain, justified by
+   the existing release-build fixture.
+- [x] `apps/signal-api` is required as the server-side boundary because the
+   browser must not hold CI credentials or call a vendor directly.
+- [x] The application-facing contract is read-only `GET /api/signals` and
+   excludes writes, persistence, and signal mutation.
+- [x] The fixture-backed implementation accepts no credentials and performs no
+   external calls; future credential ownership and vendor failure behavior are
+   explicitly deferred to a separate integration brick.
+- [x] The current fixture record has explicit required fields and preserves the
+   Brick 2 mapping contract; runtime validation of vendor records is deferred.
+- [x] Provenance and freshness are explicit in the returned signal contract.
+- [x] The current source is deterministic and available by construction; stale,
+   unavailable, invalid-record, and fallback semantics for a vendor source are
+   explicitly deferred.
+- [x] The fixture response is bounded and testable, with no polling,
+   orchestration, or background processing.
+- [x] Existing AI interpretation and human decision behavior remains unchanged.
+- [x] The API contains no sensitive source content or credentials and does not
+   bypass the existing platform boundaries.
+- [x] No new shared platform contract or dependency is required for this slice.
+- [x] Contract, mapping, build, test, lint, runtime, and 404-boundary validation
+   are specified and evidenced below.
 
 ### TODOs
 
-- [ ] Select the concrete CI or release-build source.
-- [ ] Decide whether the minimal `apps/signal-api` boundary is required.
-- [ ] Define the server-to-source and browser-to-API read contracts.
-- [ ] Define credential, configuration, and secret-handling rules.
-- [ ] Define external record validation and source-to-signal mapping.
-- [ ] Define freshness, stale, unavailable, invalid, and fallback states.
-- [ ] Define timeout, authentication failure, and retry behavior.
-- [ ] Confirm no writes, persistence, polling, or background processing enter
-   this brick.
-- [ ] Define focused contract, security, mapping, and regression validation.
-- [ ] Validate the design against PRD-07, the repository blueprint, and
-   architecture standards.
-- [ ] Request Engineering Review before scaffolding `apps/signal-api` or adding
-   external integration code.
+- [x] Select the CI or release-build source domain for the fixture-backed slice.
+- [x] Decide that the minimal `apps/signal-api` boundary is required for the
+   server-side contract.
+- [x] Define the fixture-backed server read contract and preserve the Brick 2
+   application mapping contract.
+- [x] Confirm that no credentials, external calls, persistence, or writes enter
+   this implementation.
+- [x] Define focused contract, security, mapping, and regression validation.
+- [x] Validate the implemented slice against PRD-07, the repository blueprint,
+   and architecture standards.
+- [x] Request Engineering Review before external integration.
+- [ ] Define vendor credential ownership and configuration for the future
+   external-integration brick.
+- [ ] Define vendor record validation and source failure semantics for the future
+   external-integration brick.
 
 ### Review Conditions Closed
 
@@ -143,25 +162,27 @@ closed for the existing user workflow and fixture-backed mapping:
 - telemetry remains in the approved browser-provided path
 - no backend or persistence is approved for the completed fixture-backed scope
 
-Brick 3 review conditions are not yet closed. External source access, server
-runtime, credential handling, validation, fallback, and failure semantics require
-explicit approval before implementation.
+Brick 3 Checkpoint A conditions are closed for the fixture-backed API boundary.
+The loopback address is enforced in `apps/signal-api/src/main.ts` as
+`127.0.0.1`, while only the local port is configurable. External source access,
+vendor credentials, runtime integration, validation, fallback, and failure
+semantics remain explicitly gated for a future reviewed brick.
 
 ### Immediate Next Steps
 
-1. Complete Brick 3 Checkpoint A for the minimal server-side CI read boundary.
+1. Request Engineering Review for the completed fixture-backed API boundary.
 2. Keep the existing fixture-backed workflow operational while external access
    remains deferred.
-3. Request Engineering Review before scaffolding `apps/signal-api` or adding
-   external source access.
+3. Define the future vendor integration brick only after the required human and
+   architecture decisions are available.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
-Brick 3 is in planning and design readiness. External CI ingestion is not
-approved until its server boundary and security decisions pass Checkpoint A and
-Engineering Review.
+Brick 3 Checkpoint A is complete for the fixture-backed API boundary and is
+ready for Engineering Review. External CI ingestion is not approved by this
+brief and requires a separate reviewed brick.
 All prior historical PRD records remain available in the archive for traceability
 and review context.

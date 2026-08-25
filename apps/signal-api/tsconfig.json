@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/apps/signal-api",
+    "types": ["node"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "isolatedModules": true
+  },
+  "files": [],
+  "include": [],
+  "references": [{ "path": "./tsconfig.app.json" }]
+}

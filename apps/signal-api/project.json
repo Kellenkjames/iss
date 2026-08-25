@@ -1,0 +1,34 @@
+{
+  "name": "signal-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/signal-api/src",
+  "tags": ["type:app", "scope:signal-system", "runtime:server"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "apps/signal-api/src/main.ts",
+        "outputPath": "dist/apps/signal-api",
+        "tsConfig": "apps/signal-api/tsconfig.app.json",
+        "assets": []
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node dist/apps/signal-api/src/main.js",
+        "readyWhen": "Signal API listening"
+      },
+      "dependsOn": ["build"]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./node_modules/.bin/vitest run apps/signal-api/src/server.test.ts"
+      }
+    }
+  }
+}
