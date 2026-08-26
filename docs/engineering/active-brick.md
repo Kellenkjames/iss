@@ -10,11 +10,11 @@ archived to preserve evidence without polluting the active brief.
 
 ## Active Work
 
-### PRD-07 Brick 3 - Minimal CI Ingestion Boundary
+### PRD-07 Brick 4 - GitHub Actions Signal Integration
 
 ### Status
 
-Active - fixture-backed API boundary approved with documentation follow-up complete; external integration remains gated.
+Proposed - planning and design readiness checkpoint required before external integration.
 
 ### Previous Bricks
 
@@ -27,34 +27,35 @@ the fixture-backed CI mapping shape, was reviewed and approved for Checkpoint A,
 and was committed in `af32008`. Its deterministic mapper and signal metadata
 remain the application contract for this brick.
 
+PRD-07 Brick 3 - Minimal CI Ingestion Boundary established the fixture-backed
+server read boundary, was reviewed with conditions, had its documentation
+follow-up completed, and was committed in `f7ccc71`. Its read-only API contract
+remains the server boundary for this brick.
+
 ### Outcome
 
-Define the smallest secure server-side boundary for obtaining one CI or
-release-build signal and returning it to the existing Signal System workflow.
-The brick must establish whether a minimal `apps/signal-api` application is
-required, what its read-only contract is, and how credentials, validation,
-freshness, fallback, and errors are handled without turning the API into a
-generalized backend.
+Connect the existing Signal API to one real CI source: GitHub Actions workflow
+runs for the repository. The brick must retrieve only the information required
+to produce the existing signal contract, keep credentials server-side, validate
+vendor responses, and preserve deterministic fixture fallback without turning
+the API into a generalized integration platform.
 
 ### Scope
 
 In scope:
 
-- one read-only CI or release-build source integration
-- a minimal server-side `apps/signal-api` boundary if required
-- a stable application-facing read contract for mapped signals
-- server-side credential handling and source response validation
-- explicit freshness, unavailable-source, invalid-record, and fallback behavior
-- deterministic fixture fallback for local development and unavailable-source
-   scenarios
-- compatibility with the existing discovery, interpretation, and human decision
-   flow
-- focused contract, mapping, security, and failure-path validation
+- one read-only GitHub Actions workflow-run integration
+- server-side credential configuration and access in `apps/signal-api`
+- explicit vendor-to-signal mapping and response validation
+- freshness, unavailable-source, invalid-record, and fixture-fallback behavior
+- compatibility with the existing `GET /api/signals` contract and Signal System
+  workflow
+- focused contract, security, mapping, and failure-path validation
 
 Out of scope:
 
-- multiple source integrations
-- persistence, write endpoints, or signal mutation APIs
+- multiple vendor or CI integrations
+- write endpoints, persistence, or signal mutation APIs
 - event streaming, background processing, scheduled polling, or orchestration
 - auth, collaboration, notifications, or role systems
 - analytics dashboards or generalized reporting
@@ -64,26 +65,23 @@ Out of scope:
 ### Current Planning Status
 
 - Brick 2 provides the application-local CI mapping contract, deterministic
-  fixtures, provenance, and freshness metadata.
-- No external CI client, credential flow, persistence layer, or vendor source
-   runtime exists yet; those concerns are explicitly deferred to a future
-   external-integration brick.
-- A minimal `apps/signal-api` project now exposes a read-only fixture-backed
-   `GET /api/signals` contract on loopback.
-- The API returns CI provenance and freshness while making no vendor calls,
-   accepting no credentials, and writing no persistent state.
-- The browser application must not call a CI vendor directly or receive source
+   fixtures, provenance, and freshness metadata.
+- Brick 3 provides a loopback-only, fixture-backed `GET /api/signals` server
+   boundary with HTTP contract tests and no external calls.
+- No GitHub client, credential flow, vendor response validator, persistence
+   layer, polling loop, or external runtime integration exists yet.
+- The browser application must not call GitHub directly or receive GitHub
    credentials.
-- External integration remains blocked until a separate brick defines and
-   reviews the vendor boundary, credentials, validation, and failure semantics.
+- Implementation is blocked until this brick's source, credential, runtime,
+   failure, and validation decisions pass Checkpoint A and Engineering Review.
 
 ### Current Working Hypothesis
 
-If a minimal server-side read boundary retrieves one CI or release-build record,
-validates and maps it into the existing application-local signal model, and
-falls back deterministically when the source is unavailable, then the Signal
-System can use a credible operational source without exposing credentials or
-creating a generalized backend platform.
+If `apps/signal-api` retrieves one GitHub Actions workflow-run result through a
+server-side credential boundary, validates and maps it into the existing signal
+contract, and falls back deterministically when GitHub is unavailable, then the
+Signal System can use a credible operational source without exposing credentials
+or creating a generalized backend platform.
 
 ### Prior Evidence Carried Forward
 
@@ -108,54 +106,49 @@ creating a generalized backend platform.
    local runtime selection.
 - Application READMEs document the server and browser boundaries, contracts,
    usage, validation, and known limitations.
-- Engineering Review result: **Pass with Conditions**; recommendation:
+- Brick 3 Engineering Review result: **Pass with Conditions**; recommendation:
    **Approve with Changes**; status: **Approved with Conditions**.
 - The review condition was non-blocking documentation discoverability; the
-   requested READMEs are now present.
+   requested READMEs are now present and Brick 3 advanced.
 
 ### Checkpoint A: Planning and Design Readiness
 
-- [x] CI or release-build status is selected as the source domain, justified by
-   the existing release-build fixture.
-- [x] `apps/signal-api` is required as the server-side boundary because the
-   browser must not hold CI credentials or call a vendor directly.
-- [x] The application-facing contract is read-only `GET /api/signals` and
-   excludes writes, persistence, and signal mutation.
-- [x] The fixture-backed implementation accepts no credentials and performs no
-   external calls; future credential ownership and vendor failure behavior are
-   explicitly deferred to a separate integration brick.
-- [x] The current fixture record has explicit required fields and preserves the
-   Brick 2 mapping contract; runtime validation of vendor records is deferred.
-- [x] Provenance and freshness are explicit in the returned signal contract.
-- [x] The current source is deterministic and available by construction; stale,
-   unavailable, invalid-record, and fallback semantics for a vendor source are
-   explicitly deferred.
-- [x] The fixture response is bounded and testable, with no polling,
-   orchestration, or background processing.
-- [x] Existing AI interpretation and human decision behavior remains unchanged.
-- [x] The API contains no sensitive source content or credentials and does not
-   bypass the existing platform boundaries.
-- [x] No new shared platform contract or dependency is required for this slice.
-- [x] Contract, mapping, build, test, lint, runtime, and 404-boundary validation
-   are specified and evidenced below.
+- [ ] GitHub Actions workflow runs are confirmed as the single source domain and
+  the minimum useful fields are justified.
+- [ ] The browser-to-API contract is confirmed as read-only `GET /api/signals`.
+- [ ] GitHub credential ownership, storage, rotation, and runtime access are
+  defined without exposing secrets to the browser.
+- [ ] The server-to-GitHub request and response contract is explicit and bounded.
+- [ ] Required vendor fields and runtime validation rules are defined.
+- [ ] Vendor states map deterministically to the existing signal status,
+  confidence, provenance, and freshness fields.
+- [ ] Unavailable, unauthorized, rate-limited, stale, malformed, and empty
+  responses have explicit non-destructive behavior.
+- [ ] Fixture fallback behavior is explicit, bounded, and testable.
+- [ ] Timeout and retry behavior is defined without polling or orchestration.
+- [ ] Existing AI interpretation and human decision behavior remains unchanged.
+- [ ] Vendor payload and telemetry handling exclude secrets and unnecessary raw
+  source content.
+- [ ] No persistence, writes, new shared platform package, or unrelated
+  integration is required.
+- [ ] Contract, security, mapping, failure-path, build, lint, test, and runtime
+  validation are specified.
 
 ### TODOs
 
-- [x] Select the CI or release-build source domain for the fixture-backed slice.
-- [x] Decide that the minimal `apps/signal-api` boundary is required for the
-   server-side contract.
-- [x] Define the fixture-backed server read contract and preserve the Brick 2
-   application mapping contract.
-- [x] Confirm that no credentials, external calls, persistence, or writes enter
-   this implementation.
-- [x] Define focused contract, security, mapping, and regression validation.
-- [x] Validate the implemented slice against PRD-07, the repository blueprint,
-   and architecture standards.
-- [x] Request Engineering Review before external integration.
-- [ ] Define vendor credential ownership and configuration for the future
-   external-integration brick.
-- [ ] Define vendor record validation and source failure semantics for the future
-   external-integration brick.
+- [ ] Confirm GitHub Actions as the only vendor source for this brick.
+- [ ] Define the minimum GitHub workflow-run request and response fields.
+- [ ] Define server-side GitHub credential ownership and configuration.
+- [ ] Define runtime validation and vendor-to-signal mapping rules.
+- [ ] Define freshness and status mapping semantics.
+- [ ] Define unavailable, unauthorized, rate-limited, stale, malformed, and
+  empty-response behavior.
+- [ ] Define deterministic fixture fallback and non-destructive state handling.
+- [ ] Define bounded timeout and retry behavior.
+- [ ] Define focused contract, security, mapping, and regression validation.
+- [ ] Validate the design against PRD-07, the repository blueprint, and
+  architecture standards.
+- [ ] Request Engineering Review before adding vendor integration code.
 
 ### Review Conditions Closed
 
@@ -170,28 +163,27 @@ closed for the existing user workflow and fixture-backed mapping:
 
 Brick 3 Checkpoint A conditions are closed for the fixture-backed API boundary.
 The loopback address is enforced in `apps/signal-api/src/main.ts` as
-`127.0.0.1`, while only the local port is configurable. External source access,
+`127.0.0.1`, while only the local port is configurable. GitHub source access,
 vendor credentials, runtime integration, validation, fallback, and failure
-semantics remain explicitly gated for a future reviewed brick.
+semantics remain explicitly gated for this brick's Checkpoint A and Engineering
+Review.
 
-The fixture-backed Brick 3 implementation has completed Engineering Review.
-The reviewer-approved follow-up documentation is complete; no blocking review
-conditions remain for this fixture-backed slice.
+The next integration brick has not yet completed its design checkpoint.
 
 ### Immediate Next Steps
 
-1. Keep the existing fixture-backed workflow operational while external access
-   remains deferred.
-2. Define the future vendor integration brick only after the required human and
-   architecture decisions are available.
-3. Continue to keep historical PRD artifacts archived instead of carrying them
+1. Complete Checkpoint A for the GitHub Actions integration boundary.
+2. Request Engineering Review before adding GitHub client or credential code.
+3. Keep the existing fixture-backed API and browser workflow operational during
+   design and review.
+4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
-Brick 3 Checkpoint A is complete for the fixture-backed API boundary and is
-approved to advance beyond the current documentation follow-up. External CI
-ingestion is not approved by this brief and requires a separate reviewed brick.
+PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
+is in planning and design readiness; GitHub Actions ingestion is not approved
+until its Checkpoint A and Engineering Review gates are complete.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
