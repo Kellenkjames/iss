@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Active - Checkpoint A complete for the fixture-backed API boundary; external integration remains gated.
+Active - fixture-backed API boundary approved with documentation follow-up complete; external integration remains gated.
 
 ### Previous Bricks
 
@@ -106,6 +106,12 @@ creating a generalized backend platform.
    an unsupported route.
 - The API binds to `127.0.0.1` by default and uses `SIGNAL_API_PORT` only for
    local runtime selection.
+- Application READMEs document the server and browser boundaries, contracts,
+   usage, validation, and known limitations.
+- Engineering Review result: **Pass with Conditions**; recommendation:
+   **Approve with Changes**; status: **Approved with Conditions**.
+- The review condition was non-blocking documentation discoverability; the
+   requested READMEs are now present.
 
 ### Checkpoint A: Planning and Design Readiness
 
@@ -168,21 +174,24 @@ The loopback address is enforced in `apps/signal-api/src/main.ts` as
 vendor credentials, runtime integration, validation, fallback, and failure
 semantics remain explicitly gated for a future reviewed brick.
 
+The fixture-backed Brick 3 implementation has completed Engineering Review.
+The reviewer-approved follow-up documentation is complete; no blocking review
+conditions remain for this fixture-backed slice.
+
 ### Immediate Next Steps
 
-1. Request Engineering Review for the completed fixture-backed API boundary.
-2. Keep the existing fixture-backed workflow operational while external access
+1. Keep the existing fixture-backed workflow operational while external access
    remains deferred.
-3. Define the future vendor integration brick only after the required human and
+2. Define the future vendor integration brick only after the required human and
    architecture decisions are available.
-4. Continue to keep historical PRD artifacts archived instead of carrying them
+3. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
 Brick 3 Checkpoint A is complete for the fixture-backed API boundary and is
-ready for Engineering Review. External CI ingestion is not approved by this
-brief and requires a separate reviewed brick.
+approved to advance beyond the current documentation follow-up. External CI
+ingestion is not approved by this brief and requires a separate reviewed brick.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
