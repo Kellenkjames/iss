@@ -1,23 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-
-type SignalStatus = 'Open' | 'Review' | 'Blocked';
-type SignalFreshness = 'Current' | 'Stale' | 'Unknown';
-
-interface SignalApiRecord {
-  id: string;
-  title: string;
-  summary: string;
-  evidence: string;
-  status: SignalStatus;
-  owner: string;
-  confidence: 'Low' | 'Medium' | 'High';
-  source: {
-    system: 'CI';
-    recordId: string;
-    observedAt: string;
-    freshness: SignalFreshness;
-  };
-}
+import { fetchGitHubSignals, type SignalApiRecord, SourceError } from './github-actions';
 
 const fixtureSignals: SignalApiRecord[] = [
   {
@@ -42,11 +24,35 @@ const writeJson = (response: ServerResponse, statusCode: number, body: unknown):
   response.end(JSON.stringify(body));
 };
 
-export const handleRequest = (request: IncomingMessage, response: ServerResponse): void => {
+const fixtureResponse = { source: 'fixture', signals: fixtureSignals };
+
+export const createRequestHandler = (environment: NodeJS.ProcessEnv = process.env) => async (
+  request: IncomingMessage,
+  response: ServerResponse,
+): Promise<void> => {
   if (request.method === 'GET' && request.url === '/api/signals') {
-    writeJson(response, 200, { source: 'fixture', signals: fixtureSignals });
+    const token = environment['GITHUB_TOKEN'];
+    const repository = environment['GITHUB_REPOSITORY'];
+    if (!token || !repository) {
+      if (environment['NODE_ENV'] === 'production') {
+        writeJson(response, 503, { source: 'unavailable', error: 'Signal source configuration is unavailable.' });
+      } else {
+        writeJson(response, 200, fixtureResponse);
+      }
+      return;
+    }
+
+    try {
+      const signals = await fetchGitHubSignals({ token, repository });
+      writeJson(response, 200, { source: 'github-actions', signals });
+    } catch (error) {
+      const sourceError = error instanceof SourceError ? error : new SourceError(503, 'unavailable');
+      writeJson(response, sourceError.statusCode, { source: 'unavailable', error: sourceError.message });
+    }
     return;
   }
 
   writeJson(response, 404, { error: 'Route not found.' });
 };
+
+export const handleRequest = createRequestHandler();

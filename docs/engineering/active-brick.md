@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Active - human design approval recorded; implementation may begin within the reviewed scope.
+Active - GitHub server integration implemented; implementation review required before closure.
 
 ### Previous Bricks
 
@@ -68,18 +68,22 @@ Out of scope:
    fixtures, provenance, and freshness metadata.
 - Brick 3 provides a loopback-only, fixture-backed `GET /api/signals` server
    boundary with HTTP contract tests and no external calls.
-- No GitHub client, credential flow, vendor response validator, persistence
-   layer, polling loop, or external runtime integration exists yet.
+- Native server-side `fetch`, GitHub response validation, latest-run mapping,
+  bounded retry behavior, and sanitized error handling are implemented in
+  `apps/signal-api`.
+- No persistence layer, polling loop, or background orchestration exists.
 - The browser application must not call GitHub directly or receive GitHub
    credentials.
-- Implementation is blocked until this brick's source, credential, runtime,
-   failure, and validation decisions pass Checkpoint A and Engineering Review.
+- The browser Signal System remains on its local fixture path; browser-to-API
+   integration is not included in this implementation slice.
 - The proposed design specification is [PRD-07 Brick 4 GitHub Actions Signal
    Integration](prd-07-brick-4-github-actions-integration.md). It records the
    approved REST endpoint, server-only token, mapping, validation, fallback,
    timeout, retry, and telemetry decisions.
 - The human technical lead approved the documented design decisions on
    2026-08-26, including the lean native-`fetch` implementation approach.
+- Engineering Review approved the design with **Pass** / **Approve** /
+   **Approved**, authorizing implementation within the documented scope.
 
 ### Current Working Hypothesis
 
@@ -116,6 +120,18 @@ or creating a generalized backend platform.
    **Approve with Changes**; status: **Approved with Conditions**.
 - The review condition was non-blocking documentation discoverability; the
    requested READMEs are now present and Brick 3 advanced.
+
+### Brick 4 Implementation Evidence
+
+- `./node_modules/.bin/nx test signal-api` - passed; 8 tests passed.
+- `./node_modules/.bin/nx build signal-api` - passed after GitHub integration.
+- `./node_modules/.bin/nx lint signal-api` - passed.
+- Tests cover GitHub latest-run mapping, status/confidence/freshness,
+   provenance, unauthorized responses, malformed records, production missing
+   configuration, local fixture mode, empty responses, bounded `Retry-After`
+   handling, and the 404 boundary.
+- GitHub credentials are never accepted from request parameters or returned in
+   API payloads.
 
 ### Checkpoint A: Planning and Design Readiness
 
@@ -179,22 +195,24 @@ Review.
 
 Brick 4 design decisions are documented and human-approved in
 [prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
-and may advance to implementation after Engineering Reviewer confirmation. No
-vendor integration code is authorized until that review is complete.
+and the approved server integration is now implemented. The browser integration
+and additional source scope remain gated behind a separate reviewed decision.
 
 ### Immediate Next Steps
 
-1. Request Engineering Review for the human-approved Brick 4 design.
-2. Keep the existing fixture-backed API and browser workflow operational during
-   design and review.
-3. Continue to keep historical PRD artifacts archived instead of carrying them
+1. Request Engineering Review for the completed GitHub server integration.
+2. Keep the fixture-backed API and browser workflow operational as the local
+   fallback path.
+3. Do not add browser-to-API wiring or expand the GitHub source scope without a
+   separate reviewed implementation decision.
+4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
 PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
-has human-approved design formalization and is ready for Engineering Review;
-GitHub Actions ingestion is not approved until that review is complete.
+has implemented the approved GitHub server integration and is ready for its
+implementation review. Browser integration and additional sources remain gated.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
