@@ -10,11 +10,12 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Planned roadmap
+**Status:** Active roadmap; implementation in progress
 
-The target repository path is not currently implemented. This document remains
-an approved future application boundary and is not evidence that
-`apps/signal-system` exists today.
+The target repository path is implemented through the approved PRD-07
+engineering bricks. This document defines the product boundary and remains the
+source of truth for the full Signal System scope; implementation status and
+brick evidence are tracked in [docs/engineering/active-brick.md](../../engineering/active-brick.md).
 
 ---
 

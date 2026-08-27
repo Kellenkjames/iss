@@ -201,7 +201,6 @@ Review.
 
 Brick 4 design decisions are documented and human-approved in
 [prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
-and the approved server integration is now implemented. The browser integration
 and the approved server integration is now implemented. Browser-to-API signal
 access, live AI inference, and additional source scope remain gated behind
 separate reviewed decisions.
