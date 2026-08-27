@@ -86,6 +86,18 @@ Out of scope:
 - Implementation is blocked until this brick's browser contract, live-AI
    boundary, credential handling, fallback, and validation decisions pass
    Checkpoint A and Engineering Review.
+- The Brick 5 design specification is [PRD-07 Brick 5 Browser Consumption and
+   Live Interpretation Boundary](prd-07-brick-5-browser-consumption-and-live-interpretation.md).
+   It records the proposed browser source contract, server-mediated
+   interpretation boundary, security, fallback, and validation requirements.
+- The revised proposal resolves the prior topology and contract blockers by
+   selecting `apps/signal-system/proxy.conf.json` for local `/api` forwarding,
+   relative `/api` requests in production, a server-owned provider path, and a
+   discriminated interpretation response with fixed HTTP statuses.
+- The remaining provider configuration decisions are resolved in the design:
+   `ISS_AI_PROVIDER` is the server-side selection variable, `openai` is the only
+   v1 value, and local missing credentials explicitly use deterministic
+   `demo-key` behavior while production returns sanitized `503` unavailable.
 - The Brick 4 design specification is [PRD-07 Brick 4 GitHub Actions Signal
   Integration](prd-07-brick-4-github-actions-integration.md).
 - Brick 4 implementation review returned **Pass with Conditions** /
@@ -143,40 +155,43 @@ coherent end-to-end experience without exposing source or AI credentials.
 
 ### Checkpoint A: Planning and Design Readiness
 
-- [ ] Browser source-loading contract is defined for `GET /api/signals`.
-- [ ] Fixture mode and API mode selection are explicit and deterministic.
-- [ ] Empty, stale, unavailable, malformed, and retryable source states are
+- [x] Browser source-loading contract is defined for `GET /api/signals`.
+- [x] Fixture mode and API mode selection are explicit and deterministic.
+- [x] Empty, stale, unavailable, malformed, and retryable source states are
    mapped to understandable browser states.
-- [ ] Browser source errors cannot mutate human decisions or silently replace
+- [x] Browser source errors cannot mutate human decisions or silently replace
    source data with fabricated signals.
-- [ ] Live interpretation endpoint and request/response shape are explicit.
-- [ ] Provider credentials remain server-only and are never exposed to the
+- [x] Live interpretation endpoint and request/response shape are explicit.
+- [x] Provider credentials remain server-only and are never exposed to the
    browser or returned in interpretation responses.
-- [ ] Interpretation errors, timeout, retry, and unavailable-provider behavior
+- [x] Interpretation errors, timeout, retry, and unavailable-provider behavior
    are bounded and distinguishable from source errors.
-- [ ] AI output remains explanatory and secondary to human Accept, Defer, and
+- [x] AI output remains explanatory and secondary to human Accept, Defer, and
    Escalate decisions.
-- [ ] Existing demo-provider behavior remains available without credentials.
-- [ ] Telemetry and raw prompt/response handling remain within approved
+- [x] Existing demo-provider behavior remains available without credentials.
+- [x] Telemetry and raw prompt/response handling remain within approved
    boundaries and exclude sensitive content.
-- [ ] No persistence, writes, decision mutation, polling, orchestration, or
+- [x] No persistence, writes, decision mutation, polling, orchestration, or
    new shared platform contract is required.
-- [ ] Browser/API, interpretation, security, failure-path, build, lint, test,
+- [x] Browser/API, interpretation, security, failure-path, build, lint, test,
    and runtime validation are specified.
 
 ### TODOs
 
-- [ ] Define the browser `GET /api/signals` consumption contract.
-- [ ] Define API-mode, fixture-mode, and local fallback selection.
-- [ ] Define browser source loading, empty, stale, unavailable, and retry states.
-- [ ] Define the server-mediated interpretation contract.
-- [ ] Define provider credential ownership and server-only configuration.
-- [ ] Define interpretation timeout, retry, unavailable, and sanitized error
-   behavior.
-- [ ] Define prompt and response filtering for telemetry and browser output.
-- [ ] Confirm human decision behavior remains application-local and unchanged.
-- [ ] Define focused browser/API, provider, security, and regression validation.
-- [ ] Validate the design against PRD-07 and architecture standards.
+- [x] Define the documented browser `GET /api/signals` consumption contract.
+- [x] Define documented API-mode, fixture-mode, and local fallback selection.
+- [x] Define documented browser source loading, empty, stale, unavailable, and
+   retry states.
+- [x] Define the documented server-mediated interpretation contract.
+- [x] Define documented provider credential ownership and server-only
+   configuration.
+- [x] Define documented interpretation timeout, retry, unavailable, and
+   sanitized error behavior.
+- [x] Define documented prompt and response filtering for telemetry and browser
+   output.
+- [x] Confirm human decision behavior remains application-local and unchanged.
+- [x] Define focused browser/API, provider, security, and regression validation.
+- [x] Validate the design proposal against PRD-07 and architecture standards.
 - [ ] Request Engineering Review before implementing browser/API or live-AI
    integration.
 
@@ -208,13 +223,19 @@ Brick 5 is not yet approved for implementation. Browser-to-API signal access,
 server-mediated live AI inference, and any additional source scope remain gated
 behind this brick's Checkpoint A and Engineering Review.
 
+The Brick 5 design proposal is complete, including the local proxy topology,
+server-provider ownership migration, signal-keyed decision state, and
+discriminated interpretation response. It is ready for human technical-lead
+approval and Engineering Review. No implementation authorization is implied by
+the proposal.
+
 ### Immediate Next Steps
 
-1. Complete Checkpoint A for browser source consumption and live interpretation.
-2. Keep the fixture-backed API, browser workflow, and demo provider operational
-   during design.
-3. Request Engineering Review before implementing browser/API or live-AI
+1. Obtain human technical-lead approval for the Brick 5 design proposal.
+2. Request Engineering Review before implementing browser/API or live-AI
    integration.
+3. Keep the fixture-backed API, browser workflow, and demo provider operational
+   during design.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
@@ -223,8 +244,8 @@ behind this brick's Checkpoint A and Engineering Review.
 The active brief is intentionally concise and focused on the current live work.
 PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
 has implemented the approved GitHub server integration and completed its
-code-level review. Brick 5 is in planning and design readiness; browser source
-consumption and live AI inference are not approved until its design and review
-gates are complete.
+code-level review. Brick 5 has a complete design proposal and remains in
+planning and design readiness; browser source consumption and live AI inference
+are not approved until human approval and Engineering Review are complete.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
