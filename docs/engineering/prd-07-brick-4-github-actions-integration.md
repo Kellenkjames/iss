@@ -2,19 +2,24 @@
 
 ## Status
 
-Proposed design for human and Engineering Reviewer approval. This document
-formalizes the boundary before vendor integration code is introduced.
+Design approved by the human technical lead on 2026-08-26. Implementation may
+begin only within this document's bounded scope and after the implementation
+review gate is satisfied.
 
 ## Decision Summary
 
 - Source: GitHub Actions workflow runs for the ISS repository.
 - Access: GitHub REST API, read-only, using the workflow-runs endpoint.
 - Runtime: server-side `apps/signal-api`; the browser never calls GitHub.
+- HTTP client: native server-side `fetch`; no GitHub SDK dependency is required
+  for this single read operation.
 - Credential: `GITHUB_TOKEN` supplied to the server runtime by deployment
   configuration. The application does not create, persist, print, or rotate it.
 - Browser contract: preserve `GET /api/signals` and its existing signal shape.
 - Local development: fixture mode remains the default when no GitHub token and
   repository configuration are present.
+- Repository configuration: one server-side `GITHUB_REPOSITORY` value in
+  `owner/repository` form; it is not accepted from the browser.
 - Persistence: none. Each request retrieves or derives the current response.
 - Polling and background processing: none.
 
@@ -29,10 +34,10 @@ Accept: application/vnd.github+json
 X-GitHub-Api-Version: 2022-11-28
 ```
 
-The owner and repository are server runtime configuration. They are not
-accepted from the browser request. The first implementation should use one
-repository and one read-only source; selecting multiple repositories is out of
-scope.
+The owner and repository are parsed once from the server-side
+`GITHUB_REPOSITORY` value. They are not accepted from the browser request. The
+first implementation uses one repository and one read-only source; selecting
+multiple repositories is out of scope.
 
 ## Minimum Vendor Fields
 
@@ -54,7 +59,8 @@ actor identity, commit messages, or other unnecessary payloads.
 
 The adapter maps one selected workflow run into the existing Signal contract.
 The first implementation selects the most recently updated run from the bounded
-response.
+response. If timestamps are identical, the run with the larger numeric `id` is
+selected as the deterministic tiebreaker.
 
 | GitHub run | Signal field |
 |---|---|
@@ -120,12 +126,15 @@ payloads.
 
 ## Timeout, Retry, and Rate Limits
 
-- Per-request timeout: 5 seconds.
+- Total request budget: 5 seconds, including the single retry and bounded
+  backoff.
 - Retry count: one retry for network errors, `429`, and `5xx` responses.
 - Backoff: bounded 250 milliseconds before the single retry.
 - No polling, queue, scheduled refresh, or circuit breaker is introduced.
 - `Retry-After` is honored only when it is a valid value no greater than the
-  5-second request budget; otherwise the fixed 250-millisecond delay applies.
+  remaining request budget; otherwise the fixed 250-millisecond delay applies
+  only when it fits within the remaining budget. No retry begins when the
+  budget is exhausted.
 
 ## Credential and Secret Handling
 
@@ -172,13 +181,19 @@ The implementation must pass the repository lint, test, build, and diff checks.
 A separate Engineering Review is required before merging external GitHub access
 or changing the existing browser contract.
 
-## Human Decisions Required
+## Human Decisions Recorded
 
-The following decisions require explicit approval before implementation:
+The human technical lead approved the following decisions on 2026-08-26:
 
 - GitHub REST API and latest-run selection as the initial source strategy
+- native server-side `fetch` instead of a GitHub SDK dependency
 - `GITHUB_TOKEN` server-runtime ownership and deployment-managed rotation
+- one server-side `GITHUB_REPOSITORY` value for the initial repository
 - local fixture fallback versus deployed `503` behavior
-- one retry with a 5-second request budget
+- one retry within a total 5-second request budget
 - the minimum vendor field set and mapping rules above
 - least-privilege GitHub token permissions for the deployment environment
+
+The deployment owner must apply the least-privilege token permission and secret
+injection decisions when deploying. Those operational actions are not encoded
+in application source.

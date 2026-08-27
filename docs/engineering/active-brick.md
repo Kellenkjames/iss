@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Proposed - planning and design readiness checkpoint required before external integration.
+Active - human design approval recorded; implementation may begin within the reviewed scope.
 
 ### Previous Bricks
 
@@ -76,8 +76,10 @@ Out of scope:
    failure, and validation decisions pass Checkpoint A and Engineering Review.
 - The proposed design specification is [PRD-07 Brick 4 GitHub Actions Signal
    Integration](prd-07-brick-4-github-actions-integration.md). It records the
-   proposed REST endpoint, server-only token, mapping, validation, fallback,
-   timeout, retry, and telemetry decisions for approval.
+   approved REST endpoint, server-only token, mapping, validation, fallback,
+   timeout, retry, and telemetry decisions.
+- The human technical lead approved the documented design decisions on
+   2026-08-26, including the lean native-`fetch` implementation approach.
 
 ### Current Working Hypothesis
 
@@ -117,45 +119,45 @@ or creating a generalized backend platform.
 
 ### Checkpoint A: Planning and Design Readiness
 
-- [ ] GitHub Actions workflow runs are confirmed as the single source domain and
+- [x] GitHub Actions workflow runs are confirmed as the single source domain and
   the minimum useful fields are justified.
-- [ ] The browser-to-API contract is confirmed as read-only `GET /api/signals`.
-- [ ] GitHub credential ownership, storage, rotation, and runtime access are
+- [x] The browser-to-API contract is confirmed as read-only `GET /api/signals`.
+- [x] GitHub credential ownership, storage, rotation, and runtime access are
   defined without exposing secrets to the browser.
-- [ ] The server-to-GitHub request and response contract is explicit and bounded.
-- [ ] Required vendor fields and runtime validation rules are defined.
-- [ ] Vendor states map deterministically to the existing signal status,
+- [x] The server-to-GitHub request and response contract is explicit and bounded.
+- [x] Required vendor fields and runtime validation rules are defined.
+- [x] Vendor states map deterministically to the existing signal status,
   confidence, provenance, and freshness fields.
-- [ ] Unavailable, unauthorized, rate-limited, stale, malformed, and empty
+- [x] Unavailable, unauthorized, rate-limited, stale, malformed, and empty
   responses have explicit non-destructive behavior.
-- [ ] Fixture fallback behavior is explicit, bounded, and testable.
-- [ ] Timeout and retry behavior is defined without polling or orchestration.
-- [ ] Existing AI interpretation and human decision behavior remains unchanged.
-- [ ] Vendor payload and telemetry handling exclude secrets and unnecessary raw
+- [x] Fixture fallback behavior is explicit, bounded, and testable.
+- [x] Timeout and retry behavior is defined without polling or orchestration.
+- [x] Existing AI interpretation and human decision behavior remains unchanged.
+- [x] Vendor payload and telemetry handling exclude secrets and unnecessary raw
   source content.
-- [ ] No persistence, writes, new shared platform package, or unrelated
+- [x] No persistence, writes, new shared platform package, or unrelated
   integration is required.
-- [ ] Contract, security, mapping, failure-path, build, lint, test, and runtime
+- [x] Contract, security, mapping, failure-path, build, lint, test, and runtime
   validation are specified.
 
 ### TODOs
 
-- [x] Propose GitHub Actions as the only vendor source for this brick.
-- [x] Define the proposed minimum GitHub workflow-run request and response
+- [x] Confirm GitHub Actions as the only vendor source for this brick.
+- [x] Define the approved minimum GitHub workflow-run request and response
    fields in the design specification.
-- [x] Define the proposed server-side GitHub credential ownership and
+- [x] Define the approved server-side GitHub credential ownership and
    configuration in the design specification.
-- [x] Define proposed runtime validation and vendor-to-signal mapping rules.
-- [x] Define proposed freshness and status mapping semantics.
-- [x] Define proposed unavailable, unauthorized, rate-limited, stale,
+- [x] Define approved runtime validation and vendor-to-signal mapping rules.
+- [x] Define approved freshness and status mapping semantics.
+- [x] Define approved unavailable, unauthorized, rate-limited, stale,
    malformed, and empty-response behavior.
-- [x] Define proposed deterministic fixture fallback and non-destructive state
+- [x] Define approved deterministic fixture fallback and non-destructive state
    handling.
-- [x] Define proposed bounded timeout and retry behavior.
+- [x] Define approved bounded timeout and retry behavior.
 - [x] Define focused contract, security, mapping, and regression validation.
 - [x] Validate the proposed design against PRD-07, the repository blueprint,
    and architecture standards.
-- [ ] Request Engineering Review before adding vendor integration code.
+- [x] Request Engineering Review before adding vendor integration code.
 
 ### Review Conditions Closed
 
@@ -175,26 +177,24 @@ vendor credentials, runtime integration, validation, fallback, and failure
 semantics remain explicitly gated for this brick's Checkpoint A and Engineering
 Review.
 
-Brick 4 design decisions are documented as proposals in
+Brick 4 design decisions are documented and human-approved in
 [prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
-but are not approved until human technical-lead and Engineering Reviewer
-sign-off is complete. No vendor integration code is authorized yet.
+and may advance to implementation after Engineering Reviewer confirmation. No
+vendor integration code is authorized until that review is complete.
 
 ### Immediate Next Steps
 
-1. Obtain human approval for the proposed Brick 4 design decisions.
-2. Request Engineering Review before adding GitHub client or credential code.
-3. Keep the existing fixture-backed API and browser workflow operational during
+1. Request Engineering Review for the human-approved Brick 4 design.
+2. Keep the existing fixture-backed API and browser workflow operational during
    design and review.
-4. Continue to keep historical PRD artifacts archived instead of carrying them
+3. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
 ### Validation Notes
 
 The active brief is intentionally concise and focused on the current live work.
 PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
-has a documented design proposal and remains in planning and design readiness;
-GitHub Actions ingestion is not approved until human approval and Engineering
-Review are complete.
+has human-approved design formalization and is ready for Engineering Review;
+GitHub Actions ingestion is not approved until that review is complete.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
