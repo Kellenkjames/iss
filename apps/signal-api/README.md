@@ -53,6 +53,17 @@ route behavior.
   orchestration.
 - External CI integration requires a separate reviewed engineering brick.
 
+## Planned GitHub Integration
+
+PRD-07 Brick 4 proposes a read-only GitHub Actions workflow-run integration.
+The proposed design uses a server-only `GITHUB_TOKEN`, strict response
+validation, bounded retry behavior, and deterministic fixture fallback for local
+development. It has not been approved for implementation; no GitHub client or
+credential handling exists in the current project.
+
+See [PRD-07 Brick 4 design specification](../../docs/engineering/prd-07-brick-4-github-actions-integration.md)
+for the proposed contract and required review decisions.
+
 ## Related Documentation
 
 - [PRD-07](../../docs/product/mini-prds/prd-07.md)

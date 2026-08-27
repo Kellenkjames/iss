@@ -74,6 +74,10 @@ Out of scope:
    credentials.
 - Implementation is blocked until this brick's source, credential, runtime,
    failure, and validation decisions pass Checkpoint A and Engineering Review.
+- The proposed design specification is [PRD-07 Brick 4 GitHub Actions Signal
+   Integration](prd-07-brick-4-github-actions-integration.md). It records the
+   proposed REST endpoint, server-only token, mapping, validation, fallback,
+   timeout, retry, and telemetry decisions for approval.
 
 ### Current Working Hypothesis
 
@@ -136,18 +140,21 @@ or creating a generalized backend platform.
 
 ### TODOs
 
-- [ ] Confirm GitHub Actions as the only vendor source for this brick.
-- [ ] Define the minimum GitHub workflow-run request and response fields.
-- [ ] Define server-side GitHub credential ownership and configuration.
-- [ ] Define runtime validation and vendor-to-signal mapping rules.
-- [ ] Define freshness and status mapping semantics.
-- [ ] Define unavailable, unauthorized, rate-limited, stale, malformed, and
-  empty-response behavior.
-- [ ] Define deterministic fixture fallback and non-destructive state handling.
-- [ ] Define bounded timeout and retry behavior.
-- [ ] Define focused contract, security, mapping, and regression validation.
-- [ ] Validate the design against PRD-07, the repository blueprint, and
-  architecture standards.
+- [x] Propose GitHub Actions as the only vendor source for this brick.
+- [x] Define the proposed minimum GitHub workflow-run request and response
+   fields in the design specification.
+- [x] Define the proposed server-side GitHub credential ownership and
+   configuration in the design specification.
+- [x] Define proposed runtime validation and vendor-to-signal mapping rules.
+- [x] Define proposed freshness and status mapping semantics.
+- [x] Define proposed unavailable, unauthorized, rate-limited, stale,
+   malformed, and empty-response behavior.
+- [x] Define proposed deterministic fixture fallback and non-destructive state
+   handling.
+- [x] Define proposed bounded timeout and retry behavior.
+- [x] Define focused contract, security, mapping, and regression validation.
+- [x] Validate the proposed design against PRD-07, the repository blueprint,
+   and architecture standards.
 - [ ] Request Engineering Review before adding vendor integration code.
 
 ### Review Conditions Closed
@@ -168,11 +175,14 @@ vendor credentials, runtime integration, validation, fallback, and failure
 semantics remain explicitly gated for this brick's Checkpoint A and Engineering
 Review.
 
-The next integration brick has not yet completed its design checkpoint.
+Brick 4 design decisions are documented as proposals in
+[prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
+but are not approved until human technical-lead and Engineering Reviewer
+sign-off is complete. No vendor integration code is authorized yet.
 
 ### Immediate Next Steps
 
-1. Complete Checkpoint A for the GitHub Actions integration boundary.
+1. Obtain human approval for the proposed Brick 4 design decisions.
 2. Request Engineering Review before adding GitHub client or credential code.
 3. Keep the existing fixture-backed API and browser workflow operational during
    design and review.
@@ -183,7 +193,8 @@ The next integration brick has not yet completed its design checkpoint.
 
 The active brief is intentionally concise and focused on the current live work.
 PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
-is in planning and design readiness; GitHub Actions ingestion is not approved
-until its Checkpoint A and Engineering Review gates are complete.
+has a documented design proposal and remains in planning and design readiness;
+GitHub Actions ingestion is not approved until human approval and Engineering
+Review are complete.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
