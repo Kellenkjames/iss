@@ -76,6 +76,10 @@ Out of scope:
    credentials.
 - The browser Signal System remains on its local fixture path; browser-to-API
    integration is not included in this implementation slice.
+- Live AI inference from the browser is also deferred. The current Signal
+   System intentionally uses the browser-safe `demo-key` provider behavior; a
+   future server-mediated interpretation brick must define its own contract,
+   credential boundary, and review gate.
 - The proposed design specification is [PRD-07 Brick 4 GitHub Actions Signal
    Integration](prd-07-brick-4-github-actions-integration.md). It records the
    approved REST endpoint, server-only token, mapping, validation, fallback,
@@ -198,7 +202,9 @@ Review.
 Brick 4 design decisions are documented and human-approved in
 [prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
 and the approved server integration is now implemented. The browser integration
-and additional source scope remain gated behind a separate reviewed decision.
+and the approved server integration is now implemented. Browser-to-API signal
+access, live AI inference, and additional source scope remain gated behind
+separate reviewed decisions.
 
 ### Immediate Next Steps
 
