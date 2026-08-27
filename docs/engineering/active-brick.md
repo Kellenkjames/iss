@@ -10,11 +10,11 @@ archived to preserve evidence without polluting the active brief.
 
 ## Active Work
 
-### PRD-07 Brick 4 - GitHub Actions Signal Integration
+### PRD-07 Brick 5 - Browser Signal Consumption and Live Interpretation Boundary
 
 ### Status
 
-Active - GitHub server integration implemented; implementation review required before closure.
+Proposed - planning and design readiness checkpoint required before browser or live-AI integration.
 
 ### Previous Bricks
 
@@ -32,34 +32,41 @@ server read boundary, was reviewed with conditions, had its documentation
 follow-up completed, and was committed in `f7ccc71`. Its read-only API contract
 remains the server boundary for this brick.
 
+PRD-07 Brick 4 - GitHub Actions Signal Integration implemented the approved
+server-side GitHub source path, was reviewed with conditions, and had its
+blocking implementation findings resolved. Its API and fixture fallback remain
+the source boundary for this brick.
+
 ### Outcome
 
-Connect the existing Signal API to one real CI source: GitHub Actions workflow
-runs for the repository. The brick must retrieve only the information required
-to produce the existing signal contract, keep credentials server-side, validate
-vendor responses, and preserve deterministic fixture fallback without turning
-the API into a generalized integration platform.
+Connect the browser Signal System to the existing Signal API and define the
+smallest server-mediated interpretation boundary for live AI. The brick must
+let the browser consume normalized signals without receiving GitHub credentials,
+preserve fixture mode for local development, and route live provider execution
+through a reviewed server boundary without turning the application into a
+generalized AI platform.
 
 ### Scope
 
 In scope:
 
-- one read-only GitHub Actions workflow-run integration
-- server-side credential configuration and access in `apps/signal-api`
-- explicit vendor-to-signal mapping and response validation
-- freshness, unavailable-source, invalid-record, and fixture-fallback behavior
-- compatibility with the existing `GET /api/signals` contract and Signal System
-  workflow
-- focused contract, security, mapping, and failure-path validation
+- browser consumption of the existing read-only `GET /api/signals` contract
+- explicit browser source-loading, empty, stale, unavailable, and retry states
+- preservation of deterministic local fixture mode
+- a server-mediated interpretation contract for live AI provider execution
+- server-only provider credentials and sanitized interpretation responses
+- compatibility with the existing signal review and human decision workflow
+- focused browser/API contract, security, provider, and regression validation
 
 Out of scope:
 
-- multiple vendor or CI integrations
-- write endpoints, persistence, or signal mutation APIs
+- additional source integrations
+- writes, persistence, signal mutation, or decision submission APIs
 - event streaming, background processing, scheduled polling, or orchestration
 - auth, collaboration, notifications, or role systems
 - analytics dashboards or generalized reporting
 - new shared platform packages without demonstrated cross-application need
+- autonomous AI decisions or generalized agent behavior
 - enterprise features, multi-tenancy, or SaaS expansion
 
 ### Current Planning Status
@@ -68,34 +75,29 @@ Out of scope:
    fixtures, provenance, and freshness metadata.
 - Brick 3 provides a loopback-only, fixture-backed `GET /api/signals` server
    boundary with HTTP contract tests and no external calls.
-- Native server-side `fetch`, GitHub response validation, latest-run mapping,
-  bounded retry behavior, and sanitized error handling are implemented in
-  `apps/signal-api`.
-- No persistence layer, polling loop, or background orchestration exists.
-- The browser application must not call GitHub directly or receive GitHub
-   credentials.
-- The browser Signal System remains on its local fixture path; browser-to-API
-   integration is not included in this implementation slice.
-- Live AI inference from the browser is also deferred. The current Signal
-   System intentionally uses the browser-safe `demo-key` provider behavior; a
-   future server-mediated interpretation brick must define its own contract,
-   credential boundary, and review gate.
-- The proposed design specification is [PRD-07 Brick 4 GitHub Actions Signal
-   Integration](prd-07-brick-4-github-actions-integration.md). It records the
-   approved REST endpoint, server-only token, mapping, validation, fallback,
-   timeout, retry, and telemetry decisions.
-- The human technical lead approved the documented design decisions on
-   2026-08-26, including the lean native-`fetch` implementation approach.
-- Engineering Review approved the design with **Pass** / **Approve** /
-   **Approved**, authorizing implementation within the documented scope.
+- Brick 4 provides native server-side GitHub retrieval, validation, mapping,
+   bounded retry behavior, and sanitized source errors in `apps/signal-api`.
+- The browser Signal System still consumes local fixtures and uses the
+   browser-safe `demo-key` provider behavior.
+- No browser-to-API signal loading or server-mediated interpretation endpoint
+   exists yet.
+- No persistence layer, polling loop, background orchestration, or decision
+   submission API is proposed for this brick.
+- Implementation is blocked until this brick's browser contract, live-AI
+   boundary, credential handling, fallback, and validation decisions pass
+   Checkpoint A and Engineering Review.
+- The Brick 4 design specification is [PRD-07 Brick 4 GitHub Actions Signal
+  Integration](prd-07-brick-4-github-actions-integration.md).
+- Brick 4 implementation review returned **Pass with Conditions** /
+  **Approve with Changes** / **Approved with Conditions**. Code-level findings
+  were resolved; live credentialed validation remains an operational follow-up.
 
 ### Current Working Hypothesis
 
-If `apps/signal-api` retrieves one GitHub Actions workflow-run result through a
-server-side credential boundary, validates and maps it into the existing signal
-contract, and falls back deterministically when GitHub is unavailable, then the
-Signal System can use a credible operational source without exposing credentials
-or creating a generalized backend platform.
+If the browser consumes normalized signals through `GET /api/signals`, while
+live interpretation uses a separate server-mediated provider boundary and the
+fixture path remains available locally, then the Signal System can become a
+coherent end-to-end experience without exposing source or AI credentials.
 
 ### Prior Evidence Carried Forward
 
@@ -125,7 +127,7 @@ or creating a generalized backend platform.
 - The review condition was non-blocking documentation discoverability; the
    requested READMEs are now present and Brick 3 advanced.
 
-### Brick 4 Implementation Evidence
+### Brick 4 Implementation Evidence Carried Forward
 
 - `./node_modules/.bin/nx test signal-api` - passed; 15 tests passed.
 - `./node_modules/.bin/nx build signal-api` - passed after GitHub integration.
@@ -141,45 +143,42 @@ or creating a generalized backend platform.
 
 ### Checkpoint A: Planning and Design Readiness
 
-- [x] GitHub Actions workflow runs are confirmed as the single source domain and
-  the minimum useful fields are justified.
-- [x] The browser-to-API contract is confirmed as read-only `GET /api/signals`.
-- [x] GitHub credential ownership, storage, rotation, and runtime access are
-  defined without exposing secrets to the browser.
-- [x] The server-to-GitHub request and response contract is explicit and bounded.
-- [x] Required vendor fields and runtime validation rules are defined.
-- [x] Vendor states map deterministically to the existing signal status,
-  confidence, provenance, and freshness fields.
-- [x] Unavailable, unauthorized, rate-limited, stale, malformed, and empty
-  responses have explicit non-destructive behavior.
-- [x] Fixture fallback behavior is explicit, bounded, and testable.
-- [x] Timeout and retry behavior is defined without polling or orchestration.
-- [x] Existing AI interpretation and human decision behavior remains unchanged.
-- [x] Vendor payload and telemetry handling exclude secrets and unnecessary raw
-  source content.
-- [x] No persistence, writes, new shared platform package, or unrelated
-  integration is required.
-- [x] Contract, security, mapping, failure-path, build, lint, test, and runtime
-  validation are specified.
+- [ ] Browser source-loading contract is defined for `GET /api/signals`.
+- [ ] Fixture mode and API mode selection are explicit and deterministic.
+- [ ] Empty, stale, unavailable, malformed, and retryable source states are
+   mapped to understandable browser states.
+- [ ] Browser source errors cannot mutate human decisions or silently replace
+   source data with fabricated signals.
+- [ ] Live interpretation endpoint and request/response shape are explicit.
+- [ ] Provider credentials remain server-only and are never exposed to the
+   browser or returned in interpretation responses.
+- [ ] Interpretation errors, timeout, retry, and unavailable-provider behavior
+   are bounded and distinguishable from source errors.
+- [ ] AI output remains explanatory and secondary to human Accept, Defer, and
+   Escalate decisions.
+- [ ] Existing demo-provider behavior remains available without credentials.
+- [ ] Telemetry and raw prompt/response handling remain within approved
+   boundaries and exclude sensitive content.
+- [ ] No persistence, writes, decision mutation, polling, orchestration, or
+   new shared platform contract is required.
+- [ ] Browser/API, interpretation, security, failure-path, build, lint, test,
+   and runtime validation are specified.
 
 ### TODOs
 
-- [x] Confirm GitHub Actions as the only vendor source for this brick.
-- [x] Define the approved minimum GitHub workflow-run request and response
-   fields in the design specification.
-- [x] Define the approved server-side GitHub credential ownership and
-   configuration in the design specification.
-- [x] Define approved runtime validation and vendor-to-signal mapping rules.
-- [x] Define approved freshness and status mapping semantics.
-- [x] Define approved unavailable, unauthorized, rate-limited, stale,
-   malformed, and empty-response behavior.
-- [x] Define approved deterministic fixture fallback and non-destructive state
-   handling.
-- [x] Define approved bounded timeout and retry behavior.
-- [x] Define focused contract, security, mapping, and regression validation.
-- [x] Validate the proposed design against PRD-07, the repository blueprint,
-   and architecture standards.
-- [x] Request Engineering Review before adding vendor integration code.
+- [ ] Define the browser `GET /api/signals` consumption contract.
+- [ ] Define API-mode, fixture-mode, and local fallback selection.
+- [ ] Define browser source loading, empty, stale, unavailable, and retry states.
+- [ ] Define the server-mediated interpretation contract.
+- [ ] Define provider credential ownership and server-only configuration.
+- [ ] Define interpretation timeout, retry, unavailable, and sanitized error
+   behavior.
+- [ ] Define prompt and response filtering for telemetry and browser output.
+- [ ] Confirm human decision behavior remains application-local and unchanged.
+- [ ] Define focused browser/API, provider, security, and regression validation.
+- [ ] Validate the design against PRD-07 and architecture standards.
+- [ ] Request Engineering Review before implementing browser/API or live-AI
+   integration.
 
 ### Review Conditions Closed
 
@@ -201,17 +200,21 @@ Review.
 
 Brick 4 design decisions are documented and human-approved in
 [prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
-and the approved server integration is now implemented. Browser-to-API signal
-access, live AI inference, and additional source scope remain gated behind
-separate reviewed decisions.
+and the approved server integration is implemented. Its code-level review
+conditions are closed; deployment credentials and live GitHub validation remain
+operational follow-up.
+
+Brick 5 is not yet approved for implementation. Browser-to-API signal access,
+server-mediated live AI inference, and any additional source scope remain gated
+behind this brick's Checkpoint A and Engineering Review.
 
 ### Immediate Next Steps
 
-1. Request Engineering Review for the completed GitHub server integration.
-2. Keep the fixture-backed API and browser workflow operational as the local
-   fallback path.
-3. Do not add browser-to-API wiring or expand the GitHub source scope without a
-   separate reviewed implementation decision.
+1. Complete Checkpoint A for browser source consumption and live interpretation.
+2. Keep the fixture-backed API, browser workflow, and demo provider operational
+   during design.
+3. Request Engineering Review before implementing browser/API or live-AI
+   integration.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
@@ -219,7 +222,9 @@ separate reviewed decisions.
 
 The active brief is intentionally concise and focused on the current live work.
 PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
-has implemented the approved GitHub server integration and is ready for its
-implementation review. Browser integration and additional sources remain gated.
+has implemented the approved GitHub server integration and completed its
+code-level review. Brick 5 is in planning and design readiness; browser source
+consumption and live AI inference are not approved until its design and review
+gates are complete.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
