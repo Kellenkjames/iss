@@ -130,16 +130,38 @@ export async function fetchGitHubSignals(config: GitHubActionsConfig): Promise<S
         signal: controller.signal,
       });
     } catch {
+      clearTimeout(timeout);
       if (attempt === 0 && 5000 - (now() - startedAt) >= 250) {
         await delay(250);
         continue;
       }
       throw new SourceError(503, 'unavailable');
-    } finally {
-      clearTimeout(timeout);
     }
 
-    if (response.ok) break;
+    if (response.ok) {
+      try {
+        let payload: unknown;
+        try {
+          payload = await response.json();
+        } catch {
+          if (controller.signal.aborted) throw new SourceError(503, 'unavailable');
+          throw new SourceError(502, 'malformed');
+        }
+        if (!isRecord(payload) || !Array.isArray(payload.workflow_runs)) {
+          throw new SourceError(502, 'malformed');
+        }
+        const rawRuns = payload.workflow_runs;
+        const runs = rawRuns.filter(isWorkflowRun);
+        if (rawRuns.length > 0 && runs.length === 0) throw new SourceError(502, 'malformed');
+        if (runs.length === 0) return [];
+        const latest = runs.sort((left, right) => Date.parse(right.updated_at) - Date.parse(left.updated_at) || right.id - left.id)[0];
+        return [mapRun(latest, config.repository, now())];
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    clearTimeout(timeout);
     if ((response.status === 401 || response.status === 403)) throw new SourceError(503, 'unauthorized');
     const retryRemaining = 5000 - (now() - startedAt);
     const wait = response.status === 429 ? retryDelay(response, retryRemaining) : 250;
@@ -151,20 +173,5 @@ export async function fetchGitHubSignals(config: GitHubActionsConfig): Promise<S
     throw new SourceError(503, response.status === 429 ? 'rate_limited' : 'unavailable');
   }
 
-  if (!response) throw new SourceError(503, 'unavailable');
-  let payload: unknown;
-  try {
-    payload = await response.json();
-  } catch {
-    throw new SourceError(502, 'malformed');
-  }
-  if (!isRecord(payload) || !Array.isArray(payload.workflow_runs)) {
-    throw new SourceError(502, 'malformed');
-  }
-  const rawRuns = payload.workflow_runs;
-  const runs = rawRuns.filter(isWorkflowRun);
-  if (rawRuns.length > 0 && runs.length === 0) throw new SourceError(502, 'malformed');
-  if (runs.length === 0) return [];
-  const latest = runs.sort((left, right) => Date.parse(right.updated_at) - Date.parse(left.updated_at) || right.id - left.id)[0];
-  return [mapRun(latest, config.repository, now())];
+  throw new SourceError(503, 'unavailable');
 }

@@ -123,13 +123,15 @@ or creating a generalized backend platform.
 
 ### Brick 4 Implementation Evidence
 
-- `./node_modules/.bin/nx test signal-api` - passed; 8 tests passed.
+- `./node_modules/.bin/nx test signal-api` - passed; 15 tests passed.
 - `./node_modules/.bin/nx build signal-api` - passed after GitHub integration.
 - `./node_modules/.bin/nx lint signal-api` - passed.
 - Tests cover GitHub latest-run mapping, status/confidence/freshness,
-   provenance, unauthorized responses, malformed records, production missing
-   configuration, local fixture mode, empty responses, bounded `Retry-After`
-   handling, and the 404 boundary.
+   provenance, unauthorized and forbidden responses, malformed records,
+   production missing configuration, local fixture mode, empty responses,
+   transient server and network retries, bounded `Retry-After` handling,
+   invalid repository configuration, stale freshness, response-body timeout,
+   and the 404 boundary.
 - GitHub credentials are never accepted from request parameters or returned in
    API payloads.
 

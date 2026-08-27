@@ -21,7 +21,8 @@ configured, the server reads one latest GitHub Actions workflow run. Without
 those values in local development, it returns deterministic fixture signals.
 
 Other routes return `404`. The current endpoint performs no writes, persistence,
-polling, background processing, vendor calls, or signal mutation.
+polling, background processing, or signal mutation. Configured requests call
+only the approved GitHub Actions workflow-runs endpoint.
 
 ## Usage
 
@@ -45,8 +46,8 @@ pnpm nx lint signal-api
 ```
 
 The tests cover fixture mode, GitHub mapping, provenance/freshness fields,
-unauthorized and malformed responses, production configuration failure, and
-unsupported route behavior.
+unauthorized, forbidden, transient, timeout, and malformed responses,
+production configuration failure, empty results, and unsupported route behavior.
 
 ## Known Limitations
 

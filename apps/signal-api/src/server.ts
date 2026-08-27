@@ -26,7 +26,10 @@ const writeJson = (response: ServerResponse, statusCode: number, body: unknown):
 
 const fixtureResponse = { source: 'fixture', signals: fixtureSignals };
 
-export const createRequestHandler = (environment: NodeJS.ProcessEnv = process.env) => async (
+export const createRequestHandler = (
+  environment: NodeJS.ProcessEnv = process.env,
+  githubFetcher: typeof fetchGitHubSignals = fetchGitHubSignals,
+) => async (
   request: IncomingMessage,
   response: ServerResponse,
 ): Promise<void> => {
@@ -43,8 +46,8 @@ export const createRequestHandler = (environment: NodeJS.ProcessEnv = process.en
     }
 
     try {
-      const signals = await fetchGitHubSignals({ token, repository });
-      writeJson(response, 200, { source: 'github-actions', signals });
+      const signals = await githubFetcher({ token, repository });
+      writeJson(response, 200, { source: signals.length ? 'github-actions' : 'empty', signals });
     } catch (error) {
       const sourceError = error instanceof SourceError ? error : new SourceError(503, 'unavailable');
       writeJson(response, sourceError.statusCode, { source: 'unavailable', error: sourceError.message });

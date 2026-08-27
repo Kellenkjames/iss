@@ -80,7 +80,7 @@ Freshness is calculated from `updated_at` at response time:
 
 - less than one hour old: `Current`
 - one to twenty-four hours old: `Stale`
-- more than twenty-four hours old or an invalid timestamp: `Unknown`
+- more than twenty-four hours old: `Unknown`
 
 The adapter must preserve the source URL in the evidence text without storing
 raw logs or secret-bearing content.
@@ -96,7 +96,8 @@ The server validates the response before mapping it:
 - `status` is one of the allowed values
 - a completed run has a recognized or explicitly handled nullable conclusion
 - `created_at`, `updated_at`, and `html_url` are non-empty strings
-- timestamps parse as valid ISO 8601 dates
+- timestamps parse as valid ISO 8601 dates; invalid timestamps are rejected as
+  malformed records before mapping
 - `html_url` is an HTTPS GitHub URL
 
 Invalid records are rejected without partial signal mutation. If no valid run
