@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { fetchGitHubSignals, type SignalApiRecord, SourceError } from './github-actions';
-import { interpretRequest, InterpretationRequestError, REQUEST_LIMIT } from './interpretation';
+import { InterpretationRequestError, interpretRequest, REQUEST_LIMIT } from './interpretation';
 
 const fixtureSignals: SignalApiRecord[] = [
   {

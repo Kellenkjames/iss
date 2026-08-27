@@ -1,15 +1,15 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { resolveSignalProviderConfig } from './provider-runtime-config';
+import { loadSignals, requestInterpretation } from './signal-api.client';
 import {
-  signalColumns,
-  signalRecords,
-  signalSelectOptions,
-  signalTableRows,
-  summarizeSignalStatuses,
-  type SignalRecord,
+    signalColumns,
+    signalRecords,
+    signalSelectOptions,
+    signalTableRows,
+    summarizeSignalStatuses,
+    type SignalRecord,
 } from './signal-data';
 import { interpretSignal } from './signal.service';
-import { loadSignals, requestInterpretation } from './signal-api.client';
 
 type SignalDecision = 'accept' | 'defer' | 'escalate';
 
