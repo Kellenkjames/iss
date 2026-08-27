@@ -9,6 +9,7 @@ import {
   type SignalRecord,
 } from './signal-data';
 import { interpretSignal } from './signal.service';
+import { loadSignals, requestInterpretation } from './signal-api.client';
 
 type SignalDecision = 'accept' | 'defer' | 'escalate';
 
@@ -22,6 +23,7 @@ export class App {
   protected signalColumns = signalColumns;
   protected signalRows = signalTableRows;
   protected signalOptions = signalSelectOptions;
+  protected signals = signalRecords;
   protected selectedSignalId = '';
   protected subject = '';
   protected context = '';
@@ -31,9 +33,33 @@ export class App {
   protected result = 'Signal interpretation will appear here.';
   protected decision: SignalDecision | '' = '';
   protected statusSummary = summarizeSignalStatuses();
+  protected sourceMode: 'fixture' | 'api' | 'empty' | 'unavailable' | 'github-actions' = 'fixture';
+
+  public async ngOnInit(): Promise<void> {
+    try {
+      const response = await loadSignals();
+      this.signals = response.signals;
+      this.signalRows = response.signals.map((signal) => ({
+        id: signal.id,
+        title: signal.title,
+        status: signal.status,
+        owner: signal.owner,
+        freshness: signal.source.freshness,
+      }));
+      this.signalOptions = response.signals.map((signal) => ({ value: signal.id, label: signal.title }));
+      this.statusSummary = summarizeSignalStatuses(response.signals);
+      this.sourceMode = response.source;
+      if (this.selectedSignalId && !this.selectedSignal) {
+        this.selectedSignalId = '';
+        this.decision = '';
+      }
+    } catch {
+      this.sourceMode = 'fixture';
+    }
+  }
 
   protected get selectedSignal(): SignalRecord | undefined {
-    return signalRecords.find((record) => record.id === this.selectedSignalId);
+    return this.signals.find((record) => record.id === this.selectedSignalId);
   }
 
   protected onSignalChange(event: Event): void {
@@ -86,16 +112,24 @@ export class App {
     this.result = 'Awaiting interpretation...';
 
     try {
-      const response = await interpretSignal(
-        { subject: this.subject, context: this.context, question: this.question },
-        resolveSignalProviderConfig(),
-      );
-
-      this.status = response.success ? 'empty' : 'error';
-      this.message = response.success
-        ? `Signal interpreted via ${response.provider} (${response.model}).`
-        : `Signal interpretation failed via ${response.provider} (${response.model}).`;
-      this.result = response.payload?.interpretation ?? response.summary;
+      if (this.sourceMode === 'api' || this.sourceMode === 'github-actions') {
+        const response = await requestInterpretation({ subject: this.subject, evidence: this.context, question: this.question });
+        this.status = response.success ? 'empty' : 'error';
+        this.message = response.success
+          ? `Signal interpreted via ${response.provider} (${response.model}).`
+          : `Signal interpretation failed: ${response.error?.message ?? 'Unavailable.'}`;
+        this.result = response.success ? response.interpretation ?? '' : 'Signal interpretation is unavailable.';
+      } else {
+        const response = await interpretSignal(
+          { subject: this.subject, context: this.context, question: this.question },
+          resolveSignalProviderConfig(),
+        );
+        this.status = response.success ? 'empty' : 'error';
+        this.message = response.success
+          ? `Signal interpreted via ${response.provider} (${response.model}).`
+          : `Signal interpretation failed via ${response.provider} (${response.model}).`;
+        this.result = response.payload?.interpretation ?? response.summary;
+      }
     } catch (error) {
       this.status = 'error';
       this.message = 'Signal interpretation could not be started.';

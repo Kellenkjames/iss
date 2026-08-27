@@ -28,9 +28,11 @@ From the repository root:
 pnpm nx serve signal-system
 ```
 
-The browser workflow uses deterministic local signal fixtures and the
-browser-safe demo provider configuration by default. No external credentials
-are bundled into the application.
+The browser workflow requests normalized signals from the same-origin `/api`
+path when the development proxy or deployment API is available. If that source
+is unavailable, it preserves the deterministic local fixture workflow and
+browser-safe demo provider behavior. No external credentials are bundled into
+the application.
 
 ## Testing
 
@@ -45,11 +47,13 @@ mapping, and Accept/Defer/Escalate human decision capture.
 
 ## Known Limitations
 
-- Signal records are deterministic local fixtures; the browser does not call a
-  CI vendor directly.
+- Signal records use the normalized Signal API when available and deterministic
+  local fixtures as fallback; the browser does not call a CI vendor directly.
 - Human decisions are application-local and in-memory.
-- The Signal API currently exposes a separate fixture-backed read contract; the
-  browser integration remains deferred until a future reviewed brick.
+- Live provider execution is server-mediated through the Signal API when API
+  mode is active; local demo interpretation remains available in fixture mode.
+- Browser-to-API integration uses relative `/api` requests through the local
+  Angular proxy and the one-origin deployment boundary defined by Brick 5.
 - Authentication, collaboration, notifications, persistence, automation, and
   enterprise scope are outside the current PRD-07 release.
 

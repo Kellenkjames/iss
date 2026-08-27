@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc/apps/signal-api",
+    "rootDir": "../../",
     "types": ["node"],
     "strict": true,
     "noImplicitReturns": true,

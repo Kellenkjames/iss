@@ -34,7 +34,10 @@
       "defaultConfiguration": "development",
       "configurations": {
         "production": { "buildTarget": "signal-system:build:production" },
-        "development": { "buildTarget": "signal-system:build:development" }
+        "development": {
+          "buildTarget": "signal-system:build:development",
+          "proxyConfig": "apps/signal-system/proxy.conf.json"
+        }
       }
     },
     "lint": {

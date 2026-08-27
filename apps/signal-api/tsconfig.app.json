@@ -1,7 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc/apps/signal-api"
+    "outDir": "../../dist/out-tsc/apps/signal-api",
+    "rootDir": "../../"
   },
   "include": ["src/**/*.ts"]
 }

@@ -2,8 +2,9 @@
 
 ## Status
 
-Design proposal revised to address the initial review findings. Human technical-
-lead approval and Engineering Review are still required before implementation.
+Design approved and implemented for the browser/API and server-mediated
+interpretation slice. Live credentialed provider validation and production
+deployment verification remain operational follow-ups.
 
 ## Decision Summary
 

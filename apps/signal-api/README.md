@@ -20,6 +20,11 @@ provenance/freshness metadata. With `GITHUB_TOKEN` and `GITHUB_REPOSITORY`
 configured, the server reads one latest GitHub Actions workflow run. Without
 those values in local development, it returns deterministic fixture signals.
 
+`POST /api/interpretations` accepts bounded `subject`, `evidence`, and optional
+`question` fields and performs provider execution on the server. It returns a
+sanitized success or error response; provider credentials never cross the
+browser boundary.
+
 Other routes return `404`. The current endpoint performs no writes, persistence,
 polling, background processing, or signal mutation. Configured requests call
 only the approved GitHub Actions workflow-runs endpoint.
@@ -46,8 +51,9 @@ pnpm nx lint signal-api
 ```
 
 The tests cover fixture mode, GitHub mapping, provenance/freshness fields,
-unauthorized, forbidden, transient, timeout, and malformed responses,
-production configuration failure, empty results, and unsupported route behavior.
+interpretation success and request limits, unauthorized, forbidden, transient,
+timeout, and malformed responses, production configuration failure, empty
+results, and unsupported route behavior.
 
 ## Known Limitations
 
@@ -56,8 +62,8 @@ production configuration failure, empty results, and unsupported route behavior.
   from browser requests or stored by the application.
 - There is no persistence, authentication, polling, event streaming, or retry
   orchestration.
-- Browser integration with the API remains a separate reviewed implementation
-  step.
+- Browser integration uses relative `/api` requests through the Signal System’s
+  same-origin development proxy.
 
 ## GitHub Integration
 

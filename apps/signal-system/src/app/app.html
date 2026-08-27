@@ -12,6 +12,8 @@
         <h2 id="discovery-heading">Current signals</h2>
       </div>
 
+      <p class="source-status" aria-live="polite">Source: {{ sourceMode }}</p>
+
       <iss-table [columns]="signalColumns" [rows]="signalRows"></iss-table>
 
       <div class="status-summary" aria-labelledby="status-summary-heading">

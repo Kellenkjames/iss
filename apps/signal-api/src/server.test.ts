@@ -34,6 +34,53 @@ describe('Signal API', () => {
     expect(response.statusCode).toBe(404);
   });
 
+  it('returns a deterministic demo interpretation without server credentials', async () => {
+    const response = await requestApi('/api/interpretations', {
+      method: 'POST',
+      body: JSON.stringify({ subject: 'Release build failure', evidence: 'The build failed after a dependency refresh.' }),
+      headers: { 'content-type': 'application/json' },
+    });
+    const body = JSON.parse(response.body) as { success: boolean; provider?: string; model?: string; interpretation?: string };
+
+    expect(response.statusCode).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.provider).toBe('openai');
+    expect(body.model).toBe('gpt-4o-mini');
+    expect(body.interpretation).toContain('Release build failure');
+  });
+
+  it('rejects invalid interpretation requests with a fixed error union', async () => {
+    const response = await requestApi('/api/interpretations', {
+      method: 'POST',
+      body: JSON.stringify({ subject: '', evidence: 'missing subject' }),
+      headers: { 'content-type': 'application/json' },
+    });
+    const body = JSON.parse(response.body) as { success: boolean; error: { code: string; message: string } };
+
+    expect(response.statusCode).toBe(400);
+    expect(body).toEqual({
+      success: false,
+      error: { code: 'invalid_request', message: 'Interpretation request is invalid.' },
+    });
+  });
+
+  it('rejects interpretation bodies larger than 6 KB', async () => {
+    const response = await requestApi('/api/interpretations', {
+      method: 'POST',
+      body: JSON.stringify({ subject: 'Large request', evidence: 'x'.repeat(7000) }),
+      headers: { 'content-type': 'application/json' },
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toContain('Interpretation request is too large.');
+  });
+
+  it('rejects unsupported interpretation methods', async () => {
+    const response = await requestApi('/api/interpretations', { method: 'GET' });
+
+    expect(response.statusCode).toBe(404);
+  });
+
   it('returns a sanitized configuration error in production without credentials', async () => {
     const response = await requestApi('/api/signals', createRequestHandler({ NODE_ENV: 'production' }));
 
@@ -242,7 +289,11 @@ describe('Signal API', () => {
     })).rejects.toEqual(new SourceError(502, 'malformed'));
   });
 
-  async function requestApi(path: string, handler = handleRequest): Promise<{ statusCode?: number; body: string }> {
+  async function requestApi(
+    path: string,
+    handlerOrOptions: ((request: import('node:http').IncomingMessage, response: import('node:http').ServerResponse) => Promise<void>) | { method?: string; body?: string; headers?: Record<string, string> } = handleRequest,
+  ): Promise<{ statusCode?: number; body: string }> {
+    const handler = typeof handlerOrOptions === 'function' ? handlerOrOptions : handleRequest;
     server = createServer(handler);
     await new Promise<void>((resolve) => server?.listen(0, '127.0.0.1', resolve));
     const address = server.address();
@@ -251,13 +302,14 @@ describe('Signal API', () => {
     }
 
     return new Promise((resolve, reject) => {
-      const client = request({ hostname: '127.0.0.1', port: address.port, path }, (response) => {
+      const options = typeof handlerOrOptions === 'function' ? {} : handlerOrOptions;
+      const client = request({ hostname: '127.0.0.1', port: address.port, path, method: options.method, headers: options.headers }, (response) => {
         const chunks: Buffer[] = [];
         response.on('data', (chunk: Buffer) => chunks.push(chunk));
         response.on('end', () => resolve({ statusCode: response.statusCode, body: Buffer.concat(chunks).toString() }));
       });
       client.on('error', reject);
-      client.end();
+      client.end(options.body);
     });
   }
 });

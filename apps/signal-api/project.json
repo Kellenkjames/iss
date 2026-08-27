@@ -11,7 +11,9 @@
       "options": {
         "main": "apps/signal-api/src/main.ts",
         "outputPath": "dist/apps/signal-api",
+        "outputFileName": "main.js",
         "tsConfig": "apps/signal-api/tsconfig.app.json",
+        "rootDir": "./",
         "assets": []
       }
     },
@@ -19,7 +21,7 @@
       "continuous": true,
       "executor": "nx:run-commands",
       "options": {
-        "command": "node dist/apps/signal-api/src/main.js",
+        "command": "node dist/apps/signal-api/apps/signal-api/src/main.js",
         "readyWhen": "Signal API listening"
       },
       "dependsOn": ["build"]
@@ -27,7 +29,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./node_modules/.bin/vitest run apps/signal-api/src/server.test.ts"
+        "command": "./node_modules/.bin/vitest run apps/signal-api/src/server.test.ts --config apps/signal-api/vitest.config.mts"
       }
     },
     "lint": {

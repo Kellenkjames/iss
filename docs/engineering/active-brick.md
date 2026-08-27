@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Proposed - planning and design readiness checkpoint required before browser or live-AI integration.
+Active - browser/API integration implemented; implementation review required before closure.
 
 ### Previous Bricks
 
@@ -77,15 +77,14 @@ Out of scope:
    boundary with HTTP contract tests and no external calls.
 - Brick 4 provides native server-side GitHub retrieval, validation, mapping,
    bounded retry behavior, and sanitized source errors in `apps/signal-api`.
-- The browser Signal System still consumes local fixtures and uses the
-   browser-safe `demo-key` provider behavior.
-- No browser-to-API signal loading or server-mediated interpretation endpoint
-   exists yet.
+- The browser Signal System consumes normalized API signals when available and
+   preserves local fixtures as its fallback.
+- The server-mediated `POST /api/interpretations` endpoint is implemented with
+   bounded input, sanitized errors, and local demo-provider behavior.
 - No persistence layer, polling loop, background orchestration, or decision
    submission API is proposed for this brick.
-- Implementation is blocked until this brick's browser contract, live-AI
-   boundary, credential handling, fallback, and validation decisions pass
-   Checkpoint A and Engineering Review.
+- Browser integration uses the same-origin `/api` proxy; the browser does not
+   call GitHub or receive provider credentials.
 - The Brick 5 design specification is [PRD-07 Brick 5 Browser Consumption and
    Live Interpretation Boundary](prd-07-brick-5-browser-consumption-and-live-interpretation.md).
    It records the proposed browser source contract, server-mediated
@@ -98,6 +97,20 @@ Out of scope:
    `ISS_AI_PROVIDER` is the server-side selection variable, `openai` is the only
    v1 value, and local missing credentials explicitly use deterministic
    `demo-key` behavior while production returns sanitized `503` unavailable.
+
+### Brick 5 Implementation Evidence
+
+- Signal API tests: 19 passed.
+- Signal API lint and production build: passed.
+- Signal System tests: 4 passed.
+- Signal System lint and production build: passed with the Angular proxy
+   configuration present.
+- The browser source client validates normalized API responses and preserves
+   fixtures when API mode is unavailable.
+- The interpretation endpoint validates request size and fields, preserves the
+   discriminated response shape, and uses server-side provider execution.
+- Live credentialed AI validation and deployed one-origin validation remain
+   operational follow-ups.
 - The Brick 4 design specification is [PRD-07 Brick 4 GitHub Actions Signal
   Integration](prd-07-brick-4-github-actions-integration.md).
 - Brick 4 implementation review returned **Pass with Conditions** /
@@ -192,7 +205,7 @@ coherent end-to-end experience without exposing source or AI credentials.
 - [x] Confirm human decision behavior remains application-local and unchanged.
 - [x] Define focused browser/API, provider, security, and regression validation.
 - [x] Validate the design proposal against PRD-07 and architecture standards.
-- [ ] Request Engineering Review before implementing browser/API or live-AI
+- [x] Request Engineering Review before implementing browser/API or live-AI
    integration.
 
 ### Review Conditions Closed
@@ -219,23 +232,21 @@ and the approved server integration is implemented. Its code-level review
 conditions are closed; deployment credentials and live GitHub validation remain
 operational follow-up.
 
-Brick 5 is not yet approved for implementation. Browser-to-API signal access,
-server-mediated live AI inference, and any additional source scope remain gated
-behind this brick's Checkpoint A and Engineering Review.
+Brick 5 design and implementation are complete for the browser/API and
+server-mediated interpretation slice. Its implementation review is pending;
+additional source scope and production deployment validation remain gated.
 
-The Brick 5 design proposal is complete, including the local proxy topology,
-server-provider ownership migration, signal-keyed decision state, and
-discriminated interpretation response. It is ready for human technical-lead
-approval and Engineering Review. No implementation authorization is implied by
-the proposal.
+The Brick 5 design proposal and implementation are complete for the approved
+scope, including the local proxy topology, server-provider ownership
+migration, signal-keyed decision state, and discriminated interpretation
+response. Final closure remains pending implementation review.
 
 ### Immediate Next Steps
 
-1. Obtain human technical-lead approval for the Brick 5 design proposal.
-2. Request Engineering Review before implementing browser/API or live-AI
-   integration.
-3. Keep the fixture-backed API, browser workflow, and demo provider operational
-   during design.
+1. Request Engineering Review for the completed Brick 5 implementation.
+2. Keep the fixture-backed API and demo provider available for local fallback.
+3. Complete live credentialed provider and deployed one-origin validation before
+   production use.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
@@ -244,8 +255,9 @@ the proposal.
 The active brief is intentionally concise and focused on the current live work.
 PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
 has implemented the approved GitHub server integration and completed its
-code-level review. Brick 5 has a complete design proposal and remains in
-planning and design readiness; browser source consumption and live AI inference
-are not approved until human approval and Engineering Review are complete.
+code-level review. Brick 5 has implemented the approved browser source
+consumption and server-mediated interpretation slice and is ready for
+implementation review. Live credentialed validation and production deployment
+remain operational follow-ups.
 All prior historical PRD records remain available in the archive for traceability
 and review context.
