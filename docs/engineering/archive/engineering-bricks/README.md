@@ -25,6 +25,8 @@ parent engineering directory and are not treated as active planning queues.
 - [EB-022 Shell Result Normalization](./EB-022-SHELL-RESULT-NORMALIZATION.md)
 - [EB-023 Shared App Service Contract](./EB-023-SHARED-APP-SERVICE-CONTRACT.md)
 - [EB-024 Interpretation Service Consumer](./EB-024-INTERPRETATION-SERVICE-CONSUMER.md)
+- [EB-025 PRD-07 Brick 4 GitHub Actions Integration](./EB-025-PRD-07-BRICK-4-GITHUB-ACTIONS-INTEGRATION.md)
+- [EB-026 PRD-07 Brick 5 Browser Consumption and Live Interpretation](./EB-026-PRD-07-BRICK-5-BROWSER-CONSUMPTION-AND-LIVE-INTERPRETATION.md)
 
 ## Maintenance Rule
 

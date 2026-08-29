@@ -86,7 +86,7 @@ Out of scope:
 - Browser integration uses the same-origin `/api` proxy; the browser does not
    call GitHub or receive provider credentials.
 - The Brick 5 design specification is [PRD-07 Brick 5 Browser Consumption and
-   Live Interpretation Boundary](prd-07-brick-5-browser-consumption-and-live-interpretation.md).
+   Live Interpretation Boundary](archive/engineering-bricks/EB-026-PRD-07-BRICK-5-BROWSER-CONSUMPTION-AND-LIVE-INTERPRETATION.md).
    It records the proposed browser source contract, server-mediated
    interpretation boundary, security, fallback, and validation requirements.
 - The revised proposal resolves the prior topology and contract blockers by
@@ -112,7 +112,7 @@ Out of scope:
 - Live credentialed AI validation and deployed one-origin validation remain
    operational follow-ups.
 - The Brick 4 design specification is [PRD-07 Brick 4 GitHub Actions Signal
-  Integration](prd-07-brick-4-github-actions-integration.md).
+   Integration](archive/engineering-bricks/EB-025-PRD-07-BRICK-4-GITHUB-ACTIONS-INTEGRATION.md).
 - Brick 4 implementation review returned **Pass with Conditions** /
   **Approve with Changes** / **Approved with Conditions**. Code-level findings
   were resolved; live credentialed validation remains an operational follow-up.
@@ -124,125 +124,15 @@ live interpretation uses a separate server-mediated provider boundary and the
 fixture path remains available locally, then the Signal System can become a
 coherent end-to-end experience without exposing source or AI credentials.
 
-### Prior Evidence Carried Forward
+### Archived Evidence
 
-- `CI=1 pnpm nx test signal-system` - passed; 3 tests passed.
-- `CI=1 pnpm nx build signal-system` - passed; production bundle generated.
-- `pnpm exec eslint apps/signal-system/src --config eslint.config.mjs` - passed.
-- `git diff --check` - passed.
-- Local runtime was verified at `http://localhost:4200/` with the Signal System
-   page serving the completed Brick 1 workflow.
-- The project has no `signal-system:lint` Nx target and no app-local ESLint
-   config; root ESLint was run directly as the equivalent source check.
+Detailed checkpoint history, prior brick evidence, and design-gate material are
+archived for traceability:
 
-### Brick 3 Implementation Evidence
-
-- `PATH="$PWD/node_modules/.bin:$PATH" ./node_modules/.bin/nx test signal-api` -
-   passed; 2 HTTP contract tests passed.
-- `PATH="$PWD/node_modules/.bin:$PATH" ./node_modules/.bin/nx build signal-api` -
-   passed; TypeScript server bundle generated.
-- Manual HTTP verification returned `200` for `GET /api/signals` and `404` for
-   an unsupported route.
-- The API binds to `127.0.0.1` by default and uses `SIGNAL_API_PORT` only for
-   local runtime selection.
-- Application READMEs document the server and browser boundaries, contracts,
-   usage, validation, and known limitations.
-- Brick 3 Engineering Review result: **Pass with Conditions**; recommendation:
-   **Approve with Changes**; status: **Approved with Conditions**.
-- The review condition was non-blocking documentation discoverability; the
-   requested READMEs are now present and Brick 3 advanced.
-
-### Brick 4 Implementation Evidence Carried Forward
-
-- `./node_modules/.bin/nx test signal-api` - passed; 15 tests passed.
-- `./node_modules/.bin/nx build signal-api` - passed after GitHub integration.
-- `./node_modules/.bin/nx lint signal-api` - passed.
-- Tests cover GitHub latest-run mapping, status/confidence/freshness,
-   provenance, unauthorized and forbidden responses, malformed records,
-   production missing configuration, local fixture mode, empty responses,
-   transient server and network retries, bounded `Retry-After` handling,
-   invalid repository configuration, stale freshness, response-body timeout,
-   and the 404 boundary.
-- GitHub credentials are never accepted from request parameters or returned in
-   API payloads.
-
-### Checkpoint A: Planning and Design Readiness
-
-- [x] Browser source-loading contract is defined for `GET /api/signals`.
-- [x] Fixture mode and API mode selection are explicit and deterministic.
-- [x] Empty, stale, unavailable, malformed, and retryable source states are
-   mapped to understandable browser states.
-- [x] Browser source errors cannot mutate human decisions or silently replace
-   source data with fabricated signals.
-- [x] Live interpretation endpoint and request/response shape are explicit.
-- [x] Provider credentials remain server-only and are never exposed to the
-   browser or returned in interpretation responses.
-- [x] Interpretation errors, timeout, retry, and unavailable-provider behavior
-   are bounded and distinguishable from source errors.
-- [x] AI output remains explanatory and secondary to human Accept, Defer, and
-   Escalate decisions.
-- [x] Existing demo-provider behavior remains available without credentials.
-- [x] Telemetry and raw prompt/response handling remain within approved
-   boundaries and exclude sensitive content.
-- [x] No persistence, writes, decision mutation, polling, orchestration, or
-   new shared platform contract is required.
-- [x] Browser/API, interpretation, security, failure-path, build, lint, test,
-   and runtime validation are specified.
-
-### TODOs
-
-- [x] Define the documented browser `GET /api/signals` consumption contract.
-- [x] Define documented API-mode, fixture-mode, and local fallback selection.
-- [x] Define documented browser source loading, empty, stale, unavailable, and
-   retry states.
-- [x] Define the documented server-mediated interpretation contract.
-- [x] Define documented provider credential ownership and server-only
-   configuration.
-- [x] Define documented interpretation timeout, retry, unavailable, and
-   sanitized error behavior.
-- [x] Define documented prompt and response filtering for telemetry and browser
-   output.
-- [x] Confirm human decision behavior remains application-local and unchanged.
-- [x] Define focused browser/API, provider, security, and regression validation.
-- [x] Validate the design proposal against PRD-07 and architecture standards.
-- [x] Request Engineering Review before implementing browser/API or live-AI
-   integration.
-
-### Review Conditions Closed
-
-The following conditions are carried forward from Bricks 1 and 2 and remain
-closed for the existing user workflow and fixture-backed mapping:
-
-- user and decision context are explicit
-- signal model stays local and deterministic
-- AI is a support layer, not the final authority
-- telemetry remains in the approved browser-provided path
-- no backend or persistence is approved for the completed fixture-backed scope
-
-Brick 3 Checkpoint A conditions are closed for the fixture-backed API boundary.
-The loopback address is enforced in `apps/signal-api/src/main.ts` as
-`127.0.0.1`, while only the local port is configurable. GitHub source access,
-vendor credentials, runtime integration, validation, fallback, and failure
-semantics remain explicitly gated for this brick's Checkpoint A and Engineering
-Review.
-
-Brick 4 design decisions are documented and human-approved in
-[prd-07-brick-4-github-actions-integration.md](prd-07-brick-4-github-actions-integration.md)
-and the approved server integration is implemented. Its code-level review
-conditions are closed; deployment credentials and live GitHub validation remain
-operational follow-up.
-
-Brick 5 design and implementation are complete for the browser/API and
-server-mediated interpretation slice. The final engineering review result is
-**Pass with Conditions** / **Approve with Changes**. The remaining work is
-operational follow-up for live credentialed provider validation and deployed
-one-origin verification before broader production use.
-
-The Brick 5 design proposal and implementation are complete for the approved
-scope, including the local proxy topology, server-provider ownership
-migration, signal-keyed decision state, and discriminated interpretation
-response. The scope remains closed to additional source integration or product
-expansion.
+- [Archived Engineering Bricks Index](archive/engineering-bricks/README.md)
+- [EB-025 PRD-07 Brick 4 GitHub Actions Integration](archive/engineering-bricks/EB-025-PRD-07-BRICK-4-GITHUB-ACTIONS-INTEGRATION.md)
+- [EB-026 PRD-07 Brick 5 Browser Consumption and Live Interpretation](archive/engineering-bricks/EB-026-PRD-07-BRICK-5-BROWSER-CONSUMPTION-AND-LIVE-INTERPRETATION.md)
+- [Historical PRD-05 and PRD-06 Summary](archive/prd-05-prd-06-historical-bricks.md)
 
 ### Immediate Next Steps
 
@@ -251,15 +141,3 @@ expansion.
 3. Complete deployed one-origin validation before broader production use.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
-
-### Validation Notes
-
-The active brief is intentionally concise and focused on the current live work.
-PRD-07 Brick 3 is complete for the reviewed fixture-backed API boundary. Brick 4
-has implemented the approved GitHub server integration and completed its
-code-level review. Brick 5 has implemented the approved browser source
-consumption and server-mediated interpretation slice and is ready for
-implementation review. Live credentialed validation and production deployment
-remain operational follow-ups.
-All prior historical PRD records remain available in the archive for traceability
-and review context.

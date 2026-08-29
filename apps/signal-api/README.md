@@ -71,7 +71,7 @@ PRD-07 Brick 4 implements a read-only GitHub Actions workflow-run integration.
 It uses native server-side `fetch`, strict response validation, bounded retry
 behavior, and deterministic fixture fallback for local development.
 
-See [PRD-07 Brick 4 design specification](../../docs/engineering/prd-07-brick-4-github-actions-integration.md)
+See [PRD-07 Brick 4 design specification](../../docs/engineering/archive/engineering-bricks/EB-025-PRD-07-BRICK-4-GITHUB-ACTIONS-INTEGRATION.md)
 for the approved contract and implementation boundaries.
 
 ## Related Documentation
