@@ -4,6 +4,7 @@ Engineering documents define the structure, operating rules, and review practice
 
 ## Architecture and standards
 
+- [ISS Platform Current-State Diagram](iss-platform-current-state-diagram.md)
 - [Repository Blueprint](repository-blueprint.md)
 - [Architecture Standards](architecture-standards.md)
 - [Engineering Constitution](engineering-constitution.md)
