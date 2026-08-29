@@ -21,7 +21,7 @@
       "continuous": true,
       "executor": "nx:run-commands",
       "options": {
-        "command": "node dist/apps/signal-api/apps/signal-api/src/main.js",
+        "command": "pnpm exec tsx --tsconfig apps/signal-api/tsconfig.json apps/signal-api/src/main.ts",
         "readyWhen": "Signal API listening"
       },
       "dependsOn": ["build"]

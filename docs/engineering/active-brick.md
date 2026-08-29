@@ -14,7 +14,7 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Active - browser/API integration implemented; implementation review required before closure.
+Approved with Conditions - browser/API integration implemented, validated, and reviewed for the approved scope; remaining operational follow-up is live credentialed provider validation and deployed one-origin validation before broader production use.
 
 ### Previous Bricks
 
@@ -233,20 +233,22 @@ conditions are closed; deployment credentials and live GitHub validation remain
 operational follow-up.
 
 Brick 5 design and implementation are complete for the browser/API and
-server-mediated interpretation slice. Its implementation review is pending;
-additional source scope and production deployment validation remain gated.
+server-mediated interpretation slice. The final engineering review result is
+**Pass with Conditions** / **Approve with Changes**. The remaining work is
+operational follow-up for live credentialed provider validation and deployed
+one-origin verification before broader production use.
 
 The Brick 5 design proposal and implementation are complete for the approved
 scope, including the local proxy topology, server-provider ownership
 migration, signal-keyed decision state, and discriminated interpretation
-response. Final closure remains pending implementation review.
+response. The scope remains closed to additional source integration or product
+expansion.
 
 ### Immediate Next Steps
 
-1. Request Engineering Review for the completed Brick 5 implementation.
-2. Keep the fixture-backed API and demo provider available for local fallback.
-3. Complete live credentialed provider and deployed one-origin validation before
-   production use.
+1. Keep the fixture-backed API and demo provider available for local fallback.
+2. Complete live credentialed provider validation outside demo mode.
+3. Complete deployed one-origin validation before broader production use.
 4. Continue to keep historical PRD artifacts archived instead of carrying them
    in the active brief.
 
