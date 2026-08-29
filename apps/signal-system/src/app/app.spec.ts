@@ -73,6 +73,7 @@ describe('Signal System App', () => {
     expect(element.textContent).toContain('How this demo works');
     expect(element.textContent).toContain('Select a signal');
     expect(element.textContent).toContain('Keep human judgment in control');
+    expect(element.textContent).toContain('Source: Demo fixture');
   });
 
   it('maps CI source records into signals with provenance and freshness', () => {

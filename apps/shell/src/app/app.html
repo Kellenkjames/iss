@@ -4,6 +4,28 @@
     <h1>Shell</h1>
     <p>Shared design tokens and kernel components are available through the shell app.</p>
 
+    <section class="demo-hub" aria-labelledby="demo-hub-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Demo hub</p>
+        <h2 id="demo-hub-heading">ISS application surfaces</h2>
+      </div>
+
+      <p class="start-here"><strong>Start here:</strong> Signal System is the recommended first walkthrough for reviewers evaluating the PRD-07 boundary and human-in-control workflow.</p>
+
+      <div class="hub-grid">
+        @for (surface of demoSurfaceCards; track surface.name) {
+          <article class="hub-card" [attr.aria-label]="surface.name + ' launcher card'">
+            <h3>{{ surface.name }}</h3>
+            <p><strong>Purpose:</strong> {{ surface.purpose }}</p>
+            <p><strong>Primary boundary:</strong> {{ surface.boundary }}</p>
+            <p><strong>Expected experience:</strong> {{ surface.experience }}</p>
+            <p><strong>Recommended next step:</strong> {{ surface.nextStep }}</p>
+            <a class="hub-link" [href]="surface.launchUrl" target="_blank" rel="noreferrer">{{ surface.launchLabel }}</a>
+          </article>
+        }
+      </div>
+    </section>
+
     <section class="workflow-guide" aria-labelledby="shell-guide-heading">
       <div class="section-heading">
         <p class="eyebrow">How this demo works</p>

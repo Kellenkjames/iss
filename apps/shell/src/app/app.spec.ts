@@ -44,6 +44,10 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
+    expect(compiled.textContent).toContain('Demo hub');
+    expect(compiled.textContent).toContain('Start here:');
+    expect(compiled.textContent).toContain('Signal System is the recommended first walkthrough');
+    expect(compiled.querySelectorAll('.hub-card')).toHaveLength(4);
     expect(compiled.textContent).toContain('How this demo works');
     expect(compiled.textContent).toContain('Keep human judgment in control');
     expect(compiled.textContent).toContain('browser-safe demo mode');

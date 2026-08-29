@@ -11,6 +11,16 @@ import type {
 import { summarizeIncidentQueue } from './incident-provider.service';
 import { interpretInformation } from './interpretation-provider.service';
 
+type DemoSurfaceCard = {
+  name: string;
+  purpose: string;
+  boundary: string;
+  experience: string;
+  nextStep: string;
+  launchLabel: string;
+  launchUrl: string;
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
@@ -89,6 +99,44 @@ export class App {
   protected interpretationStatus: 'empty' | 'loading' | 'error' = 'empty';
   protected interpretationMessage = 'No interpretation has been requested yet.';
   protected interpretationResponse = 'Awaiting interpretation.';
+  protected demoSurfaceCards: DemoSurfaceCard[] = [
+    {
+      name: 'Signal System',
+      purpose: 'Operational signal review demo',
+      boundary: 'Flagship browser workflow with human-decision control and server-mediated interpretation.',
+      experience: 'Guided signal triage with evidence inspection and explicit source-state messaging.',
+      nextStep: 'Select a signal, load evidence, request interpretation, and record a human decision.',
+      launchLabel: 'Open Signal System',
+      launchUrl: 'http://127.0.0.1:4200/',
+    },
+    {
+      name: 'Shell',
+      purpose: 'Platform composition reference',
+      boundary: 'Component-kernel and provider-boundary integration reference for ISS applications.',
+      experience: 'Interactive component, provider, and telemetry boundary walkthrough.',
+      nextStep: 'Use this page to inspect platform primitives and composition behavior.',
+      launchLabel: 'Open Shell',
+      launchUrl: 'http://127.0.0.1:4201/',
+    },
+    {
+      name: 'Interpretation Engine',
+      purpose: 'AI reasoning boundary',
+      boundary: 'Focused browser consumer for concise interpretation of structured context.',
+      experience: 'Single-flow interpretation review using deterministic source records.',
+      nextStep: 'Choose a source record, frame context, and review interpretation output.',
+      launchLabel: 'Open Interpretation Engine',
+      launchUrl: 'http://127.0.0.1:4202/',
+    },
+    {
+      name: 'Signal API',
+      purpose: 'Server-only integration boundary',
+      boundary: 'Read-only server contract for normalized signal retrieval and server-side interpretation.',
+      experience: 'JSON endpoint surface for browser clients and integration verification.',
+      nextStep: 'Inspect source payloads from /api/signals and interpretation responses from /api/interpretations.',
+      launchLabel: 'Inspect Signal API',
+      launchUrl: 'http://127.0.0.1:4300/api/signals',
+    },
+  ];
 
   protected onPrimaryAction(): void {
     this.buttonClicks += 1;

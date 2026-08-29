@@ -35,6 +35,17 @@ export class App {
   protected statusSummary = summarizeSignalStatuses();
   protected sourceMode: 'fixture' | 'api' | 'empty' | 'unavailable' | 'github-actions' = 'fixture';
 
+  protected get sourceStateLabel(): string {
+    const labelMap: Record<typeof this.sourceMode, string> = {
+      fixture: 'Demo fixture',
+      api: 'Live API',
+      empty: 'Unavailable',
+      unavailable: 'Unavailable',
+      'github-actions': 'GitHub Actions',
+    };
+    return labelMap[this.sourceMode];
+  }
+
   public async ngOnInit(): Promise<void> {
     try {
       const response = await loadSignals();
