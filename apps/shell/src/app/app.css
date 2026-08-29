@@ -54,6 +54,15 @@
   line-height: 1.5;
 }
 
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--iss-color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .shell-card h1,
 .shell-drawer-demo h2,
 .shell-ai-provider-demo h2,
