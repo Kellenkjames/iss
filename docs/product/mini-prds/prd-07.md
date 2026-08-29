@@ -33,7 +33,7 @@ It is intentionally designed around a single architectural idea:
 
 Every architectural decision made throughout ISS ultimately supports this application.
 
-The Signal System serves as the primary demonstration of engineering capability for technical reviewers, Fractional CTO engagements, and graduate admissions.
+The Signal System serves as the primary demonstration of engineering capability and architectural discipline for the Intelligent Systems Suite.
 
 ---
 
@@ -269,9 +269,9 @@ This project demonstrates:
 - Shared platform consumption
 - Clean system boundaries
 
-### Fractional CTO Signal
+### Engineering Maturity Signal
 
-A technical reviewer should conclude that the engineer can design, implement, and evolve a production-quality AI-native software system while maintaining clear architectural boundaries, reusable infrastructure, and operational visibility.
+The project demonstrates the ability to design, implement, and evolve a production-quality AI-native software system while maintaining clear architectural boundaries, reusable infrastructure, and operational visibility.
 
 The Signal System demonstrates engineering leadership through deliberate architecture rather than implementation volume.
 

@@ -266,11 +266,11 @@ This project demonstrates:
 - Dependency management
 - Clean application boundaries
 
-### Fractional CTO Signal
+### Engineering Maturity Signal
 
-A technical reviewer should conclude that reusable platform assets have been successfully integrated into a real application without compromising architectural boundaries.
+Reusable platform assets are integrated into a real application without compromising architectural boundaries.
 
-The Shell demonstrates that the underlying platform is practical—not merely theoretical.
+The Shell demonstrates that the underlying platform is practical, not merely theoretical.
 
 ---
 

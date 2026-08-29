@@ -315,11 +315,11 @@ This project demonstrates:
 - Local-first system design
 - Minimal public API design
 
-### Fractional CTO Signal
+### Engineering Maturity Signal
 
-A technical reviewer should conclude that AI systems are being treated as operational infrastructure rather than black-box services.
+AI systems are treated as operational infrastructure rather than black-box services.
 
-The Telemetry package demonstrates an understanding that engineering maturity includes measuring AI behavior—not simply invoking AI models.
+The Telemetry package demonstrates that engineering maturity includes measuring AI behavior, not simply invoking AI models.
 
 ---
 

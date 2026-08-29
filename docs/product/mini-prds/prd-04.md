@@ -283,11 +283,11 @@ browser path remaining offline by design.
 - Separation of concerns
 - Dependency management
 
-### Fractional CTO Signal
+### Engineering Maturity Signal
 
-A technical reviewer should conclude that AI has been incorporated into the architecture as an interchangeable infrastructure dependency rather than tightly coupled vendor-specific code.
+AI is incorporated into the architecture as an interchangeable infrastructure dependency rather than tightly coupled vendor-specific code.
 
-The package demonstrates an understanding that software systems should evolve independently of AI provider implementations.
+The package demonstrates that software systems should evolve independently of AI provider implementations.
 
 ---
 
