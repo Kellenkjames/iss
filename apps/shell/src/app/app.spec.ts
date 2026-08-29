@@ -39,6 +39,16 @@ describe('App', () => {
     expect(interpretationSection?.querySelector('iss-state')).not.toBeNull();
   });
 
+  it('shows a guided platform walkthrough for future evaluators', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.textContent).toContain('How this demo works');
+    expect(compiled.textContent).toContain('Keep human judgment in control');
+    expect(compiled.textContent).toContain('browser-safe demo mode');
+  });
+
   it('keeps the shell on the explicit browser-safe demo provider configuration by default', () => {
     const config = resolveShellProviderConfig({});
 

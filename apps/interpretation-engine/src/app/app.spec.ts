@@ -40,4 +40,16 @@ describe('Interpretation Engine App', () => {
     expect(instance.subject).toBe('Release build 42');
     expect(instance.context).toContain('telemetry package update');
   });
+
+  it('shows a guided interpretation flow and documents the demo boundary', async () => {
+    await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
+
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const element = fixture.nativeElement as HTMLElement;
+
+    expect(element.textContent).toContain('How this demo works');
+    expect(element.textContent).toContain('Keep the AI in support mode');
+    expect(element.textContent).toContain('demo provider boundary');
+  });
 });

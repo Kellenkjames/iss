@@ -10,7 +10,45 @@
 
 .engine-header {
   max-width: 680px;
-  margin-bottom: 42px;
+  margin-bottom: 20px;
+}
+
+.workflow-guide {
+  margin-bottom: 22px;
+  padding: 20px 24px 8px;
+  border: 1px solid var(--iss-color-border);
+  background: var(--iss-color-surface-1);
+}
+
+.section-heading {
+  margin-bottom: 16px;
+}
+
+.guide-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--iss-color-text-muted);
+  line-height: 1.6;
+}
+
+.guide-list strong {
+  color: var(--iss-color-text-primary);
+}
+
+.source-status {
+  margin: 0 0 18px;
+  color: var(--iss-color-text-primary);
+  font-weight: 600;
+}
+
+.source-hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--iss-color-text-muted);
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .eyebrow {

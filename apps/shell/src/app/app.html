@@ -2,6 +2,25 @@
   <section class="shell-card">
     <h1>ISS shell</h1>
     <p>Shared design tokens and kernel components are available through the shell app.</p>
+
+    <section class="workflow-guide" aria-labelledby="shell-guide-heading">
+      <div class="section-heading">
+        <p class="eyebrow">How this demo works</p>
+        <h2 id="shell-guide-heading">A platform composition walkthrough</h2>
+      </div>
+      <ol class="guide-list">
+        <li><strong>Inspect the platform.</strong> Review the shared components, tokens, and interaction patterns.</li>
+        <li><strong>Exercise the provider boundary.</strong> Trigger AI execution through the shared provider layer.</li>
+        <li><strong>Observe the system state.</strong> See how the application keeps telemetry and provider behavior readable.</li>
+        <li><strong>Keep human judgment in control.</strong> The app demonstrates composition, not autonomous decision-making.</li>
+      </ol>
+    </section>
+
+    <p class="source-status" aria-live="polite">
+      Source: browser-safe demo mode
+      <span class="source-hint">This shell intentionally runs through the explicit offline provider configuration so the platform remains reviewable and safe for local evaluation.</span>
+    </p>
+
     <div class="shell-actions">
       <iss-button variant="primary" (click)="onPrimaryAction()">
         Run analysis

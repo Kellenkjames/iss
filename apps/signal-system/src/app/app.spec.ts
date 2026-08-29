@@ -63,6 +63,18 @@ describe('Signal System App', () => {
     expect(instance.message).toContain('Decision recorded');
   });
 
+  it('shows a guided demo flow and explains the source boundary for evaluators', async () => {
+    await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
+
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const element = fixture.nativeElement as HTMLElement;
+
+    expect(element.textContent).toContain('How this demo works');
+    expect(element.textContent).toContain('Select a signal');
+    expect(element.textContent).toContain('Keep human judgment in control');
+  });
+
   it('maps CI source records into signals with provenance and freshness', () => {
     const signal = mapCiBuildToSignal(
       {

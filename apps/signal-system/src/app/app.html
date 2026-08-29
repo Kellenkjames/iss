@@ -5,6 +5,19 @@
     <p class="lede">Review meaningful operational signals, inspect their evidence, and keep AI support aligned with human judgment.</p>
   </header>
 
+  <section class="workflow-guide" aria-labelledby="workflow-guide-heading">
+    <div class="section-heading">
+      <p class="eyebrow">How this demo works</p>
+      <h2 id="workflow-guide-heading">A guided review flow</h2>
+    </div>
+    <ol class="guide-list">
+      <li><strong>Select a signal.</strong> Choose the operational issue you want to review.</li>
+      <li><strong>Inspect the evidence.</strong> Use the subject, evidence, and question fields to frame the review.</li>
+      <li><strong>Request interpretation.</strong> Let the AI provide a concise operational summary.</li>
+      <li><strong>Keep human judgment in control.</strong> Accept, defer, or escalate as the final decision.</li>
+    </ol>
+  </section>
+
   <section class="signal-grid" aria-label="Signal review workflow">
     <section class="discovery-panel" aria-labelledby="discovery-heading">
       <div class="section-heading">
@@ -12,7 +25,18 @@
         <h2 id="discovery-heading">Current signals</h2>
       </div>
 
-      <p class="source-status" aria-live="polite">Source: {{ sourceMode }}</p>
+      <p class="source-status" aria-live="polite">
+        Source: {{ sourceMode }}
+        <span class="source-hint">
+          @if (sourceMode === 'fixture') {
+            Demo data is being used to keep the workflow deterministic and reviewable.
+          } @else if (sourceMode === 'api' || sourceMode === 'github-actions') {
+            Live signal data is being served through the server boundary and remains human-reviewed.
+          } @else {
+            The source is unavailable right now; the demo remains safe and deterministic.
+          }
+        </span>
+      </p>
 
       <iss-table [columns]="signalColumns" [rows]="signalRows"></iss-table>
 
@@ -85,5 +109,5 @@
     </section>
   </section>
 
-  <p class="boundary-note">AI execution and telemetry remain behind the shared platform boundaries. This first release uses a deterministic local signal set and browser-safe demo provider behavior.</p>
+  <p class="boundary-note">AI execution and telemetry remain behind the shared platform boundaries. This first release uses a deterministic local signal set and browser-safe demo provider behavior. Human decisions remain the final authority.</p>
 </main>
