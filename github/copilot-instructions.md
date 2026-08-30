@@ -1,4 +1,31 @@
-# ISS Repository Instructions
+# ISS AI-Driven SDLC Operating Model
+
+## Purpose
+
+This document captures the reusable engineering method used to develop the Intelligent Systems Suite (ISS). It is intended as transferable intellectual property: a practical operating model for using AI-assisted engineering without transferring product, architectural, or acceptance authority away from people.
+
+The method is platform-agnostic. GitHub Copilot is the current implementation partner, but the controls apply to any capable AI engineering assistant.
+
+## Methodology
+
+ISS treats AI as a bounded implementation collaborator within a human-directed software delivery lifecycle:
+
+1. **Establish authoritative context.** Approved product requirements, architecture, design standards, implementation, and tests define the working context before changes begin.
+2. **Constrain work to a valid brick.** Each request has one independently verifiable outcome, a defined scope, and an explicit owner for unresolved decisions.
+3. **Implement from approved decisions.** The AI may inspect, propose, and implement; it must not invent product scope, architectural direction, dependencies, or platform conventions.
+4. **Validate with evidence.** Relevant lint, test, type-check, build, and behavior checks determine completion. Unrun or failing checks remain visible rather than being implied away.
+5. **Preserve human decision authority.** A human technical lead approves scope, resolves ambiguity, authorizes breaking changes and dependencies, and accepts completed work.
+6. **Maintain the operational record.** Documentation changes with behavior, contracts, workflows, and architecture so the repository remains understandable and reviewable.
+
+These controls make AI contribution repeatable, inspectable, and transferable across teams while retaining clear accountability.
+
+## Repository Implementation
+
+The sections below are the ISS-specific implementation of this operating model for AI assistants working in this repository. They turn the methodology into directly executable repository guidance.
+
+---
+
+## ISS Repository Instructions
 
 ## Project Identity
 

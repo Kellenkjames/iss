@@ -62,7 +62,7 @@ Start with the engineering and product references here:
 - [docs/README.md](docs/README.md)
 - [docs/engineering/README.md](docs/engineering/README.md)
 - [docs/product/mini-prds/README.md](docs/product/mini-prds/README.md)
-- [github/copilot-instructions.md](github/copilot-instructions.md)
+- [AI-Driven SDLC operating model](github/copilot-instructions.md)
 
 ## Scope guardrails
 
