@@ -1,6 +1,6 @@
 # Engineering Documentation
 
-Engineering documents define the structure, operating rules, and review practices for ISS.
+The engineering documentation defines the structure, operating rules, and review practices for ISS.
 
 ## Architecture and standards
 

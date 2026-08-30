@@ -79,9 +79,7 @@ The methodology is stable.
 
 Individual projects are experiments.
 
-Changes to the lifecycle require repeated implementation evidence—not isolated observations.
-
-*(This is the principle we discussed adding.)*
+Changes to the lifecycle require repeated implementation evidence rather than isolated observations.
 
 ---
 
@@ -179,9 +177,7 @@ It keeps the document compact and predictable.
 
 # Decision Authority
 
-This is one entirely new section I'd add.
-
-Because it's actually the heart of the lifecycle.
+Decision authority is defined explicitly so that product intent, design direction, and implementation accountability remain distinct.
 
 | Decision Type | Authority |
 | --- | --- |
@@ -196,7 +192,7 @@ Because it's actually the heart of the lifecycle.
 | Code Implementation | **Human + Copilot** |
 | Final Approval | **Human** |
 
-This clarifies that AI contributes heavily, but authority remains explicit.
+This structure makes the contribution of AI explicit while preserving human authority over the product and its architecture.
 
 ---
 

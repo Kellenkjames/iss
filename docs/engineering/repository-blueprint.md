@@ -31,10 +31,9 @@ It establishes:
 - Where tests, prompts, configuration, and documentation belong
 - How the repository can expand without losing architectural clarity
 
-The blueprint should answer one recurring question:
+The blueprint answers one recurring question:
 
 > **Where does this work belong?**
->
 
 It does not define implementation details for every package. Those remain the responsibility of the applicable Mini PRD, ADR, path-specific instruction, and engineering brick.
 
