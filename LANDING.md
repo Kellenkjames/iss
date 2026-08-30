@@ -4,6 +4,8 @@ A boundary-first engineering portfolio for AI-assisted software systems.
 
 ISS demonstrates how reusable platform architecture, disciplined application boundaries, and human-in-control AI workflows can coexist in one coherent repository.
 
+Marketing page (for sharing): http://127.0.0.1:4201/landing
+
 ## Why This Exists
 
 This repository is designed to show engineering quality, not feature volume.

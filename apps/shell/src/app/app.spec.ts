@@ -61,4 +61,25 @@ describe('App', () => {
     expect(config.apiKey).toBe('demo-key');
     expect(config.defaultSystemMessage).toContain('operational triage');
   });
+
+  it('renders the marketing landing layout on /landing', async () => {
+    const originalPathname = window.location.pathname;
+    window.history.pushState({}, '', '/landing');
+
+    try {
+      const fixture = TestBed.createComponent(App);
+      await fixture.whenStable();
+      const compiled = fixture.nativeElement as HTMLElement;
+
+      expect(compiled.querySelector('h1')?.textContent).toContain('Engineering certainty for AI-assisted operations.');
+      expect(compiled.textContent).toContain('Enter evaluator demo');
+      expect(compiled.textContent).toContain('View system architecture');
+      expect(compiled.textContent).toContain('Run the Signal System path first');
+      expect(compiled.textContent).toContain('Open Signal System path');
+      expect(compiled.querySelectorAll('.pillar-card')).toHaveLength(3);
+      expect(compiled.querySelectorAll('.experience-tile')).toHaveLength(4);
+    } finally {
+      window.history.pushState({}, '', originalPathname || '/');
+    }
+  });
 });

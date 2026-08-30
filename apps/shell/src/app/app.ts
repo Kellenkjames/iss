@@ -1,12 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import type {
-    ColumnDef,
-    IssFilterDefinition,
-    IssFilterState,
-    IssSelectOption,
-    IssTableRow,
-    IssTableSortDetail,
+  ColumnDef,
+  IssFilterDefinition,
+  IssFilterState,
+  IssSelectOption,
+  IssTableRow,
+  IssTableSortDetail,
 } from '@iss/component-kernel';
 import { summarizeIncidentQueue } from './incident-provider.service';
 import { interpretInformation } from './interpretation-provider.service';
@@ -32,6 +32,7 @@ export class App {
   private readonly defaultInterpretationSubject = 'Deployment OPS-001';
   private readonly defaultInterpretationContext = 'The dependency check failed during release validation.';
   private readonly defaultInterpretationQuestion = 'What should we inspect first?';
+  protected readonly isMarketingLanding = this.resolveMarketingLanding();
 
   protected title = 'shell';
   protected buttonClicks = 0;
@@ -275,5 +276,13 @@ export class App {
   private readInputValue(event: Event): string {
     const target = event.target as (EventTarget & { value?: string }) | null;
     return target?.value ?? '';
+  }
+
+  private resolveMarketingLanding(): boolean {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    return window.location.pathname === '/landing' || window.location.pathname === '/landing/';
   }
 }

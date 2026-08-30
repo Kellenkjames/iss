@@ -1,3 +1,95 @@
+@if (isMarketingLanding) {
+  <main class="marketing-surface">
+    <section class="marketing-hero" aria-labelledby="marketing-title">
+      <div class="marketing-shell">
+        <div class="marketing-copy">
+          <p class="eyebrow">ISS</p>
+          <h1 id="marketing-title">Engineering certainty for AI-assisted operations.</h1>
+          <p class="marketing-lede">Evaluate an AI-assisted workflow in minutes with explicit boundaries, inspectable evidence, and human-owned final decisions.</p>
+
+          <div class="marketing-chip-row" aria-label="Platform posture">
+            <span class="marketing-chip">Human-in-control AI</span>
+            <span class="marketing-chip">Server-only credential boundary</span>
+            <span class="marketing-chip">Deterministic local evaluation</span>
+          </div>
+
+          <div class="marketing-actions" aria-label="Marketing page calls to action">
+            <a class="marketing-link marketing-link-primary" href="http://127.0.0.1:4201/" target="_blank" rel="noreferrer">Enter evaluator demo</a>
+            <a class="marketing-link" href="#marketing-architecture">View system architecture</a>
+          </div>
+        </div>
+
+        <aside class="marketing-aside" aria-label="Quick snapshot">
+          <h2>At a glance</h2>
+          <ul class="marketing-metrics">
+            <li><strong>4</strong> bounded platform surfaces</li>
+            <li><strong>1</strong> recommended reviewer path</li>
+            <li><strong>0</strong> autonomous AI decision authority</li>
+          </ul>
+          <p class="marketing-aside-note">Start in Signal System, then trace each contract end-to-end.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="marketing-proof" aria-labelledby="marketing-proof-heading">
+      <div class="marketing-shell">
+        <h2 id="marketing-proof-heading">Why this feels different</h2>
+        <div class="marketing-proof-grid">
+          <article class="pillar-card">
+            <p class="pillar-index">01</p>
+            <h3>Boundary-first architecture</h3>
+            <p>Each surface has a defined role and contract so behavior is reviewable, not implied.</p>
+          </article>
+          <article class="pillar-card">
+            <p class="pillar-index">02</p>
+            <h3>Fast proof, low ambiguity</h3>
+            <p>Deterministic fixtures and source-state signals keep local verification consistent across environments.</p>
+          </article>
+          <article class="pillar-card">
+            <p class="pillar-index">03</p>
+            <h3>Human authority retained</h3>
+            <p>AI proposes interpretation; people remain accountable for approve, defer, and escalate outcomes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="marketing-architecture" id="marketing-architecture" aria-labelledby="marketing-flow-heading">
+      <div class="marketing-shell">
+        <h2 id="marketing-flow-heading">Experience the system</h2>
+        <div class="marketing-flow-grid">
+          <a class="experience-tile" href="http://127.0.0.1:4201/" target="_blank" rel="noreferrer" aria-label="Open Shell">
+            <h3>Shell</h3>
+            <p>Reviewer orientation surface for platform composition and guided navigation.</p>
+          </a>
+          <a class="experience-tile" href="http://127.0.0.1:4200/" target="_blank" rel="noreferrer" aria-label="Open Signal System">
+            <h3>Signal System</h3>
+            <p>Primary evaluator path for signal triage, evidence review, and human decision control.</p>
+          </a>
+          <a class="experience-tile" href="http://127.0.0.1:4202/" target="_blank" rel="noreferrer" aria-label="Open Interpretation Engine">
+            <h3>Interpretation Engine</h3>
+            <p>Structured interpretation boundary for scenario-focused reasoning.</p>
+          </a>
+          <a class="experience-tile" href="http://127.0.0.1:4300/api/signals" target="_blank" rel="noreferrer" aria-label="Inspect Signal API">
+            <h3>Signal API</h3>
+            <p>Server-side contract surface for normalized signals and interpretation requests.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="marketing-cta-band" aria-labelledby="marketing-cta-heading">
+      <div class="marketing-shell marketing-cta-layout">
+        <div>
+          <p class="eyebrow">Recommended path</p>
+          <h2 id="marketing-cta-heading">Run the Signal System path first</h2>
+          <p>Run one live signal walkthrough first, then verify contracts through Shell, Interpretation Engine, and Signal API.</p>
+        </div>
+        <a class="marketing-link marketing-link-primary" href="http://127.0.0.1:4200/" target="_blank" rel="noreferrer">Open Signal System path</a>
+      </div>
+    </section>
+  </main>
+} @else {
 <main class="shell-surface">
   <section class="shell-card">
     <p class="eyebrow">ISS</p>
@@ -280,3 +372,4 @@
     </div>
   </section>
 </main>
+}
