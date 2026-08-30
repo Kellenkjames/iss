@@ -14,7 +14,18 @@ archived to preserve evidence without polluting the active brief.
 
 ### Status
 
-Approved with Conditions - browser/API integration implemented, validated, and reviewed for the approved scope; remaining operational follow-up is live credentialed provider validation and deployed one-origin validation before broader production use.
+Approved with Conditions - browser/API integration implemented, validated, and reviewed for the approved scope; operational validation evidence is captured for the local demo and server-side contract paths, while live credentialed provider validation and deployed one-origin validation remain the remaining follow-up before broader production use.
+
+### Operational Validation Evidence
+
+Current evidence collected against the approved scope:
+
+- `pnpm nx test shell --watch=false` -> 4 test files passed, 13 tests passed.
+- `pnpm nx test signal-api --watch=false` -> 1 test file passed, 19 tests passed.
+- Live contract validation against the current local server returned `200` for `GET /api/signals` and `200` for `POST /api/interpretations`.
+- The interpretation response shape included the expected `success`, `provider`, `model`, and `interpretation` fields in the current local server mode.
+
+This evidence supports the current implementation claim without implying live provider credential validation or deployed one-origin production readiness.
 
 ### Previous Bricks
 

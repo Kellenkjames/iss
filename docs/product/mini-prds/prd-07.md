@@ -10,12 +10,17 @@
 
 **Revision:** 2026-08-19
 
-**Status:** Active roadmap; implementation in progress
+**Status:** Implementation evidence captured; live credentialed validation remains the remaining follow-up
 
 The target repository path is implemented through the approved PRD-07
 engineering bricks. This document defines the product boundary and remains the
 source of truth for the full Signal System scope; implementation status and
 brick evidence are tracked in [docs/engineering/active-brick.md](../../engineering/active-brick.md).
+
+Current validation evidence includes shell and signal-api test coverage, plus a
+live local-server contract pass for `GET /api/signals` and `POST /api/interpretations`.
+The remaining conditions are operational validation of live provider credentials
+and deployed one-origin validation before broader production claims.
 
 ---
 
