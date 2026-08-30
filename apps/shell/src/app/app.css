@@ -227,6 +227,67 @@
   padding: 24px 0 24px;
 }
 
+.architecture-map {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--iss-color-border) 78%, var(--iss-color-accent) 22%);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--iss-color-surface-0) 90%, white 10%);
+}
+
+.arch-layer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.arch-node {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--iss-color-border) 72%, var(--iss-color-accent) 28%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--iss-color-surface-1) 90%, white 10%) 0%, color-mix(in srgb, var(--iss-color-surface-0) 88%, var(--iss-color-accent) 12%) 100%);
+  color: var(--iss-color-text-primary);
+  font: var(--iss-font-label-weight) 0.8rem/1.3 var(--iss-font-label-family);
+}
+
+.arch-node-shell {
+  border-color: color-mix(in srgb, var(--iss-color-accent) 45%, var(--iss-color-border) 55%);
+}
+
+.arch-node-signal,
+.arch-node-interpretation,
+.arch-node-api {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--iss-color-surface-0) 82%, var(--iss-color-accent) 18%) 0%, color-mix(in srgb, var(--iss-color-surface-1) 88%, white 12%) 100%);
+}
+
+.arch-node-platform {
+  min-height: 56px;
+  font-size: 0.76rem;
+}
+
+.arch-connector {
+  position: relative;
+  height: 18px;
+}
+
+.arch-connector::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--iss-color-accent) 25%, transparent 75%), color-mix(in srgb, var(--iss-color-accent) 60%, transparent 40%));
+  transform: translateY(-50%);
+}
+
 .marketing-flow-grid {
   margin-top: 16px;
   display: grid;

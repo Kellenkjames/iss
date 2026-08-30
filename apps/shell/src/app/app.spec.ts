@@ -74,6 +74,8 @@ describe('App', () => {
       expect(compiled.querySelector('h1')?.textContent).toContain('Engineering certainty for AI-assisted operations.');
       expect(compiled.textContent).toContain('Enter evaluator demo');
       expect(compiled.textContent).toContain('View system architecture');
+      expect((compiled.querySelectorAll('.marketing-link')[0] as HTMLAnchorElement).getAttribute('href')).toBe('http://127.0.0.1:4201/');
+      expect((compiled.querySelectorAll('.marketing-link')[1] as HTMLAnchorElement).getAttribute('href')).toBe('http://127.0.0.1:4201/landing#marketing-architecture');
       expect(compiled.textContent).toContain('Run the Signal System path first');
       expect(compiled.textContent).toContain('Open Signal System path');
       expect(compiled.querySelectorAll('.pillar-card')).toHaveLength(3);

@@ -15,7 +15,7 @@
 
           <div class="marketing-actions" aria-label="Marketing page calls to action">
             <a class="marketing-link marketing-link-primary" href="http://127.0.0.1:4201/" target="_blank" rel="noreferrer">Enter evaluator demo</a>
-            <a class="marketing-link" href="#marketing-architecture">View system architecture</a>
+            <a class="marketing-link" href="http://127.0.0.1:4201/landing#marketing-architecture">View system architecture</a>
           </div>
         </div>
 
@@ -56,7 +56,26 @@
 
     <section class="marketing-architecture" id="marketing-architecture" aria-labelledby="marketing-flow-heading">
       <div class="marketing-shell">
-        <h2 id="marketing-flow-heading">Experience the system</h2>
+        <h2 id="marketing-flow-heading">Architecture overview</h2>
+
+        <div class="architecture-map" aria-label="System architecture overview diagram">
+          <div class="arch-layer arch-layer-surface">
+            <div class="arch-node arch-node-shell">Shell</div>
+            <div class="arch-node arch-node-signal">Signal System</div>
+            <div class="arch-node arch-node-interpretation">Interpretation Engine</div>
+            <div class="arch-node arch-node-api">Signal API</div>
+          </div>
+
+          <div class="arch-connector" aria-hidden="true"></div>
+
+          <div class="arch-layer arch-layer-platform">
+            <div class="arch-node arch-node-platform">Design Tokens</div>
+            <div class="arch-node arch-node-platform">Component Kernel</div>
+            <div class="arch-node arch-node-platform">Telemetry</div>
+            <div class="arch-node arch-node-platform">AI Provider</div>
+          </div>
+        </div>
+
         <div class="marketing-flow-grid">
           <a class="experience-tile" href="http://127.0.0.1:4201/" target="_blank" rel="noreferrer" aria-label="Open Shell">
             <h3>Shell</h3>
