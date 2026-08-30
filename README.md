@@ -4,6 +4,10 @@ For a concise public overview and demo entry path, start with [LANDING.md](LANDI
 
 ISS is a boundary-first engineering platform for AI-assisted software systems. The repository is designed to show architecture discipline, operational evidence, and human-in-control decision flows without pretending to be a generalized SaaS product.
 
+![ISS landing page overview](docs/assets/platform-landing-screenshot.png)
+
+*ISS landing page overview: the platform narrative, architecture map, and recommended signal-system entry path.*
+
 ## What this repository demonstrates
 
 - explicit app boundaries between shared platform layers and application surfaces
